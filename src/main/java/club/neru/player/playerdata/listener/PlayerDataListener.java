@@ -1,5 +1,6 @@
 package club.neru.player.playerdata.listener;
 
+import club.neru.annotations.AutoRegisterListener;
 import club.neru.player.playerdata.PlayerDataHandler;
 import club.neru.thread.Scheduler;
 import org.bukkit.entity.Player;
@@ -18,6 +19,7 @@ import java.util.UUID;
  * @version 1.0
  * @since 2023/10/7
  */
+@AutoRegisterListener
 public class PlayerDataListener implements Listener {
     /**
      * 玩家进入游戏时的数据处理。

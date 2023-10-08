@@ -1,13 +1,13 @@
 package club.neru;
 
+import club.neru.register.RegisterManager;
+import club.neru.utils.QuickUtils;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
-import java.util.logging.Logger;
 
 /**
  * 该类继承 {@link JavaPlugin}，插件主类。
@@ -49,10 +49,8 @@ public class NeruPractice extends JavaPlugin {
                         .replace("]", "")
         ));
 
-        Logger logger = Bukkit.getLogger();
-
-        logger.info("Server version: " + getServerVersion());
-        logger.info("Plugin has been enabled.");
+        // 注册
+        RegisterManager.init();
     }
 
     /**
@@ -62,6 +60,6 @@ public class NeruPractice extends JavaPlugin {
      */
     @Override
     public void onDisable() {
-        Bukkit.getLogger().info("Plugin has been disabled.");
+        QuickUtils.sendMsg("Plugin has been disabled.");
     }
 }
