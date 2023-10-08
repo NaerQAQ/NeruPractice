@@ -1,12 +1,10 @@
 package club.neru.player.playerdata.objects.persistent;
 
+import club.neru.io.config.languages.LanguagesEnum;
 import club.neru.utils.serialization.SerializableInterface;
-import com.google.common.primitives.ImmutableDoubleArray;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.bukkit.Bukkit;
-import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * 持久化存储的玩家设置数据对象。
@@ -22,5 +20,10 @@ public class SettingsData implements SerializableInterface {
     /**
      * 玩家主题色。
      */
-    private String themeColor = "&d";
+    private String themeColor = "&3";
+
+    /**
+     * 多语言。
+     */
+    private LanguagesEnum languagesEnum = LanguagesEnum.EN;
 }

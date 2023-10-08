@@ -2,6 +2,7 @@ package club.neru.arena.copy.objects;
 
 import club.neru.thread.Scheduler;
 import club.neru.utils.common.QuickUtils;
+import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
 import com.boydti.fawe.object.schematic.Schematic;
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.EditSessionFactory;
@@ -81,11 +82,16 @@ public class ArenaCopyData {
      */
     public void copy() {
         if (offset == null || lowest == null || highest == null || worldName == null) {
-            QuickUtils.sendErrorMsg("竞技场复制停止，必要的参数不能为 null!");
+            QuickUtils.sendMessage(
+                    ConsoleMessageTypeEnum.ERROR,
+                    "竞技场复制停止，必要的参数不能为 null!"
+            );
             return;
         }
 
         Scheduler.async(() -> {
+            long start = System.currentTimeMillis();
+
             World world = new BukkitWorld(
                     Bukkit.getWorld(worldName)
             );
@@ -103,6 +109,12 @@ public class ArenaCopyData {
             Schematic schematic = new Schematic(blockArrayClipboard);
 
             schematic.paste(world, getFinalCopyVector());
+
+            QuickUtils.sendMessage(
+                    ConsoleMessageTypeEnum.DEBUG,
+                    "完成复制，用时: {0}",
+                    String.valueOf(System.currentTimeMillis() - start)
+            );
         });
     }
 }

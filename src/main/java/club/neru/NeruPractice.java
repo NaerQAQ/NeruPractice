@@ -2,8 +2,10 @@ package club.neru;
 
 import club.neru.register.RegisterManager;
 import club.neru.utils.common.QuickUtils;
+import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
+import me.despical.commandframework.CommandFramework;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -29,6 +31,10 @@ public class NeruPractice extends JavaPlugin {
     @Setter
     private static String dataFolderAbsolutePath;
 
+    @Getter
+    @Setter
+    private static CommandFramework commandFramework;
+
     /**
      * 插件开启。
      *
@@ -37,6 +43,7 @@ public class NeruPractice extends JavaPlugin {
     @Override
     public void onEnable() {
         setInstance(this);
+        setCommandFramework(new CommandFramework(this));
         setDataFolderAbsolutePath(getDataFolder().getAbsolutePath());
 
         setServerVersion(Double.parseDouble(
@@ -60,6 +67,9 @@ public class NeruPractice extends JavaPlugin {
      */
     @Override
     public void onDisable() {
-        QuickUtils.sendMsg("Plugin has been disabled.");
+        QuickUtils.sendMessage(
+                ConsoleMessageTypeEnum.NORMAL,
+                "Plugin has been disabled."
+        );
     }
 }

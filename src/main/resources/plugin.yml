@@ -1,7 +1,7 @@
 name: NeruPractice
 version: '${project.version}'
 main: club.neru.NeruPractice
-authors: [ NaerQAQ ]
+authors: [ NaerQAQ, L1ncey, QwQTsuki ]
 depend:
   - WorldEdit
   - FastAsyncWorldEdit

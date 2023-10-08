@@ -1,7 +1,5 @@
 package club.neru.arena.copy.objects;
 
-import club.neru.arena.copy.interfaces.Arena;
-
-public class ArenaParent implements Arena {
+public class ArenaParent {
     // TODO: 母竞技场
 }

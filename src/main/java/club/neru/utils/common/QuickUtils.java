@@ -1,11 +1,22 @@
 package club.neru.utils.common;
 
+import club.neru.io.config.ConfigManager;
+import club.neru.io.config.languages.LanguagesEnum;
+import club.neru.player.playerdata.PlayerDataHandler;
+import club.neru.player.playerdata.objects.nonpersistent.PlayerData;
+import club.neru.player.playerdata.objects.persistent.SettingsData;
+import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
+import de.leonhard.storage.Yaml;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
+import java.util.List;
+import java.util.UUID;
 
 /**
  * 快捷工具类。
  *
- * @author L1ncey / NaerQAQ
+ * @author L1ncey / NaerQAQ / 2000000
  * @version 1.0
  * @since 2023/10/8
  */
@@ -15,31 +26,82 @@ public class QuickUtils {
      *
      * @param message 要处理的发向控制台的字符串
      */
-    public static void sendMsg(String message, String... args) {
+    public static void sendMessage(ConsoleMessageTypeEnum consoleMessageTypeEnum, String message, String... args) {
+        StringBuilder prefix = new StringBuilder()
+                .append("&f[&bNeru&f] ");
+
+        switch (consoleMessageTypeEnum) {
+            case DEBUG:
+                prefix.append("&e[DEBUG] &f");
+                break;
+
+            case ERROR:
+                prefix.append("&4[ERROR] &f");
+                break;
+
+            case NORMAL:
+                prefix.append("&f");
+                break;
+
+            default:
+            case NO_PREFIX:
+                prefix.setLength(0);
+                break;
+        }
+
         Bukkit.getConsoleSender().sendMessage(
-                StringUtils.handle("&f[&bNeru&f] &f" + message, args)
+                StringUtils.handle(prefix + message, args)
         );
     }
 
     /**
-     * 向控制台发送 Debug 消息。
+     * 读取语言配置文件内对应键值字符串列表，向控制台发送输出消息。
      *
-     * @param message 要处理的发向控制台的字符串
+     * @param key 键值
+     * @param params 替换的可选参数
      */
-    public static void sendDebugMsg(String message, String... args) {
-        Bukkit.getConsoleSender().sendMessage(
-                StringUtils.handle("&f[&bNeru&f] &e[DEBUG] &f" + message, args)
+    public static void sendMessageByKey(ConsoleMessageTypeEnum consoleMessageTypeEnum, String key, String... params) {
+        Yaml yaml = ConfigManager.getEnLanguage();
+
+        List<String> messages = StringUtils.handleReplaceParams(
+                yaml.getStringList(key), params
         );
+
+        StringUtils.handle(messages).forEach(string -> sendMessage(consoleMessageTypeEnum, string));
     }
 
     /**
-     * 向控制台发送 Error 消息。
+     * 将字符串处理后发送给玩家。
      *
-     * @param message 要处理的发向控制台的字符串
+     * @param player 可选用于变量替换的第一玩家
+     * @param message 发送给玩家的信息
+     * @param args 替换占位符的参数
      */
-    public static void sendErrorMsg(String message, String... args) {
-        Bukkit.getConsoleSender().sendMessage(
-                StringUtils.handle("&f[&bNeru&f] &4[ERROR] &f" + message, args)
+    public static void sendMessage(Player player, String message, String... args) {
+        player.sendMessage(StringUtils.handle(player, message, args));
+    }
+
+    /**
+     * 读取语言配置文件内对应键值字符串列表，处理后发送给玩家。
+     *
+     * @param player 可选用于变量替换的第一玩家
+     * @param key 键值
+     * @param params 替换的可选参数
+     * @author 2000000
+     */
+    public static void sendMessageByKeys(Player player, String key, String... params) {
+        UUID uuid = player.getUniqueId();
+
+        PlayerData playerData = PlayerDataHandler.get(uuid);
+        SettingsData settingsData = playerData.getSettingsData();
+        LanguagesEnum languagesEnum = settingsData.getLanguagesEnum();
+
+        Yaml yaml = ConfigManager.getLanguageConfig(languagesEnum);
+
+        List<String> messages = StringUtils.handleReplaceParams(
+                yaml.getStringList(key), params
         );
+
+        StringUtils.handle(player, messages).forEach(player::sendMessage);
     }
 }
