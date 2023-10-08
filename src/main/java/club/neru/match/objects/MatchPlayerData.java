@@ -50,12 +50,12 @@ public class MatchPlayerData implements SerializableInterface {
     /**
      * 真实受攻击伤害。
      */
-    private double trueDamageReceived;
+    private double finalDamageReceived;
 
     /**
      * 瞄准率。
      */
-    private double accuracy;
+    private double aimAccuracy;
 
     /**
      * wTap 触发率。

@@ -1,7 +1,7 @@
 package club.neru;
 
 import club.neru.register.RegisterManager;
-import club.neru.utils.QuickUtils;
+import club.neru.utils.common.QuickUtils;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;

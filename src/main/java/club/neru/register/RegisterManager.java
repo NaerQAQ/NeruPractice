@@ -3,7 +3,7 @@ package club.neru.register;
 import club.neru.NeruPractice;
 import club.neru.annotations.AnnotationProcessor;
 import club.neru.annotations.AutoRegisterListener;
-import club.neru.utils.QuickUtils;
+import club.neru.utils.common.QuickUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
@@ -33,11 +33,15 @@ public class RegisterManager {
         PluginManager pluginManager = Bukkit.getPluginManager();
 
         for (Class<?> aClass : AnnotationProcessor.getClassesWithAnnotation(AutoRegisterListener.class)) {
+            String className = aClass.getName();
+
             try {
                 Listener listener = (Listener) aClass.getDeclaredConstructor().newInstance();
                 pluginManager.registerEvents(listener, neruPractice);
+                QuickUtils.sendMsg(
+                        "成功注册监听器: {0}.", className
+                );
             } catch (Exception exception) {
-                String className = aClass.getName();
                 String message = exception.getMessage();
                 QuickUtils.sendErrorMsg(
                         "无法注册监听器: {0}, Message: {1}.", className, message

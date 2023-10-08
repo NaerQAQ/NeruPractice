@@ -101,6 +101,24 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/nSpigot-server-1.8.8-R0.1-SNAPSHOT.jar</systemPath>
         </dependency>
+
+        <!-- FastAsyncWorldEdit -->
+        <dependency>
+            <groupId>com.boydti.fawe.bukkit</groupId>
+            <artifactId>FastAsyncWorldEdit</artifactId>
+            <version>21.03.26-5ff3a9b-1286-22.3.9</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/FastAsyncWorldEdit-bukkit-21.03.26-5ff3a9b-1286-22.3.9.jar</systemPath>
+        </dependency>
+
+        <!-- WorldEdit -->
+        <dependency>
+            <groupId>com.sk89q.worldedit.bukkit</groupId>
+            <artifactId>WorldEdit</artifactId>
+            <version>6.1.7;dd00bb1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/worldedit-bukkit-6.1.7.2.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <build>
