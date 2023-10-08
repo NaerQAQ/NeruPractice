@@ -1,5 +1,6 @@
 package club.neru.player.playerdata.objects.nonpersistent;
 
+import club.neru.match.interfaces.MatchInterface;
 import club.neru.player.playerdata.enums.PlayerState;
 import club.neru.player.playerdata.objects.persistent.SettingsData;
 import lombok.Getter;
@@ -26,4 +27,9 @@ public class PlayerData {
      * 玩家设置数据对象。
      */
     private SettingsData settingsData;
+
+    /**
+     * 玩家比赛对象。
+     */
+    private MatchInterface matchInterface;
 }
