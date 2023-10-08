@@ -1,5 +1,6 @@
 package club.neru.match.objects;
 
+import club.neru.utils.serialization.SerializableInterface;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -20,7 +21,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class MatchPlayerData {
+public class MatchPlayerData implements SerializableInterface {
     /**
      * 攻击数。
      */
