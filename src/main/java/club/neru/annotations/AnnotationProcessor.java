@@ -1,11 +1,11 @@
 package club.neru.annotations;
 
+import club.neru.NeruPractice;
 import lombok.experimental.UtilityClass;
 import org.reflections.Reflections;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 
-import club.neru.NeruPractice;
 import java.lang.annotation.Annotation;
 import java.util.Set;
 

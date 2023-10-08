@@ -1,10 +1,10 @@
 package club.neru.player.playerdata.objects.persistent;
 
 import club.neru.NeruPractice;
-import de.leonhard.storage.Json;
-
 import club.neru.io.file.impl.JsonManager;
 import club.neru.utils.serialization.SerializableInterface;
+import de.leonhard.storage.Json;
+
 import java.util.UUID;
 
 public class SettingsDataHandler {

@@ -14,6 +14,8 @@ public interface MatchInterface {
     }
 
     void init();
+
     void end();
+
     boolean checkEndConditions();
 }
