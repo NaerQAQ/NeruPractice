@@ -1,0 +1,5 @@
+name: NeruPractice
+version: '${project.version}'
+main: club.neru.NeruPractice
+authors: [ NaerQAQ ]
+load: STARTUP
