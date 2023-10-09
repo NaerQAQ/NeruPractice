@@ -81,10 +81,10 @@ public class ArenaChild extends ArenaImpl implements ArenaChildInterface {
 
                     setArenaState(ArenaState.AVAILABLE);
 
-                    QuickUtils.sendMessageByKey(
+                    QuickUtils.sendMessage(
                             ConsoleMessageTypeEnum.DEBUG,
-                            "reset-done",
-                            "<name>",
+                            "Reset completed, arena name: <arena_name>, time taken: <time>ms.",
+                            "<arena_name>",
                             getName(),
                             "<time>",
                             String.valueOf(System.currentTimeMillis() - start)

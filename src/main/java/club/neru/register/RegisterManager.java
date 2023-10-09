@@ -60,7 +60,7 @@ public class RegisterManager {
 
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.NORMAL,
-                        "&7成功注册监听器: <class_name>.",
+                        "Successfully registered listener: <class_name>.",
                         "<class_name>",
                         className
                 );
@@ -69,7 +69,7 @@ public class RegisterManager {
 
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.ERROR,
-                        "无法注册监听器: <class_name>, Message: <message>.",
+                        "Unable to register listener: <class_name>, message: <message>.",
                         "<class_name>",
                         className,
                         "<message>",
@@ -97,7 +97,7 @@ public class RegisterManager {
 
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.NORMAL,
-                        "&7成功注册指令: <class_name>.",
+                        "Command successfully registered: <class_name>.",
                         "<class_name>",
                         className
                 );
@@ -106,7 +106,7 @@ public class RegisterManager {
 
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.ERROR,
-                        "无法注册指令: <class_name>, Message: <message>.",
+                        "Unable to register command: <class_name>, message: <message>.",
                         "<class_name>",
                         className,
                         "<message>",
@@ -146,16 +146,22 @@ public class RegisterManager {
 
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.NORMAL,
-                        "&7成功开启任务: <class_name>.",
+                        "Task successfully started: <class_name>, execution mode: <execution_mode>, delay: <delay>, period: <period>.",
                         "<class_name>",
-                        className
+                        className,
+                        "<execution_mode>",
+                        schedulerExecutionMode.name(),
+                        "<delay>",
+                        String.valueOf(delay),
+                        "<period>",
+                        String.valueOf(period)
                 );
             } catch (Exception exception) {
                 String message = exception.getMessage();
 
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.ERROR,
-                        "无法开启任务: <class_name>, Message: <message>.",
+                        "Unable to start task: <class_name>, message: <message>.",
                         "<class_name>",
                         className,
                         "message",

@@ -86,7 +86,7 @@ public class ArenaCopyHandler {
         if (offset == null || lowest == null || highest == null || worldName == null) {
             QuickUtils.sendMessage(
                     ConsoleMessageTypeEnum.ERROR,
-                    "竞技场复制停止，必要的参数不能为 null!"
+                    "Arena copying stopped, essential parameters cannot be null!"
             );
             return;
         }
@@ -116,7 +116,7 @@ public class ArenaCopyHandler {
 
                     QuickUtils.sendMessage(
                             ConsoleMessageTypeEnum.DEBUG,
-                            "完成复制，用时: <time>",
+                            "Copy completed, time taken: <time>ms.",
                             "<time>",
                             String.valueOf(System.currentTimeMillis() - start)
                     );
