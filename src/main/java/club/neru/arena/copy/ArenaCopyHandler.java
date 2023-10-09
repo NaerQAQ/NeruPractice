@@ -117,8 +117,7 @@ public class ArenaCopyHandler {
                     QuickUtils.sendMessage(
                             ConsoleMessageTypeEnum.DEBUG,
                             "Copy completed, time taken: <time>ms.",
-                            "<time>",
-                            String.valueOf(System.currentTimeMillis() - start)
+                            "<time>", String.valueOf(System.currentTimeMillis() - start)
                     );
                 })
                 .build()

@@ -84,10 +84,8 @@ public class ArenaChild extends ArenaImpl implements ArenaChildInterface {
                     QuickUtils.sendMessage(
                             ConsoleMessageTypeEnum.DEBUG,
                             "Reset completed, arena name: <arena_name>, time taken: <time>ms.",
-                            "<arena_name>",
-                            getName(),
-                            "<time>",
-                            String.valueOf(System.currentTimeMillis() - start)
+                            "<arena_name>", getName(),
+                            "<time>", String.valueOf(System.currentTimeMillis() - start)
                     );
                 })
                 .build()

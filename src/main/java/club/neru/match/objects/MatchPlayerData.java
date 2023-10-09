@@ -1,6 +1,6 @@
 package club.neru.match.objects;
 
-import club.neru.utils.serialization.SerializableInterface;
+import club.neru.serialization.interfaces.SerializableInterface;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;

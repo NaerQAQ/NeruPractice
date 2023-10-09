@@ -3,7 +3,6 @@ package club.neru.commands;
 import club.neru.annotations.AutoRegisterCommand;
 import me.despical.commandframework.Command;
 import me.despical.commandframework.CommandArguments;
-import org.bukkit.command.CommandSender;
 
 /**
  * 竞技场地图命令。
@@ -21,8 +20,6 @@ public class ArenaCommand {
             senderType = Command.SenderType.PLAYER
     )
     public void practiceCommand(CommandArguments arguments) {
-        CommandSender sender = arguments.getSender();
-
-
+        // TODO: arena 指令
     }
 }

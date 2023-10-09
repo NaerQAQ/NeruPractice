@@ -2,9 +2,10 @@ package club.neru.arena.copy.interfaces;
 
 import club.neru.arena.ArenaHandler;
 import club.neru.arena.copy.objects.ArenaChild;
+import club.neru.arena.copy.objects.ArenaParent;
 import club.neru.io.file.impl.JsonManager;
 import club.neru.io.file.utils.IOUtils;
-import club.neru.utils.serialization.SerializableInterface;
+import club.neru.serialization.interfaces.SerializableInterface;
 import de.leonhard.storage.Json;
 
 import java.io.File;
@@ -19,6 +20,30 @@ import java.util.stream.Collectors;
  * @since 2023/10/9
  */
 public interface ArenaParentInterface extends ArenaInterface {
+    /**
+     * 获取所有母竞技场对象。
+     *
+     * <p>
+     * 使用 {@link ConcurrentLinkedQueue} 容器保证线程安全。
+     * </p>
+     *
+     * @return {@link ArenaParent}
+     */
+    static ConcurrentLinkedQueue<ArenaParent> getArenaParents() {
+        ConcurrentLinkedQueue<File> files =
+                IOUtils.getFiles(ArenaHandler.ARENA_PARENT_PATH);
+
+        // 每次获取都直接读取现有文件，绝对同步，这也许是不必要的性能损耗，但实际上可以忽略
+        return files.stream()
+                .map(file -> {
+                    JsonManager jsonManager = JsonManager.getInstance();
+                    Json json = jsonManager.get(file);
+                    String arenaString = json.getString(ArenaHandler.ARENA_JSON_KEY);
+                    return SerializableInterface.fromJson(arenaString, ArenaParent.class);
+                })
+                .collect(Collectors.toCollection(ConcurrentLinkedQueue::new));
+    }
+
     /**
      * 是否允许建筑。
      *

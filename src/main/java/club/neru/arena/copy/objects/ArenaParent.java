@@ -5,7 +5,7 @@ import club.neru.arena.copy.ArenaCopyHandler;
 import club.neru.arena.copy.interfaces.ArenaParentInterface;
 import club.neru.arena.copy.utils.WorldEditVectorUtils;
 import club.neru.io.file.impl.JsonManager;
-import club.neru.utils.serialization.SerializableInterface;
+import club.neru.serialization.interfaces.SerializableInterface;
 import com.sk89q.worldedit.Vector;
 import de.leonhard.storage.Json;
 import lombok.Getter;
@@ -27,17 +27,36 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
     /**
      * 是否允许建筑。
      */
-    private boolean canBuild;
+    private boolean canBuild = false;
 
     /**
      * 最低死亡高度。
      */
-    private int minDeathHeight;
+    private int minDeathHeight = 0;
 
     /**
      * 最高建筑高度。
      */
-    private int maxBuildHeight;
+    private int maxBuildHeight = 255;
+
+    /**
+     * 写入母竞技场。
+     *
+     * <p>
+     * 该操作为覆盖性操作，即无论是否存在，均直接写入。
+     * </p>
+     */
+    public void write() {
+        String arenaParentString = toJson();
+
+        JsonManager jsonManager = JsonManager.getInstance();
+
+        Json json = jsonManager.get(
+                getName(), ArenaHandler.ARENA_PARENT_PATH, false
+        );
+
+        json.set(ArenaHandler.ARENA_JSON_KEY, arenaParentString);
+    }
 
     /**
      * 复制竞技场。
@@ -55,7 +74,7 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
      * </p>
      */
     public void copy(int amount) {
-        amount ++;
+        amount++;
 
         String arenaName = getName();
 
@@ -103,13 +122,13 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
             Location newSecondSpawnLocation = getSecondSpawnLocation().clone().add(bukkitOffsetVector);
             Location newSpectatorSpawnLocation = getSpectatorSpawnLocation().clone().add(bukkitOffsetVector);
 
-            ArenaImpl arenaChild = new ArenaChild()
-                    .setName(newName)
-                    .setLowestLocation(newLowestLocation)
-                    .setHighestLocation(newHighestLocation)
-                    .setFirstSpawnLocation(newFirstSpawnLocation)
-                    .setSecondSpawnLocation(newSecondSpawnLocation)
-                    .setSpectatorSpawnLocation(newSpectatorSpawnLocation);
+            ArenaImpl arenaChild = new ArenaChild();
+//                    .setName(newName)
+//                    .setLowestLocation(newLowestLocation)
+//                    .setHighestLocation(newHighestLocation)
+//                    .setFirstSpawnLocation(newFirstSpawnLocation)
+//                    .setSecondSpawnLocation(newSecondSpawnLocation)
+//                    .setSpectatorSpawnLocation(newSpectatorSpawnLocation);
 
             // 写入
             Json json = jsonManager.get(

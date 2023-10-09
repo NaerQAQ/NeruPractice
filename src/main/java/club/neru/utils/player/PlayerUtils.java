@@ -41,9 +41,9 @@ public class PlayerUtils {
 
         HashMap<Location, Location> locs = new HashMap<>();
         locs.put(location.add(0, 0, 1), location.add(-1, 0, 1));
-        locs.put(location.add(1, 0, 0),  location.add(1, 0, -1));
-        locs.put(location,  location.add(-1, 0, -1));
-        locs.put(location.add(1, 0, 1),  location.add(1, 0, 1));
+        locs.put(location.add(1, 0, 0), location.add(1, 0, -1));
+        locs.put(location, location.add(-1, 0, -1));
+        locs.put(location.add(1, 0, 1), location.add(1, 0, 1));
 
         Deque<Location> shouldCheckLoc = new LinkedList<>();
         locs.forEach((k, loc) -> {

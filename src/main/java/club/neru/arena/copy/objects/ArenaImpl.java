@@ -1,7 +1,7 @@
 package club.neru.arena.copy.objects;
 
 import club.neru.arena.copy.interfaces.ArenaInterface;
-import club.neru.utils.serialization.SerializableInterface;
+import club.neru.serialization.interfaces.SerializableInterface;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;

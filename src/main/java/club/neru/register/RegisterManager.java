@@ -51,7 +51,7 @@ public class RegisterManager {
         PluginManager pluginManager = Bukkit.getPluginManager();
         Set<Class<?>> classesWithAnnotation = AnnotationProcessor.getClassesWithAnnotation(AutoRegisterListener.class);
 
-        for (Class<?> aClass : classesWithAnnotation) {
+        classesWithAnnotation.forEach(aClass -> {
             String className = aClass.getName();
 
             try {
@@ -60,9 +60,8 @@ public class RegisterManager {
 
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.NORMAL,
-                        "Successfully registered listener: <class_name>.",
-                        "<class_name>",
-                        className
+                        "Listener successfully registered: <class_name>.",
+                        "<class_name>", className
                 );
             } catch (Exception exception) {
                 String message = exception.getMessage();
@@ -70,13 +69,11 @@ public class RegisterManager {
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.ERROR,
                         "Unable to register listener: <class_name>, message: <message>.",
-                        "<class_name>",
-                        className,
-                        "<message>",
-                        message
+                        "<class_name>", className,
+                        "<message>", message
                 );
             }
-        }
+        });
     }
 
     /**
@@ -88,7 +85,7 @@ public class RegisterManager {
         CommandFramework commandFramework = NeruPractice.getCommandFramework();
         Set<Class<?>> classesWithAnnotation = AnnotationProcessor.getClassesWithAnnotation(AutoRegisterCommand.class);
 
-        for (Class<?> aClass : classesWithAnnotation) {
+        classesWithAnnotation.forEach(aClass -> {
             String className = aClass.getName();
 
             try {
@@ -98,8 +95,7 @@ public class RegisterManager {
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.NORMAL,
                         "Command successfully registered: <class_name>.",
-                        "<class_name>",
-                        className
+                        "<class_name>", className
                 );
             } catch (Exception exception) {
                 String message = exception.getMessage();
@@ -107,13 +103,11 @@ public class RegisterManager {
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.ERROR,
                         "Unable to register command: <class_name>, message: <message>.",
-                        "<class_name>",
-                        className,
-                        "<message>",
-                        message
+                        "<class_name>", className,
+                        "<message>", message
                 );
             }
-        }
+        });
     }
 
     /**
@@ -124,7 +118,7 @@ public class RegisterManager {
     private static void autoStartTimerTask() {
         Set<Class<?>> classesWithAnnotation = AnnotationProcessor.getClassesWithAnnotation(AutoStartTimerTask.class);
 
-        for (Class<?> aClass : classesWithAnnotation) {
+        classesWithAnnotation.forEach(aClass -> {
             String className = aClass.getName();
 
             try {
@@ -147,14 +141,10 @@ public class RegisterManager {
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.NORMAL,
                         "Task successfully started: <class_name>, execution mode: <execution_mode>, delay: <delay>, period: <period>.",
-                        "<class_name>",
-                        className,
-                        "<execution_mode>",
-                        schedulerExecutionMode.name(),
-                        "<delay>",
-                        String.valueOf(delay),
-                        "<period>",
-                        String.valueOf(period)
+                        "<class_name>", className,
+                        "<execution_mode>", schedulerExecutionMode.name(),
+                        "<delay>", String.valueOf(delay),
+                        "<period>", String.valueOf(period)
                 );
             } catch (Exception exception) {
                 String message = exception.getMessage();
@@ -162,12 +152,10 @@ public class RegisterManager {
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.ERROR,
                         "Unable to start task: <class_name>, message: <message>.",
-                        "<class_name>",
-                        className,
-                        "message",
-                        message
+                        "<class_name>", className,
+                        "message", message
                 );
             }
-        }
+        });
     }
 }
