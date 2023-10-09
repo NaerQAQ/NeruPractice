@@ -12,7 +12,16 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.UUID;
 
+/**
+ * 玩家是否在水中的检查任务。
+ *
+ * @author NaerQAQ
+ * @version 1.0
+ * @see AutoStartTimerTask
+ * @since 2023/10/9
+ */
 @AutoStartTimerTask
+@SuppressWarnings("unused")
 public class WaterCheckTask extends BukkitRunnable {
     @Override
     public void run() {

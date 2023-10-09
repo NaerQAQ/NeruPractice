@@ -1,5 +1,6 @@
 package club.neru.match.interfaces;
 
+import club.neru.arena.copy.objects.ArenaChild;
 import club.neru.match.objects.MatchPlayerData;
 import club.neru.thread.Scheduler;
 import club.neru.thread.enums.SchedulerExecutionMode;
@@ -24,6 +25,13 @@ public interface MatchInterface {
      * @return UUID
      */
     String getMatchUUID();
+
+    /**
+     * 获取本场比赛的子地图。
+     *
+     * @return {@link ArenaChild}
+     */
+    ArenaChild getArenaChild();
 
     /**
      * 开始比赛。
