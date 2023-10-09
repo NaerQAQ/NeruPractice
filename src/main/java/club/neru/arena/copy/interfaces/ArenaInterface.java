@@ -2,6 +2,13 @@ package club.neru.arena.copy.interfaces;
 
 import org.bukkit.Location;
 
+/**
+ * 基础竞技场接口。
+ *
+ * @author NaerQAQ
+ * @version 1.0
+ * @since 2023/10/9
+ */
 public interface ArenaInterface {
     /**
      * 获取名称。
