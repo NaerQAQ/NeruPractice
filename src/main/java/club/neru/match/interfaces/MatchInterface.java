@@ -2,6 +2,8 @@ package club.neru.match.interfaces;
 
 import club.neru.match.objects.MatchPlayerData;
 import club.neru.thread.Scheduler;
+import club.neru.thread.enums.SchedulerExecutionMode;
+import club.neru.thread.enums.SchedulerTypeEnum;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Map;
@@ -32,17 +34,29 @@ public interface MatchInterface {
      * </p>
      */
     default void start() {
-        Scheduler.async(this::init);
+        Scheduler.builder()
+                .setSchedulerTypeEnum(SchedulerTypeEnum.RUN)
+                .setSchedulerExecutionMode(SchedulerExecutionMode.ASYNC)
+                .setRunnable(this::init)
+                .build()
+                .run();
 
-        Scheduler.timerAsync(new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (checkEndConditions()) {
-                    end();
-                    cancel();
-                }
-            }
-        }, 0, 5);
+        Scheduler.builder()
+                .setSchedulerTypeEnum(SchedulerTypeEnum.TIMER)
+                .setSchedulerExecutionMode(SchedulerExecutionMode.ASYNC)
+                .setDelay(0)
+                .setPeriod(5)
+                .setBukkitRunnable(new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        if (checkEndConditions()) {
+                            end();
+                            cancel();
+                        }
+                    }
+                })
+                .build()
+                .run();
     }
 
     /**

@@ -32,4 +32,9 @@ public class PlayerData {
      * 玩家比赛对象。
      */
     private MatchInterface matchInterface;
+
+    /**
+     * 是否在水中。
+     */
+    private boolean inWater;
 }

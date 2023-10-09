@@ -1,92 +1,61 @@
 package club.neru.thread;
 
 import club.neru.NeruPractice;
-import org.bukkit.Bukkit;
+import club.neru.thread.enums.SchedulerExecutionMode;
+import club.neru.thread.enums.SchedulerTypeEnum;
+import lombok.Builder;
 import org.bukkit.scheduler.BukkitRunnable;
 
-/**
- * 线程调度器。
- *
- * <p>
- * 该类提供了用于在 Bukkit 中快速安排任务的实用方法。
- * </p>
- *
- * @author NaerQAQ
- * @version 1.0
- * @see BukkitRunnable
- * @see Bukkit#getScheduler()
- * @since 2023/10/8
- */
+@Builder(setterPrefix = "set")
 public class Scheduler {
-    /**
-     * 异步执行任务。
-     *
-     * @param runnable {@link Runnable} 对象
-     */
-    public static void async(Runnable runnable) {
-        Bukkit.getScheduler().runTaskAsynchronously(
-                NeruPractice.getInstance(), runnable
-        );
-    }
+    private Runnable runnable;
+    private BukkitRunnable bukkitRunnable;
 
-    /**
-     * 同步执行任务。
-     *
-     * @param runnable {@link Runnable} 对象
-     */
-    public static void sync(Runnable runnable) {
-        Bukkit.getScheduler().runTask(
-                NeruPractice.getInstance(), runnable
-        );
-    }
+    private SchedulerTypeEnum schedulerTypeEnum;
+    private SchedulerExecutionMode schedulerExecutionMode;
 
-    /**
-     * 异步重复执行任务。
-     *
-     * @param bukkitRunnable {@link BukkitRunnable} 对象
-     * @param delay          第一次执行前的延迟
-     * @param period         两次执行之间的间隔
-     */
-    public static void timerAsync(BukkitRunnable bukkitRunnable, long delay, long period) {
-        bukkitRunnable.runTaskTimerAsynchronously(
-                NeruPractice.getInstance(), delay, period
-        );
-    }
+    private int delay;
+    private int period;
 
-    /**
-     * 同步重复执行任务。
-     *
-     * @param bukkitRunnable {@link BukkitRunnable} 对象
-     * @param delay          第一次执行前的延迟
-     * @param period         两次执行之间的间隔
-     */
-    public static void timerSync(BukkitRunnable bukkitRunnable, long delay, long period) {
-        bukkitRunnable.runTaskTimer(
-                NeruPractice.getInstance(), delay, period
-        );
-    }
+    public void run() {
+        BukkitRunnable finalBukkitRunnable;
 
-    /**
-     * 异步延迟执行任务。
-     *
-     * @param bukkitRunnable {@link BukkitRunnable} 对象
-     * @param delay          执行前的延迟
-     */
-    public static void laterAsync(BukkitRunnable bukkitRunnable, long delay) {
-        bukkitRunnable.runTaskLaterAsynchronously(
-                NeruPractice.getInstance(), delay
-        );
-    }
+        NeruPractice neruPractice = NeruPractice.getInstance();
 
-    /**
-     * 同步延迟执行任务。
-     *
-     * @param bukkitRunnable {@link BukkitRunnable} 对象
-     * @param delay          执行前的延迟
-     */
-    public static void laterSync(BukkitRunnable bukkitRunnable, long delay) {
-        bukkitRunnable.runTaskLater(
-                NeruPractice.getInstance(), delay
-        );
+        if (runnable == null) {
+            finalBukkitRunnable = bukkitRunnable;
+        } else {
+            finalBukkitRunnable = new BukkitRunnable() {
+                @Override
+                public void run() {
+                    runnable.run();
+                }
+            };
+        }
+
+        switch (schedulerTypeEnum) {
+            case RUN:
+                if (schedulerExecutionMode == SchedulerExecutionMode.SYNC) {
+                    finalBukkitRunnable.runTask(neruPractice);
+                } else {
+                    finalBukkitRunnable.runTaskAsynchronously(neruPractice);
+                }
+                return;
+
+            case LATER:
+                if (schedulerExecutionMode == SchedulerExecutionMode.SYNC) {
+                    finalBukkitRunnable.runTaskLater(neruPractice, delay);
+                } else {
+                    finalBukkitRunnable.runTaskLaterAsynchronously(neruPractice, delay);
+                }
+                return;
+
+            case TIMER:
+                if (schedulerExecutionMode == SchedulerExecutionMode.SYNC) {
+                    finalBukkitRunnable.runTaskTimer(neruPractice, delay, period);
+                } else {
+                    finalBukkitRunnable.runTaskTimerAsynchronously(neruPractice, delay, period);
+                }
+        }
     }
 }

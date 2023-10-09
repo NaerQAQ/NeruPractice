@@ -1,6 +1,8 @@
 package club.neru.arena.copy.objects;
 
 import club.neru.thread.Scheduler;
+import club.neru.thread.enums.SchedulerExecutionMode;
+import club.neru.thread.enums.SchedulerTypeEnum;
 import club.neru.utils.common.QuickUtils;
 import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
 import com.boydti.fawe.object.schematic.Schematic;
@@ -89,32 +91,37 @@ public class ArenaCopyData {
             return;
         }
 
-        Scheduler.async(() -> {
-            long start = System.currentTimeMillis();
+        Scheduler.builder()
+                .setSchedulerTypeEnum(SchedulerTypeEnum.RUN)
+                .setSchedulerExecutionMode(SchedulerExecutionMode.ASYNC)
+                .setRunnable(() -> {
+                    long start = System.currentTimeMillis();
 
-            World world = new BukkitWorld(
-                    Bukkit.getWorld(worldName)
-            );
+                    World world = new BukkitWorld(
+                            Bukkit.getWorld(worldName)
+                    );
 
-            EditSessionFactory editSessionFactory = WorldEdit.getInstance().getEditSessionFactory();
-            EditSession editSession = editSessionFactory.getEditSession(world, Integer.MAX_VALUE);
+                    EditSessionFactory editSessionFactory = WorldEdit.getInstance().getEditSessionFactory();
+                    EditSession editSession = editSessionFactory.getEditSession(world, Integer.MAX_VALUE);
 
-            Region region = new CuboidRegion(
-                    world,
-                    lowest,
-                    highest
-            );
+                    Region region = new CuboidRegion(
+                            world,
+                            lowest,
+                            highest
+                    );
 
-            BlockArrayClipboard blockArrayClipboard = editSession.lazyCopy(region);
-            Schematic schematic = new Schematic(blockArrayClipboard);
+                    BlockArrayClipboard blockArrayClipboard = editSession.lazyCopy(region);
+                    Schematic schematic = new Schematic(blockArrayClipboard);
 
-            schematic.paste(world, getFinalCopyVector());
+                    schematic.paste(world, getFinalCopyVector());
 
-            QuickUtils.sendMessage(
-                    ConsoleMessageTypeEnum.DEBUG,
-                    "完成复制，用时: {0}",
-                    String.valueOf(System.currentTimeMillis() - start)
-            );
-        });
+                    QuickUtils.sendMessage(
+                            ConsoleMessageTypeEnum.DEBUG,
+                            "完成复制，用时: {0}",
+                            String.valueOf(System.currentTimeMillis() - start)
+                    );
+                })
+                .build()
+                .run();
     }
 }

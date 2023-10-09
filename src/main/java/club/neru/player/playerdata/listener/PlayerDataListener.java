@@ -3,6 +3,8 @@ package club.neru.player.playerdata.listener;
 import club.neru.annotations.AutoRegisterListener;
 import club.neru.player.playerdata.PlayerDataHandler;
 import club.neru.thread.Scheduler;
+import club.neru.thread.enums.SchedulerExecutionMode;
+import club.neru.thread.enums.SchedulerTypeEnum;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -31,7 +33,12 @@ public class PlayerDataListener implements Listener {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
 
-        Scheduler.async(() -> PlayerDataHandler.get(uuid));
+        Scheduler.builder()
+                .setSchedulerTypeEnum(SchedulerTypeEnum.RUN)
+                .setSchedulerExecutionMode(SchedulerExecutionMode.ASYNC)
+                .setRunnable(() -> PlayerDataHandler.get(uuid))
+                .build()
+                .run();
     }
 
     /**
@@ -44,6 +51,11 @@ public class PlayerDataListener implements Listener {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
 
-        Scheduler.async(() -> PlayerDataHandler.remove(uuid));
+        Scheduler.builder()
+                .setSchedulerTypeEnum(SchedulerTypeEnum.RUN)
+                .setSchedulerExecutionMode(SchedulerExecutionMode.ASYNC)
+                .setRunnable(() -> PlayerDataHandler.remove(uuid))
+                .build()
+                .run();
     }
 }
