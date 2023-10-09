@@ -49,6 +49,14 @@ public class ConfigManager {
     );
 
     /**
+     * 控制台语言。
+     */
+    @Getter
+    private static final LanguagesEnum consoleMessageLanguage = LanguagesEnum.caseInsensitiveValueOf(
+            getConfig().getString("console-message-language")
+    );
+
+    /**
      * 获取对应语言配置文件。
      *
      * @param languagesEnum {@link LanguagesEnum}

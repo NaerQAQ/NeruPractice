@@ -83,4 +83,22 @@ public class JsonManager implements FileManagerInterface<Json> {
 
         return simplixBuilder.createJson();
     }
+
+    /**
+     * 通过 {@link File} 对象获取一个 {@link Json} 对象。
+     *
+     * <p>
+     * 使用此方法生成的 {@link Json} 对象其重载属性为 {@link ReloadSettings#INTELLIGENT}，将会在内容更改后自动重载。
+     * </p>
+     *
+     * @param file {@link File}
+     * @return {@link Json}
+     */
+    public Json get(File file) {
+        return SimplixBuilder.fromFile(file)
+                .setDataType(DataType.SORTED)
+                .setConfigSettings(ConfigSettings.PRESERVE_COMMENTS)
+                .setReloadSettings(ReloadSettings.INTELLIGENT)
+                .createJson();
+    }
 }

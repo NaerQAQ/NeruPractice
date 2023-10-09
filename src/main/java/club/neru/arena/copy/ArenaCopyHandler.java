@@ -1,4 +1,4 @@
-package club.neru.arena.copy.objects;
+package club.neru.arena.copy;
 
 import club.neru.thread.Scheduler;
 import club.neru.thread.enums.SchedulerExecutionMode;
@@ -26,7 +26,7 @@ import org.bukkit.Bukkit;
  * <p>
  * 使用示例:
  * <pre>
- * new ArenaCopyData()
+ * new ArenaCopyHandler()
  *         .setWorldName("world")
  *         .setLowest(new Vector(47, 77, 284))
  *         .setHighest(new Vector(36, 88, 298))
@@ -42,7 +42,7 @@ import org.bukkit.Bukkit;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class ArenaCopyData {
+public class ArenaCopyHandler {
     /**
      * 偏移量。
      */
@@ -105,7 +105,6 @@ public class ArenaCopyData {
                     EditSession editSession = editSessionFactory.getEditSession(world, Integer.MAX_VALUE);
 
                     Region region = new CuboidRegion(
-                            world,
                             lowest,
                             highest
                     );
@@ -117,8 +116,8 @@ public class ArenaCopyData {
 
                     QuickUtils.sendMessage(
                             ConsoleMessageTypeEnum.DEBUG,
-                            "完成复制，用时: {time}",
-                            "{time}",
+                            "完成复制，用时: <time>",
+                            "<time>",
                             String.valueOf(System.currentTimeMillis() - start)
                     );
                 })

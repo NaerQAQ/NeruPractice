@@ -64,7 +64,9 @@ public class QuickUtils {
      * @param params                 替换的可选参数
      */
     public static void sendMessageByKey(ConsoleMessageTypeEnum consoleMessageTypeEnum, String key, String... params) {
-        Yaml yaml = ConfigManager.getEnLanguage();
+        Yaml yaml = ConfigManager.getLanguageConfig(
+                ConfigManager.getConsoleMessageLanguage()
+        );
 
         List<String> messages = StringUtils.handle(
                 yaml.getStringList(key), params

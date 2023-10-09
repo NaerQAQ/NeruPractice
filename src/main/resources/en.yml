@@ -3,3 +3,6 @@ practice:
   - "&3Neru Practice"
   - "&3Developed collaboratively by NaerQAQ, L1ncey, and QwQTsuki for the Neru server."
   - " "
+
+reset-done:
+  - "Successfully reset the arena: <name>, took <time>ms."

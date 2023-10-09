@@ -8,10 +8,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -25,7 +22,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unused")
 public class PlayerUtils {
     /**
-     * 无限水检查。
+     * 无限水检查，这似乎还存在一些问题。
      *
      * <p>
      * 检查对角方块 {@code (1,2,3,4)} ， 如果为水， 对该 {@code 2*2} 区域遍历是否全都是水
@@ -39,33 +36,36 @@ public class PlayerUtils {
      * @param block 方块
      * @return 是否形成无限水
      */
-    public static boolean isInfiniteWaterSource(Block block) {
+    public boolean isInfiniteWaterSource(Block block) {
         Location location = block.getLocation();
 
-        Location[] locationsToCheck = {
-                location.add(0, 0, 1),
-                location.add(1, 0, 0),
-                location.add(-1, 0, -1),
-                location.add(1, 0, 1)
-        };
+        HashMap<Location, Location> locs = new HashMap<>();
+        locs.put(location.add(0, 0, 1), location.add(-1, 0, 1));
+        locs.put(location.add(1, 0, 0),  location.add(1, 0, -1));
+        locs.put(location,  location.add(-1, 0, -1));
+        locs.put(location.add(1, 0, 1),  location.add(1, 0, 1));
 
-        long waterCount = Arrays.stream(locationsToCheck)
-                .filter(loc -> loc.getBlock().getType() == Material.WATER)
-                .mapToInt(loc -> {
-                    int confirmCount = 0;
-                    for (int dx = -1; dx <= 0; dx++) {
-                        for (int dz = -1; dz <= 0; dz++) {
-                            if (loc.clone().add(dx, 0, dz).getBlock().getType() == Material.WATER) {
-                                confirmCount++;
-                            }
-                        }
+        Deque<Location> shouldCheckLoc = new LinkedList<>();
+        locs.forEach((k, loc) -> {
+            if (loc.getBlock().getType() == Material.WATER) shouldCheckLoc.add(k);
+        });
+
+        while (!shouldCheckLoc.isEmpty()) {
+            Location locInCheck = shouldCheckLoc.poll();
+            int confirmCount = 0;
+
+            for (int dx = -1; dx <= 0; dx++) {
+                for (int dz = -1; dz <= 0; dz++) {
+                    if (locInCheck.add(dx, 0, dz).getBlock().getType() == Material.WATER) {
+                        confirmCount++;
+
+                        if (confirmCount == 4) return true;
                     }
-                    return confirmCount;
-                })
-                .filter(count -> count == 4)
-                .count();
+                }
+            }
+        }
 
-        return waterCount > 0;
+        return false;
     }
 
     /**

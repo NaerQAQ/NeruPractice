@@ -4,6 +4,13 @@ import org.bukkit.Location;
 
 public interface ArenaInterface {
     /**
+     * 获取名称。
+     *
+     * @return 名称
+     */
+    String getName();
+
+    /**
      * 获取最低点坐标。
      *
      * @return {@link Location}

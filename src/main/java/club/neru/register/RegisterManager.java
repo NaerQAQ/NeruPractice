@@ -60,8 +60,8 @@ public class RegisterManager {
 
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.NORMAL,
-                        "&7成功注册监听器: {class_name}.",
-                        "{class_name}",
+                        "&7成功注册监听器: <class_name>.",
+                        "<class_name>",
                         className
                 );
             } catch (Exception exception) {
@@ -69,10 +69,10 @@ public class RegisterManager {
 
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.ERROR,
-                        "无法注册监听器: {class_name}, Message: {message}.",
-                        "{class_name}",
+                        "无法注册监听器: <class_name>, Message: <message>.",
+                        "<class_name>",
                         className,
-                        "{message}",
+                        "<message>",
                         message
                 );
             }
@@ -97,8 +97,8 @@ public class RegisterManager {
 
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.NORMAL,
-                        "&7成功注册指令: {class_name}.",
-                        "{class_name}",
+                        "&7成功注册指令: <class_name>.",
+                        "<class_name>",
                         className
                 );
             } catch (Exception exception) {
@@ -106,10 +106,10 @@ public class RegisterManager {
 
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.ERROR,
-                        "无法注册指令: {class_name}, Message: {message}.",
-                        "{class_name}",
+                        "无法注册指令: <class_name>, Message: <message>.",
+                        "<class_name>",
                         className,
-                        "{message}",
+                        "<message>",
                         message
                 );
             }
@@ -146,8 +146,8 @@ public class RegisterManager {
 
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.NORMAL,
-                        "&7成功开启任务: {class_name}.",
-                        "{class_name}",
+                        "&7成功开启任务: <class_name>.",
+                        "<class_name>",
                         className
                 );
             } catch (Exception exception) {
@@ -155,8 +155,8 @@ public class RegisterManager {
 
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.ERROR,
-                        "无法开启任务: {class_name}, Message: {message}.",
-                        "{class_name}",
+                        "无法开启任务: <class_name>, Message: <message>.",
+                        "<class_name>",
                         className,
                         "message",
                         message
