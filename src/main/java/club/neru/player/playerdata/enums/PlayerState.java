@@ -1,7 +1,5 @@
 package club.neru.player.playerdata.enums;
 
-import org.bukkit.Bukkit;
-
 /**
  * 玩家状态枚举类。
  *

@@ -31,7 +31,7 @@ public class EffectLib {
      * </p>
      *
      * @param location 需要展示该效果的位置
-     * @param delay 两次粒子展示的间隔
+     * @param delay    两次粒子展示的间隔
      */
     public void playCrystalEffect(Location location, int delay) {
         World world = location.getWorld();
@@ -80,7 +80,7 @@ public class EffectLib {
      * </p>
      *
      * @param location 需要展示该效果的位置
-     * @param effect 要展示的粒子效果
+     * @param effect   要展示的粒子效果
      */
     public void createAuroraEffect(Location location, Effect effect) {
         World world = location.getWorld();

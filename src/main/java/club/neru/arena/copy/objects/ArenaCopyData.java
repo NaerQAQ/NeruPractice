@@ -117,7 +117,8 @@ public class ArenaCopyData {
 
                     QuickUtils.sendMessage(
                             ConsoleMessageTypeEnum.DEBUG,
-                            "完成复制，用时: {0}",
+                            "完成复制，用时: {time}",
+                            "{time}",
                             String.valueOf(System.currentTimeMillis() - start)
                     );
                 })

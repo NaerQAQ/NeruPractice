@@ -2,7 +2,6 @@ package club.neru.player.playerdata;
 
 import club.neru.NeruPractice;
 import club.neru.io.file.impl.JsonManager;
-import club.neru.player.playerdata.objects.nonpersistent.PlayerData;
 import club.neru.player.playerdata.objects.persistent.SettingsData;
 import club.neru.utils.serialization.SerializableInterface;
 import de.leonhard.storage.Json;

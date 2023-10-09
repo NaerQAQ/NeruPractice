@@ -24,9 +24,11 @@ public class QuickUtils {
     /**
      * 向控制台发送输出消息。
      *
-     * @param message 要处理的发向控制台的字符串
+     * @param consoleMessageTypeEnum 信息类型
+     * @param message                要处理的发向控制台的字符串
+     * @param params                 替换的可选参数
      */
-    public static void sendMessage(ConsoleMessageTypeEnum consoleMessageTypeEnum, String message, String... args) {
+    public static void sendMessage(ConsoleMessageTypeEnum consoleMessageTypeEnum, String message, String... params) {
         StringBuilder prefix = new StringBuilder()
                 .append("&f[&bNeru&f] ");
 
@@ -50,20 +52,21 @@ public class QuickUtils {
         }
 
         Bukkit.getConsoleSender().sendMessage(
-                StringUtils.handle(prefix + message, args)
+                StringUtils.handle(prefix + message, params)
         );
     }
 
     /**
      * 读取语言配置文件内对应键值字符串列表，向控制台发送输出消息。
      *
-     * @param key 键值
-     * @param params 替换的可选参数
+     * @param consoleMessageTypeEnum 信息类型
+     * @param key                    键值
+     * @param params                 替换的可选参数
      */
     public static void sendMessageByKey(ConsoleMessageTypeEnum consoleMessageTypeEnum, String key, String... params) {
         Yaml yaml = ConfigManager.getEnLanguage();
 
-        List<String> messages = StringUtils.handleReplaceParams(
+        List<String> messages = StringUtils.handle(
                 yaml.getStringList(key), params
         );
 
@@ -73,19 +76,19 @@ public class QuickUtils {
     /**
      * 将字符串处理后发送给玩家。
      *
-     * @param player 可选用于变量替换的第一玩家
+     * @param player  可选用于变量替换的第一玩家
      * @param message 发送给玩家的信息
-     * @param args 替换占位符的参数
+     * @param params  替换的可选参数
      */
-    public static void sendMessage(Player player, String message, String... args) {
-        player.sendMessage(StringUtils.handle(player, message, args));
+    public static void sendMessage(Player player, String message, String... params) {
+        player.sendMessage(StringUtils.handle(player, message, params));
     }
 
     /**
      * 读取语言配置文件内对应键值字符串列表，处理后发送给玩家。
      *
      * @param player 可选用于变量替换的第一玩家
-     * @param key 键值
+     * @param key    键值
      * @param params 替换的可选参数
      * @author 2000000
      */
@@ -98,7 +101,7 @@ public class QuickUtils {
 
         Yaml yaml = ConfigManager.getLanguageConfig(languagesEnum);
 
-        List<String> messages = StringUtils.handleReplaceParams(
+        List<String> messages = StringUtils.handle(
                 yaml.getStringList(key), params
         );
 

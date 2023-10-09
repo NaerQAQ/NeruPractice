@@ -2,7 +2,6 @@ package club.neru.player.playerdata;
 
 import club.neru.player.playerdata.objects.nonpersistent.PlayerData;
 import club.neru.player.playerdata.objects.persistent.SettingsData;
-import org.bukkit.entity.Player;
 
 import java.util.Map;
 import java.util.UUID;

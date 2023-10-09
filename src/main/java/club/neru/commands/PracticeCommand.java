@@ -8,9 +8,16 @@ import me.despical.commandframework.CommandArguments;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+/**
+ * 竞技场命令。
+ *
+ * @author NaerQAQ
+ * @version 1.0
+ * @since 2023/10/9
+ */
 @AutoRegisterCommand
 @SuppressWarnings("unused")
-public class TestCommand {
+public class PracticeCommand {
     @Command(
             name = "practice",
             aliases = {"prac", "neru", "nerupractice"},
