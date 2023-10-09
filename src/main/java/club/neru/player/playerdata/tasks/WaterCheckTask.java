@@ -34,7 +34,7 @@ public class WaterCheckTask extends BukkitRunnable {
 
             PlayerData playerData = PlayerDataHandler.get(uuid);
 
-            playerData.setInWater(blockMaterial == Material.WATER);
+            playerData.setInWater(blockMaterial == Material.STATIONARY_WATER);
         }
     }
 }
