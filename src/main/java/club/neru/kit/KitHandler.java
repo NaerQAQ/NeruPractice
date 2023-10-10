@@ -1,6 +1,6 @@
 package club.neru.kit;
 
-import club.neru.NeruPractice;
+import club.neru.Mochi;
 
 /**
  * 装备包处理程序。
@@ -19,5 +19,5 @@ public class KitHandler {
      * 装备包路径。
      */
     public static final String KIT_PATH =
-            NeruPractice.getDataFolderAbsolutePath() + "/kit";
+            Mochi.getDataFolderAbsolutePath() + "/kit";
 }

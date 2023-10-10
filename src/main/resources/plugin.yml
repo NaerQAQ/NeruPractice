@@ -1,6 +1,6 @@
-name: NeruPractice
+name: Mochi
 version: '${project.version}'
-main: club.neru.NeruPractice
+main: club.neru.Mochi
 authors: [ NaerQAQ, L1ncey, QwQTsuki ]
 depend:
   - WorldEdit

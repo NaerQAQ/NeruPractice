@@ -1,6 +1,6 @@
 package club.neru.arena;
 
-import club.neru.NeruPractice;
+import club.neru.Mochi;
 
 /**
  * 竞技场处理程序。
@@ -19,7 +19,7 @@ public class ArenaHandler {
      * 竞技场路径。
      */
     public static final String ARENA_PATH =
-            NeruPractice.getDataFolderAbsolutePath() + "/arena";
+            Mochi.getDataFolderAbsolutePath() + "/arena";
 
     /**
      * 母竞技场所在的路径。

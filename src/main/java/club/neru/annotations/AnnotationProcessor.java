@@ -1,6 +1,6 @@
 package club.neru.annotations;
 
-import club.neru.NeruPractice;
+import club.neru.Mochi;
 import lombok.experimental.UtilityClass;
 import org.reflections.Reflections;
 import org.reflections.util.ClasspathHelper;
@@ -27,7 +27,7 @@ public class AnnotationProcessor {
     public static Set<Class<?>> getClassesWithAnnotation(Class<? extends Annotation> annotation) {
         // 创建 Reflections 对象扫描指定包下的所有类，并使用 getTypesAnnotatedWith 方法获取带有指定注解的类集合
         return new Reflections(new ConfigurationBuilder()
-                .setUrls(ClasspathHelper.forPackage(NeruPractice.class.getPackage().getName())))
+                .setUrls(ClasspathHelper.forPackage(Mochi.class.getPackage().getName())))
                 .getTypesAnnotatedWith(annotation);
     }
 }

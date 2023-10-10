@@ -1,6 +1,6 @@
 package club.neru.thread;
 
-import club.neru.NeruPractice;
+import club.neru.Mochi;
 import club.neru.thread.enums.SchedulerExecutionMode;
 import club.neru.thread.enums.SchedulerTypeEnum;
 import lombok.Getter;
@@ -69,7 +69,7 @@ public class Scheduler {
     public void run() {
         BukkitRunnable finalBukkitRunnable;
 
-        NeruPractice neruPractice = NeruPractice.getInstance();
+        Mochi mochi = Mochi.getInstance();
 
         // 如果传入的为 runnable 则转换为 bukkit runnable
         if (runnable == null) {
@@ -86,25 +86,25 @@ public class Scheduler {
         switch (schedulerTypeEnum) {
             case RUN:
                 if (schedulerExecutionMode == SchedulerExecutionMode.SYNC) {
-                    finalBukkitRunnable.runTask(neruPractice);
+                    finalBukkitRunnable.runTask(mochi);
                 } else {
-                    finalBukkitRunnable.runTaskAsynchronously(neruPractice);
+                    finalBukkitRunnable.runTaskAsynchronously(mochi);
                 }
                 return;
 
             case LATER:
                 if (schedulerExecutionMode == SchedulerExecutionMode.SYNC) {
-                    finalBukkitRunnable.runTaskLater(neruPractice, delay);
+                    finalBukkitRunnable.runTaskLater(mochi, delay);
                 } else {
-                    finalBukkitRunnable.runTaskLaterAsynchronously(neruPractice, delay);
+                    finalBukkitRunnable.runTaskLaterAsynchronously(mochi, delay);
                 }
                 return;
 
             case TIMER:
                 if (schedulerExecutionMode == SchedulerExecutionMode.SYNC) {
-                    finalBukkitRunnable.runTaskTimer(neruPractice, delay, period);
+                    finalBukkitRunnable.runTaskTimer(mochi, delay, period);
                 } else {
-                    finalBukkitRunnable.runTaskTimerAsynchronously(neruPractice, delay, period);
+                    finalBukkitRunnable.runTaskTimerAsynchronously(mochi, delay, period);
                 }
         }
     }

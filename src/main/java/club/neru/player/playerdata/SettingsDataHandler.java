@@ -1,6 +1,6 @@
 package club.neru.player.playerdata;
 
-import club.neru.NeruPractice;
+import club.neru.Mochi;
 import club.neru.io.file.impl.JsonManager;
 import club.neru.player.playerdata.objects.persistent.SettingsData;
 import club.neru.serialization.interfaces.SerializableInterface;
@@ -26,7 +26,7 @@ public class SettingsDataHandler {
      * 玩家数据所在的路径。
      */
     private static final String SETTINGS_DATA_PATH =
-            NeruPractice.getDataFolderAbsolutePath() + "/player/data/settings";
+            Mochi.getDataFolderAbsolutePath() + "/player/data/settings";
 
     /**
      * 从玩家对应的 Json 文件中获取玩家设置数据。

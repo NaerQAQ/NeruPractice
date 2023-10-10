@@ -101,10 +101,14 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
      * </p>
      */
     public void copy(int amount) {
+        amount++;
+
+        int count = 0;
+
         String arenaName = getName();
 
         // 已有子竞技场数量，+2 是因为从 0 计数，且在 for 内跳过第一位，因为第一位为已经复制
-        int arenaChildrenCount = getArenaChildren().size() + 2;
+        int arenaChildrenCount = getArenaChildren().size() + 1;
 
         // 复制完后应有的子竞技场数量
         int finalArenaChildrenCount = arenaChildrenCount + amount - 1;
@@ -120,11 +124,13 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
         JsonManager jsonManager = JsonManager.getInstance();
 
         for (int i = arenaChildrenCount; i < finalArenaChildrenCount; i++) {
-            // z 偏移量与这是第几个子竞技场挂钩
-            int offsetZ = i * 100;
+            count++;
 
-            // 10 ticks 复制间隔
-            int delay = i * 10;
+            // z 偏移量与这是第几个子竞技场挂钩
+            int offsetZ = i * 1000;
+
+            // 10 ticks 复制间隔，这能有效防止卡顿
+            int delay = count * 10;
 
             Vector offsetVector = new Vector(
                     0, 0, offsetZ

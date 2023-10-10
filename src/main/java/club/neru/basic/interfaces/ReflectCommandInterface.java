@@ -45,8 +45,6 @@ public interface ReflectCommandInterface {
                 String name = method.getName();
                 int parameterCount = method.getParameterCount();
 
-                System.out.println(name);
-
                 if (name.equalsIgnoreCase(methodName) && parameterCount == 1) {
                     method.setAccessible(true);
                     method.invoke(object, finalValue);

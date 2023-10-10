@@ -18,10 +18,10 @@ import java.util.Arrays;
  * @version 1.0
  * @since 2023/10/7
  */
-public class NeruPractice extends JavaPlugin {
+public class Mochi extends JavaPlugin {
     @Getter
     @Setter
-    private static NeruPractice instance;
+    private static Mochi instance;
 
     @Getter
     @Setter

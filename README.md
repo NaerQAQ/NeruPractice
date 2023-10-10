@@ -1,10 +1,10 @@
-# Neru Practice
+# Mochi (Neru Practice)
 
 This project is a private project created for the Neru server, and it is still in development and not stable.
 
 ## Advantageous Design
 
-These are the standout design elements we believe make Neru Practice superior.
+These are the standout design elements we believe make Mochi superior.
 
 ### High-Performance Design
 

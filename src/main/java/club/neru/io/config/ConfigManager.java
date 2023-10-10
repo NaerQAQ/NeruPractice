@@ -1,6 +1,6 @@
 package club.neru.io.config;
 
-import club.neru.NeruPractice;
+import club.neru.Mochi;
 import club.neru.io.config.languages.LanguagesEnum;
 import club.neru.io.file.impl.YamlManager;
 import de.leonhard.storage.Yaml;
@@ -22,14 +22,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ConfigManager {
     private static final String LANGUAGE_PATH =
-            NeruPractice.getDataFolderAbsolutePath() + "/language";
+            Mochi.getDataFolderAbsolutePath() + "/language";
 
     /**
      * {@code config.yml} 配置文件实例。
      */
     @Getter
     private static final Yaml config = YamlManager.getInstance().get(
-            "config", NeruPractice.getDataFolderAbsolutePath(), true
+            "config", Mochi.getDataFolderAbsolutePath(), true
     );
 
     /**

@@ -1,6 +1,6 @@
 package club.neru.register;
 
-import club.neru.NeruPractice;
+import club.neru.Mochi;
 import club.neru.annotations.AnnotationProcessor;
 import club.neru.io.config.ConfigManager;
 import club.neru.register.annotations.AutoRegisterCommand;
@@ -50,7 +50,7 @@ public class RegisterManager {
      * @see AutoRegisterListener
      */
     private static void registerListener() {
-        NeruPractice neruPractice = NeruPractice.getInstance();
+        Mochi mochi = Mochi.getInstance();
         PluginManager pluginManager = Bukkit.getPluginManager();
         Set<Class<?>> classesWithAnnotation = AnnotationProcessor.getClassesWithAnnotation(AutoRegisterListener.class);
 
@@ -59,7 +59,7 @@ public class RegisterManager {
 
             try {
                 Listener listener = (Listener) aClass.getDeclaredConstructor().newInstance();
-                pluginManager.registerEvents(listener, neruPractice);
+                pluginManager.registerEvents(listener, mochi);
 
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.NORMAL,
@@ -85,7 +85,7 @@ public class RegisterManager {
      * @see AutoRegisterCommand
      */
     private static void registerCommand() {
-        CommandFramework commandFramework = NeruPractice.getCommandFramework();
+        CommandFramework commandFramework = Mochi.getCommandFramework();
         Set<Class<?>> classesWithAnnotation = AnnotationProcessor.getClassesWithAnnotation(AutoRegisterCommand.class);
 
         classesWithAnnotation.forEach(aClass -> {

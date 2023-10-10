@@ -19,8 +19,8 @@ import org.bukkit.entity.Player;
 @SuppressWarnings("unused")
 public class PracticeCommand {
     @Command(
-            name = "practice aaa",
-            aliases = {"prac", "neru", "nerupractice"},
+            name = "practice",
+            aliases = {"mochi", "prac", "neru", "nerupractice"},
             async = true,
             senderType = Command.SenderType.BOTH
     )
