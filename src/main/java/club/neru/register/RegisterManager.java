@@ -6,11 +6,13 @@ import club.neru.annotations.AutoRegisterCommand;
 import club.neru.annotations.AutoRegisterListener;
 import club.neru.annotations.AutoStartTimerTask;
 import club.neru.io.config.ConfigManager;
+import club.neru.serialization.interfaces.SerializableInterface;
 import club.neru.thread.Scheduler;
 import club.neru.thread.enums.SchedulerExecutionMode;
 import club.neru.thread.enums.SchedulerTypeEnum;
 import club.neru.utils.common.QuickUtils;
 import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
+import com.google.gson.Gson;
 import me.despical.commandframework.CommandFramework;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -30,11 +32,12 @@ public class RegisterManager {
     /**
      * 初始化。
      */
-    @SuppressWarnings("ResultOfMethodCallIgnored")
+    @SuppressWarnings({"ResultOfMethodCallIgnored", "unused"})
     public static void init() {
         ConfigManager.getConfig();
         ConfigManager.getEnLanguage();
         ConfigManager.getZhCnLanguage();
+        Gson gson = SerializableInterface.GSON;
 
         registerListener();
         registerCommand();

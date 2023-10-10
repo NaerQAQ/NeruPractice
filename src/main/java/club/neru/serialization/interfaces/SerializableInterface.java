@@ -23,6 +23,11 @@ import java.util.Set;
  */
 public interface SerializableInterface {
     /**
+     * 普通的 {@link Gson} 对象。
+     */
+    Gson NORMAL_GSON = new GsonBuilder().create();
+
+    /**
      * 配置好的 {@link Gson} 对象。
      */
     Gson GSON = getGson();
@@ -46,7 +51,16 @@ public interface SerializableInterface {
             try {
                 Object typeAdapter = aClass.getDeclaredConstructor().newInstance();
                 Class<?> typeClass = (Class<?>) aClass.getField("TYPE").get(null);
-                gsonBuilder.registerTypeAdapter(typeClass, typeAdapter);
+
+                /*
+                 * 在经历了一个小时的 "declares multiple JSON fields named c" 后发现
+                 *
+                 * registerTypeAdapter 只能处理指定的类型 不会涉及到该类型的子类或父类
+                 * registerTypeHierarchyAdapter 的不同之处在于，它会处理指定类型以及其所有的子类
+                 *
+                 * 之前一直用 registerTypeAdapter, ItemStack 无法序列化是因为没有 CraftItemStack 的适配器
+                 */
+                gsonBuilder.registerTypeHierarchyAdapter(typeClass, typeAdapter);
 
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.NORMAL,

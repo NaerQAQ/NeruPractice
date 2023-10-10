@@ -9,7 +9,7 @@ import org.bukkit.World;
 import java.lang.reflect.Type;
 
 /**
- * 类型适配器。
+ * {@link Location} 类型适配器。
  *
  * @author NaerQAQ
  * @version 1.0
