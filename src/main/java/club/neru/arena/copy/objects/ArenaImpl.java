@@ -56,4 +56,13 @@ public class ArenaImpl implements ArenaInterface, SerializableInterface {
     public ArenaParent toArenaParent() {
         return (ArenaParent) this;
     }
+
+    /**
+     * 转换为 {@link ArenaChild} 对象。
+     *
+     * @return {@link ArenaChild}
+     */
+    public ArenaChild toArenaChild() {
+        return (ArenaChild) this;
+    }
 }

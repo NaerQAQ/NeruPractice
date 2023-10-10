@@ -21,7 +21,7 @@ import lombok.experimental.Accessors;
 import org.bukkit.Bukkit;
 
 /**
- * 竞技场复制数据对象。
+ * 竞技场复制处理程序。
  *
  * <p>
  * 使用示例:
@@ -91,7 +91,7 @@ public class ArenaCopyHandler {
             return;
         }
 
-        Scheduler.builder()
+        new Scheduler()
                 .setSchedulerTypeEnum(SchedulerTypeEnum.RUN)
                 .setSchedulerExecutionMode(SchedulerExecutionMode.ASYNC)
                 .setRunnable(() -> {
@@ -120,7 +120,6 @@ public class ArenaCopyHandler {
                             "<time>", String.valueOf(System.currentTimeMillis() - start)
                     );
                 })
-                .build()
                 .run();
     }
 }

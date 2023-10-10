@@ -29,11 +29,6 @@ import java.util.Optional;
 @Accessors(chain = true)
 public class ArenaParent extends ArenaImpl implements ArenaParentInterface, SerializableInterface {
     /**
-     * 是否允许建筑。
-     */
-    private boolean canBuild = false;
-
-    /**
      * 最低死亡高度。
      */
     private int minDeathHeight = 0;
@@ -92,14 +87,7 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
      */
     public void write() {
         String arenaParentString = toJson();
-
-        JsonManager jsonManager = JsonManager.getInstance();
-
-        Json json = jsonManager.get(
-                getName(), ArenaHandler.ARENA_PARENT_PATH, false
-        );
-
-        json.set(ArenaHandler.ARENA_JSON_KEY, arenaParentString);
+        getArenaParentJson().set(ArenaHandler.ARENA_JSON_KEY, arenaParentString);
     }
 
     /**

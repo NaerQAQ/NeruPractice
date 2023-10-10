@@ -43,7 +43,7 @@ public class ArenaChild extends ArenaImpl implements ArenaChildInterface {
      * 重置该子竞技场。
      */
     public void reset() {
-        Scheduler.builder()
+        new Scheduler()
                 .setSchedulerTypeEnum(SchedulerTypeEnum.RUN)
                 .setSchedulerExecutionMode(SchedulerExecutionMode.ASYNC)
                 .setRunnable(() -> {
@@ -88,7 +88,6 @@ public class ArenaChild extends ArenaImpl implements ArenaChildInterface {
                             "<time>", String.valueOf(System.currentTimeMillis() - start)
                     );
                 })
-                .build()
                 .run();
     }
 }
