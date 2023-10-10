@@ -44,34 +44,15 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
     private int maxBuildHeight = 255;
 
     /**
-     * 写入母竞技场。
-     *
-     * <p>
-     * 该操作为覆盖性操作，即无论是否存在，均直接写入。
-     * </p>
-     */
-    public void write() {
-        String arenaParentString = toJson();
-
-        JsonManager jsonManager = JsonManager.getInstance();
-
-        Json json = jsonManager.get(
-                getName(), ArenaHandler.ARENA_PARENT_PATH, false
-        );
-
-        json.set(ArenaHandler.ARENA_JSON_KEY, arenaParentString);
-    }
-
-    /**
      * 指令设置方法。
      *
      * <p>
      * 该方法主要用于指令的处理，传入竞技场名，方法名和值，通过反射直接调用对应方法。
      * </p>
      *
-     * @param arenaName 竞技场名
+     * @param arenaName  竞技场名
      * @param methodName 方法名 (忽略大小写)
-     * @param value 值
+     * @param value      值
      * @return 是否成功调用
      */
     public static boolean commandSet(String arenaName, String methodName, Object value) {
@@ -100,6 +81,25 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
                     }
                 })
                 .orElse(false);
+    }
+
+    /**
+     * 写入母竞技场。
+     *
+     * <p>
+     * 该操作为覆盖性操作，即无论是否存在，均直接写入。
+     * </p>
+     */
+    public void write() {
+        String arenaParentString = toJson();
+
+        JsonManager jsonManager = JsonManager.getInstance();
+
+        Json json = jsonManager.get(
+                getName(), ArenaHandler.ARENA_PARENT_PATH, false
+        );
+
+        json.set(ArenaHandler.ARENA_JSON_KEY, arenaParentString);
     }
 
     /**

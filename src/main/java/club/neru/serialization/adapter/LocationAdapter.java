@@ -29,7 +29,7 @@ public class LocationAdapter implements JsonSerializer<Location>, JsonDeserializ
      * @param location                 {@link Location}
      * @param type                     序列化的目标类型
      * @param jsonSerializationContext 用于序列化的上下文环境
-     * @return                         {@link JsonElement}
+     * @return {@link JsonElement}
      */
     @Override
     public JsonElement serialize(Location location, Type type, JsonSerializationContext jsonSerializationContext) {
@@ -52,11 +52,11 @@ public class LocationAdapter implements JsonSerializer<Location>, JsonDeserializ
     /**
      * 将 {@link JsonElement} 对象反序列化为 {@link Location} 对象。
      *
-     * @param jsonElement                   {@link JsonElement}
-     * @param type                          反序列化的目标类型
-     * @param jsonDeserializationContext    用于反序列化的上下文环境
-     * @return                              {@link Location}
-     * @throws JsonParseException           如果反序列化失败则抛出此异常
+     * @param jsonElement                {@link JsonElement}
+     * @param type                       反序列化的目标类型
+     * @param jsonDeserializationContext 用于反序列化的上下文环境
+     * @return {@link Location}
+     * @throws JsonParseException 如果反序列化失败则抛出此异常
      */
     @Override
     public Location deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
