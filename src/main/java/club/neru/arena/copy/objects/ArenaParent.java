@@ -13,6 +13,10 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.bukkit.Location;
 
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Optional;
+
 /**
  * 母竞技场对象。
  *
@@ -56,6 +60,46 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
         );
 
         json.set(ArenaHandler.ARENA_JSON_KEY, arenaParentString);
+    }
+
+    /**
+     * 指令设置方法。
+     *
+     * <p>
+     * 该方法主要用于指令的处理，传入竞技场名，方法名和值，通过反射直接调用对应方法。
+     * </p>
+     *
+     * @param arenaName 竞技场名
+     * @param methodName 方法名 (忽略大小写)
+     * @param value 值
+     * @return 是否成功调用
+     */
+    public static boolean commandSet(String arenaName, String methodName, Object value) {
+        return Optional.ofNullable(ArenaParentInterface.getArenaParent(arenaName))
+                .map(arenaParent -> {
+                    try {
+                        Class<? extends ArenaParent> arenaParentClass = arenaParent.getClass();
+                        Method[] methods = arenaParentClass.getMethods();
+
+                        Method invokeMethod = Arrays.stream(methods)
+                                .filter(method -> method.getName().equalsIgnoreCase(methodName))
+                                .filter(method -> method.getParameterCount() == 1)
+                                .findFirst()
+                                .orElse(null);
+
+                        if (invokeMethod == null) {
+                            return false;
+                        }
+
+                        invokeMethod.invoke(arenaParent, value);
+                        arenaParent.write();
+
+                        return true;
+                    } catch (Exception ignore) {
+                        return false;
+                    }
+                })
+                .orElse(false);
     }
 
     /**
@@ -122,13 +166,13 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
             Location newSecondSpawnLocation = getSecondSpawnLocation().clone().add(bukkitOffsetVector);
             Location newSpectatorSpawnLocation = getSpectatorSpawnLocation().clone().add(bukkitOffsetVector);
 
-            ArenaImpl arenaChild = new ArenaChild();
-//                    .setName(newName)
-//                    .setLowestLocation(newLowestLocation)
-//                    .setHighestLocation(newHighestLocation)
-//                    .setFirstSpawnLocation(newFirstSpawnLocation)
-//                    .setSecondSpawnLocation(newSecondSpawnLocation)
-//                    .setSpectatorSpawnLocation(newSpectatorSpawnLocation);
+            ArenaImpl arenaChild = new ArenaChild()
+                    .setName(newName)
+                    .setLowestLocation(newLowestLocation)
+                    .setHighestLocation(newHighestLocation)
+                    .setFirstSpawnLocation(newFirstSpawnLocation)
+                    .setSecondSpawnLocation(newSecondSpawnLocation)
+                    .setSpectatorSpawnLocation(newSpectatorSpawnLocation);
 
             // 写入
             Json json = jsonManager.get(

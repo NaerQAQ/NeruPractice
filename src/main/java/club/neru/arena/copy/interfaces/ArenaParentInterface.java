@@ -21,6 +21,19 @@ import java.util.stream.Collectors;
  */
 public interface ArenaParentInterface extends ArenaInterface {
     /**
+     * 获取母竞技场对象。
+     *
+     * @param arenaName 母竞技场名
+     * @return 母竞技场对象，如果没有则返回 {@code null}
+     */
+    static ArenaParent getArenaParent(String arenaName) {
+        return getArenaParents().stream()
+                .filter(arenaParent -> arenaParent.getName().equals(arenaName))
+                .findFirst()
+                .orElse(null);
+    }
+
+    /**
      * 获取所有母竞技场对象。
      *
      * <p>
