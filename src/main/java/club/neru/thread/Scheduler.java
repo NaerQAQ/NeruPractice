@@ -3,7 +3,9 @@ package club.neru.thread;
 import club.neru.NeruPractice;
 import club.neru.thread.enums.SchedulerExecutionMode;
 import club.neru.thread.enums.SchedulerTypeEnum;
-import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
@@ -13,7 +15,9 @@ import org.bukkit.scheduler.BukkitRunnable;
  * @version 1.0
  * @since 2023/10/9
  */
-@Builder(setterPrefix = "set")
+@Setter
+@Getter
+@Accessors(chain = true)
 public class Scheduler {
     /**
      * {@link Runnable} 对象。
