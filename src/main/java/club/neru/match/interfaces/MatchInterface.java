@@ -1,6 +1,7 @@
 package club.neru.match.interfaces;
 
 import club.neru.arena.copy.objects.ArenaChild;
+import club.neru.kit.objects.Kit;
 import club.neru.match.objects.MatchPlayerData;
 import club.neru.thread.Scheduler;
 import club.neru.thread.enums.SchedulerExecutionMode;
@@ -27,11 +28,18 @@ public interface MatchInterface {
     String getMatchUUID();
 
     /**
-     * 获取本场比赛的子地图。
+     * 获取本场比赛的 {@link ArenaChild} 对象。
      *
      * @return {@link ArenaChild}
      */
     ArenaChild getArenaChild();
+
+    /**
+     * 获取本场比赛的 {@link Kit} 对象。
+     *
+     * @return {@link Kit}
+     */
+    Kit getKit();
 
     /**
      * 开始比赛。
@@ -42,14 +50,13 @@ public interface MatchInterface {
      * </p>
      */
     default void start() {
-        Scheduler.builder()
+        new Scheduler()
                 .setSchedulerTypeEnum(SchedulerTypeEnum.RUN)
                 .setSchedulerExecutionMode(SchedulerExecutionMode.ASYNC)
                 .setRunnable(this::init)
-                .build()
                 .run();
 
-        Scheduler.builder()
+        new Scheduler()
                 .setSchedulerTypeEnum(SchedulerTypeEnum.TIMER)
                 .setSchedulerExecutionMode(SchedulerExecutionMode.ASYNC)
                 .setDelay(0)
@@ -63,7 +70,6 @@ public interface MatchInterface {
                         }
                     }
                 })
-                .build()
                 .run();
     }
 
