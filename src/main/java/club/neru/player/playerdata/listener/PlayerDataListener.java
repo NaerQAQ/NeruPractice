@@ -33,11 +33,10 @@ public class PlayerDataListener implements Listener {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
 
-        Scheduler.builder()
+        new Scheduler()
                 .setSchedulerTypeEnum(SchedulerTypeEnum.RUN)
                 .setSchedulerExecutionMode(SchedulerExecutionMode.ASYNC)
                 .setRunnable(() -> PlayerDataHandler.get(uuid))
-                .build()
                 .run();
     }
 
@@ -51,11 +50,10 @@ public class PlayerDataListener implements Listener {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
 
-        Scheduler.builder()
+        new Scheduler()
                 .setSchedulerTypeEnum(SchedulerTypeEnum.RUN)
                 .setSchedulerExecutionMode(SchedulerExecutionMode.ASYNC)
                 .setRunnable(() -> PlayerDataHandler.remove(uuid))
-                .build()
                 .run();
     }
 }

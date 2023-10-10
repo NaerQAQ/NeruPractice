@@ -132,13 +132,12 @@ public class RegisterManager {
                 int period = annotation.period();
                 SchedulerExecutionMode schedulerExecutionMode = annotation.schedulerExecutionMode();
 
-                Scheduler.builder()
+                new Scheduler()
                         .setSchedulerTypeEnum(SchedulerTypeEnum.TIMER)
                         .setSchedulerExecutionMode(schedulerExecutionMode)
                         .setDelay(delay)
                         .setPeriod(period)
                         .setBukkitRunnable(bukkitRunnable)
-                        .build()
                         .run();
 
                 QuickUtils.sendMessage(

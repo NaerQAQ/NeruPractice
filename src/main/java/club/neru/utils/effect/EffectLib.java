@@ -36,7 +36,7 @@ public class EffectLib {
     public void playCrystalEffect(Location location, int delay) {
         World world = location.getWorld();
 
-        Scheduler.builder()
+        new Scheduler()
                 .setSchedulerTypeEnum(SchedulerTypeEnum.TIMER)
                 .setSchedulerExecutionMode(SchedulerExecutionMode.ASYNC)
                 .setDelay(delay)
@@ -64,7 +64,6 @@ public class EffectLib {
                         }
                     }
                 })
-                .build()
                 .run();
     }
 
@@ -85,7 +84,7 @@ public class EffectLib {
     public void createAuroraEffect(Location location, Effect effect) {
         World world = location.getWorld();
 
-        Scheduler.builder()
+        new Scheduler()
                 .setSchedulerTypeEnum(SchedulerTypeEnum.TIMER)
                 .setSchedulerExecutionMode(SchedulerExecutionMode.ASYNC)
                 .setDelay(10)
@@ -110,7 +109,6 @@ public class EffectLib {
                         }
                     }
                 })
-                .build()
                 .run();
     }
 
