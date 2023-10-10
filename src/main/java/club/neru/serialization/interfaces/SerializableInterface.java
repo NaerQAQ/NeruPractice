@@ -1,7 +1,7 @@
 package club.neru.serialization.interfaces;
 
 import club.neru.annotations.AnnotationProcessor;
-import club.neru.annotations.AutoRegisterTypeAdapter;
+import club.neru.register.annotations.AutoRegisterTypeAdapter;
 import club.neru.utils.common.QuickUtils;
 import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
 import com.google.gson.Gson;

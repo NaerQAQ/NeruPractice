@@ -1,4 +1,4 @@
-package club.neru.annotations;
+package club.neru.register.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

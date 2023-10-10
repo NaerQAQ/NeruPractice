@@ -1,6 +1,6 @@
 package club.neru.serialization.adapter;
 
-import club.neru.annotations.AutoRegisterTypeAdapter;
+import club.neru.register.annotations.AutoRegisterTypeAdapter;
 import club.neru.serialization.interfaces.SerializableInterface;
 import com.google.gson.*;
 import lombok.Cleanup;

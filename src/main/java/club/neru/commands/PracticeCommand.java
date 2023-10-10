@@ -1,6 +1,6 @@
 package club.neru.commands;
 
-import club.neru.annotations.AutoRegisterCommand;
+import club.neru.register.annotations.AutoRegisterCommand;
 import club.neru.utils.common.QuickUtils;
 import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
 import me.despical.commandframework.Command;

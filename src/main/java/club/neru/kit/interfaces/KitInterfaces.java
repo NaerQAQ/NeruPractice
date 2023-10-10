@@ -6,6 +6,7 @@ import club.neru.io.file.utils.JsonFileProcessor;
 import club.neru.kit.KitHandler;
 import club.neru.kit.objects.Kit;
 import de.leonhard.storage.Json;
+import org.bukkit.Material;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -81,6 +82,13 @@ public interface KitInterfaces {
      * @return 此装备包可用的竞技场名称
      */
     ConcurrentLinkedQueue<String> getAvailableArenaNames();
+
+    /**
+     * 此装备包玩家可破坏的竞技场方块类型。
+     *
+     * @return 此装备包玩家可破坏的竞技场方块类型
+     */
+    ConcurrentLinkedQueue<Material> getDestroyableArenaBlocks();
 
     /**
      * 获取该装备包的 {@link Json} 对象。

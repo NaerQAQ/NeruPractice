@@ -1,6 +1,6 @@
 package club.neru.commands;
 
-import club.neru.annotations.AutoRegisterCommand;
+import club.neru.register.annotations.AutoRegisterCommand;
 import me.despical.commandframework.Command;
 import me.despical.commandframework.CommandArguments;
 

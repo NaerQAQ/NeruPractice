@@ -1,4 +1,4 @@
-package club.neru.annotations;
+package club.neru.thread.annotations;
 
 import club.neru.thread.enums.SchedulerExecutionMode;
 

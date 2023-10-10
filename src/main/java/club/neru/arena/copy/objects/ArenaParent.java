@@ -4,6 +4,7 @@ import club.neru.arena.ArenaHandler;
 import club.neru.arena.copy.ArenaCopyHandler;
 import club.neru.arena.copy.interfaces.ArenaParentInterface;
 import club.neru.arena.copy.utils.WorldEditVectorUtils;
+import club.neru.basic.interfaces.ReflectCommandInterface;
 import club.neru.io.file.impl.JsonManager;
 import club.neru.serialization.interfaces.SerializableInterface;
 import com.sk89q.worldedit.Vector;
@@ -12,10 +13,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.bukkit.Location;
-
-import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Optional;
 
 /**
  * 母竞技场对象。
@@ -27,7 +24,7 @@ import java.util.Optional;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class ArenaParent extends ArenaImpl implements ArenaParentInterface, SerializableInterface {
+public class ArenaParent extends ArenaImpl implements ArenaParentInterface, SerializableInterface, ReflectCommandInterface {
     /**
      * 最低死亡高度。
      */
@@ -39,52 +36,13 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
     private int maxBuildHeight = 255;
 
     /**
-     * 指令设置方法。
-     *
-     * <p>
-     * 该方法主要用于指令的处理，传入竞技场名，方法名和值，通过反射直接调用对应方法。
-     * </p>
-     *
-     * @param arenaName  竞技场名
-     * @param methodName 方法名 (忽略大小写)
-     * @param value      值
-     * @return 是否成功调用
-     */
-    public static boolean commandSet(String arenaName, String methodName, Object value) {
-        return Optional.ofNullable(ArenaParentInterface.getArenaParent(arenaName))
-                .map(arenaParent -> {
-                    try {
-                        Class<? extends ArenaParent> arenaParentClass = arenaParent.getClass();
-                        Method[] methods = arenaParentClass.getMethods();
-
-                        Method invokeMethod = Arrays.stream(methods)
-                                .filter(method -> method.getName().equalsIgnoreCase(methodName))
-                                .filter(method -> method.getParameterCount() == 1)
-                                .findFirst()
-                                .orElse(null);
-
-                        if (invokeMethod == null) {
-                            return false;
-                        }
-
-                        invokeMethod.invoke(arenaParent, value);
-                        arenaParent.write();
-
-                        return true;
-                    } catch (Exception ignore) {
-                        return false;
-                    }
-                })
-                .orElse(false);
-    }
-
-    /**
      * 写入母竞技场。
      *
      * <p>
      * 该操作为覆盖性操作，即无论是否存在，均直接写入。
      * </p>
      */
+    @Override
     public void write() {
         String arenaParentString = toJson();
         getArenaParentJson().set(ArenaHandler.ARENA_JSON_KEY, arenaParentString);

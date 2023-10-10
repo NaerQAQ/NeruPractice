@@ -2,9 +2,9 @@ package club.neru.register;
 
 import club.neru.NeruPractice;
 import club.neru.annotations.AnnotationProcessor;
-import club.neru.annotations.AutoRegisterCommand;
-import club.neru.annotations.AutoRegisterListener;
-import club.neru.annotations.AutoStartTimerTask;
+import club.neru.register.annotations.AutoRegisterCommand;
+import club.neru.register.annotations.AutoRegisterListener;
+import club.neru.thread.annotations.AutoStartTimerTask;
 import club.neru.io.config.ConfigManager;
 import club.neru.serialization.interfaces.SerializableInterface;
 import club.neru.thread.Scheduler;

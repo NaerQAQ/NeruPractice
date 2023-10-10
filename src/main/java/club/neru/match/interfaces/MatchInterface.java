@@ -6,11 +6,13 @@ import club.neru.match.objects.MatchPlayerData;
 import club.neru.thread.Scheduler;
 import club.neru.thread.enums.SchedulerExecutionMode;
 import club.neru.thread.enums.SchedulerTypeEnum;
+import org.bukkit.block.Block;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * 比赛接口。
@@ -40,6 +42,13 @@ public interface MatchInterface {
      * @return {@link Kit}
      */
     Kit getKit();
+
+    /**
+     * 获取玩家放置的方块。
+     *
+     * @return 玩家放置的方块
+     */
+    ConcurrentLinkedQueue<Block> getPlacedBlocks();
 
     /**
      * 开始比赛。

@@ -1,6 +1,6 @@
 package club.neru.serialization.adapter;
 
-import club.neru.annotations.AutoRegisterTypeAdapter;
+import club.neru.register.annotations.AutoRegisterTypeAdapter;
 import com.google.gson.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

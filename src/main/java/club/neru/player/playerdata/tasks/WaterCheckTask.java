@@ -1,6 +1,6 @@
 package club.neru.player.playerdata.tasks;
 
-import club.neru.annotations.AutoStartTimerTask;
+import club.neru.thread.annotations.AutoStartTimerTask;
 import club.neru.player.playerdata.PlayerDataHandler;
 import club.neru.player.playerdata.objects.nonpersistent.PlayerData;
 import org.bukkit.Bukkit;
