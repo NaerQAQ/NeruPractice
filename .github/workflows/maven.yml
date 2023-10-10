@@ -26,8 +26,8 @@ jobs:
         java-version: '8'
         distribution: 'temurin'
     - run: mvn --batch-mode --update-snapshots verify
-    - run: mkdir staging && cp target/*.jar staging
+    - run: mkdir build && cp target/*.jar build
     - uses: actions/upload-artifact@v3
       with:
-        name: Package
-        path: staging
+        name: Artifact
+        path: build
