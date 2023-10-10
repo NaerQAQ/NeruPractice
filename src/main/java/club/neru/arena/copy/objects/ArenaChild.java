@@ -2,6 +2,7 @@ package club.neru.arena.copy.objects;
 
 import club.neru.arena.copy.enums.ArenaState;
 import club.neru.arena.copy.interfaces.ArenaChildInterface;
+import club.neru.arena.copy.interfaces.ArenaParentInterface;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -17,12 +18,39 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 public class ArenaChild extends ArenaImpl implements ArenaChildInterface {
+    /**
+     * 竞技场状态。
+     */
     private ArenaState arenaState;
 
+    /**
+     * 获取母竞技场。
+     *
+     * @return 母竞技场对象
+     */
     @Override
+    public ArenaParent getArenaParent() {
+        return ArenaParentInterface.getArenaParent(getArenaParentName());
+    }
+
+    /**
+     * 清空该子竞技场。
+     */
+    @Override
+    public void clean() {
+        super.clean();
+    }
+
+    /**
+     * 重置该子竞技场。
+     */
     public void reset() {
         setArenaState(ArenaState.RESETTING);
-        super.reset();
+
+        clean();
+        getArenaParent()
+                .copy(getArenaParentNumber());
+
         setArenaState(ArenaState.AVAILABLE);
     }
 }

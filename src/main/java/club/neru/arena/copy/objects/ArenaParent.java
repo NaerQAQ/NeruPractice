@@ -58,7 +58,7 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
      * @param ignore 无意义
      */
     public void delete(boolean ignore) {
-        reset();
+        clean();
         deleteCopy(true);
 
         // noinspection ResultOfMethodCallIgnored
@@ -74,7 +74,7 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
         JsonManager jsonManager = JsonManager.getInstance();
 
         for (ArenaChild arenaChild : getArenaChildren()) {
-            arenaChild.reset();
+            arenaChild.clean();
 
             Json json = jsonManager.get(
                     arenaChild.getName(), getArenaChildPath(), false
@@ -103,7 +103,7 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
     public void copy(int amount) {
         amount++;
 
-        int count = 0;
+        int count = -1;
 
         String arenaName = getName();
 

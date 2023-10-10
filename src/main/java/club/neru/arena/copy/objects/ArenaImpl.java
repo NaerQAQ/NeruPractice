@@ -85,7 +85,7 @@ public class ArenaImpl implements ArenaInterface, SerializableInterface {
     /**
      * 重置该竞技场。
      */
-    public void reset() {
+    public void clean() {
         new Scheduler()
                 .setSchedulerTypeEnum(SchedulerTypeEnum.RUN)
                 .setSchedulerExecutionMode(SchedulerExecutionMode.ASYNC)
