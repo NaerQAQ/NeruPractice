@@ -27,7 +27,7 @@ arena-command-help:
   - "&7▪ &bCopy &7(name) &a(int) &f- Makes more copies of the arena."
   - "&7▪ &bdeleteCopy &7(name) &a<boolean_true> &f- Deletes all copies of an arena."
   - " "
-  - "&cReminder: &fMake sure to delete all copies of an arena if you want to make changes to it's coordinates. When entering commands make sure to include and Angle Brackets. &7Ie. <boolean_???> <object_???>&f."
+  - "&cReminder: &fMake sure to delete all copies of an arena if you want to make changes to it's coordinates. When entering commands make sure to include the Angle Brackets. &7Ie. <boolean_???> <object_???>&f."
   - " "
 
 arena-command-done:
