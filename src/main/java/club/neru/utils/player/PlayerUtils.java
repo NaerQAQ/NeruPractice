@@ -109,7 +109,7 @@ public class PlayerUtils {
      * 确保该方法运行在玩家运动过程中。
      * </p>
      *
-     * @param player 玩家
+     * @param player 玩家对象
      * @return 下一步动作是否撞墙
      */
     public static boolean isNextToWall(Player player) {

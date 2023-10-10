@@ -29,7 +29,7 @@ public class PracticeCommand {
 
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            QuickUtils.sendMessageByKeys(player, "practice");
+            QuickUtils.sendMessageByKey(player, "practice");
             return;
         }
 

@@ -49,6 +49,43 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
     }
 
     /**
+     * 删除该母竞技场。
+     *
+     * <p>
+     * 该操作将顺带删除所有子竞技场。
+     * </p>
+     *
+     * @param ignore 无意义
+     */
+    public void delete(boolean ignore) {
+        reset();
+        deleteCopy(true);
+
+        // noinspection ResultOfMethodCallIgnored
+        getArenaParentJson().getFile().delete();
+    }
+
+    /**
+     * 删除所有子竞技场。
+     *
+     * @param ignore 无意义
+     */
+    public void deleteCopy(boolean ignore) {
+        JsonManager jsonManager = JsonManager.getInstance();
+
+        for (ArenaChild arenaChild : getArenaChildren()) {
+            arenaChild.reset();
+
+            Json json = jsonManager.get(
+                    arenaChild.getName(), getArenaChildPath(), false
+            );
+
+            // noinspection ResultOfMethodCallIgnored
+            json.getFile().delete();
+        }
+    }
+
+    /**
      * 复制竞技场。
      *
      * <p>
@@ -64,15 +101,13 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
      * </p>
      */
     public void copy(int amount) {
-        amount++;
-
         String arenaName = getName();
 
         // 已有子竞技场数量，+2 是因为从 0 计数，且在 for 内跳过第一位，因为第一位为已经复制
         int arenaChildrenCount = getArenaChildren().size() + 2;
 
         // 复制完后应有的子竞技场数量
-        int finalArenaChildrenCount = arenaChildrenCount + amount;
+        int finalArenaChildrenCount = arenaChildrenCount + amount - 1;
 
         Location lowestLocation = getLowestLocation();
         Location highestLocation = getHighestLocation();
@@ -88,6 +123,9 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
             // z 偏移量与这是第几个子竞技场挂钩
             int offsetZ = i * 100;
 
+            // 10 ticks 复制间隔
+            int delay = i * 10;
+
             Vector offsetVector = new Vector(
                     0, 0, offsetZ
             );
@@ -101,6 +139,7 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
                     .setHighest(highestVector)
                     .setOffset(offsetVector)
                     .setWorldName(worldName)
+                    .setDelay(delay)
                     .copy();
 
             String newName = arenaName + "#" + i;

@@ -2,26 +2,9 @@ package club.neru.arena.copy.objects;
 
 import club.neru.arena.copy.enums.ArenaState;
 import club.neru.arena.copy.interfaces.ArenaChildInterface;
-import club.neru.arena.copy.utils.WorldEditVectorUtils;
-import club.neru.thread.Scheduler;
-import club.neru.thread.enums.SchedulerExecutionMode;
-import club.neru.thread.enums.SchedulerTypeEnum;
-import club.neru.utils.common.QuickUtils;
-import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
-import com.sk89q.worldedit.EditSession;
-import com.sk89q.worldedit.EditSessionFactory;
-import com.sk89q.worldedit.Vector;
-import com.sk89q.worldedit.WorldEdit;
-import com.sk89q.worldedit.blocks.BaseBlock;
-import com.sk89q.worldedit.bukkit.BukkitWorld;
-import com.sk89q.worldedit.regions.CuboidRegion;
-import com.sk89q.worldedit.regions.Region;
-import com.sk89q.worldedit.world.World;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.bukkit.Location;
-import org.bukkit.Material;
 
 /**
  * 子竞技场对象。
@@ -34,60 +17,12 @@ import org.bukkit.Material;
 @Setter
 @Accessors(chain = true)
 public class ArenaChild extends ArenaImpl implements ArenaChildInterface {
-    /**
-     * 竞技场状态。
-     */
     private ArenaState arenaState;
 
-    /**
-     * 重置该子竞技场。
-     */
+    @Override
     public void reset() {
-        new Scheduler()
-                .setSchedulerTypeEnum(SchedulerTypeEnum.RUN)
-                .setSchedulerExecutionMode(SchedulerExecutionMode.ASYNC)
-                .setRunnable(() -> {
-                    long start = System.currentTimeMillis();
-
-                    setArenaState(ArenaState.RESETTING);
-
-                    Location lowestLocation = getLowestLocation();
-                    Location highestLocation = getHighestLocation();
-
-                    World world = new BukkitWorld(
-                            lowestLocation.getWorld()
-                    );
-
-                    Vector lowest = WorldEditVectorUtils.locationToVector(
-                            lowestLocation
-                    );
-
-                    Vector highest = WorldEditVectorUtils.locationToVector(
-                            highestLocation
-                    );
-
-                    Region region = new CuboidRegion(
-                            lowest,
-                            highest
-                    );
-
-                    @SuppressWarnings("deprecation")
-                    BaseBlock air = new BaseBlock(Material.AIR.getId());
-
-                    EditSessionFactory editSessionFactory = WorldEdit.getInstance().getEditSessionFactory();
-                    EditSession editSession = editSessionFactory.getEditSession(world, Integer.MAX_VALUE);
-
-                    editSession.setBlocks(region, air);
-
-                    setArenaState(ArenaState.AVAILABLE);
-
-                    QuickUtils.sendMessage(
-                            ConsoleMessageTypeEnum.DEBUG,
-                            "Reset completed, arena name: <arena_name>, time taken: <time>ms.",
-                            "<arena_name>", getName(),
-                            "<time>", String.valueOf(System.currentTimeMillis() - start)
-                    );
-                })
-                .run();
+        setArenaState(ArenaState.RESETTING);
+        super.reset();
+        setArenaState(ArenaState.AVAILABLE);
     }
 }

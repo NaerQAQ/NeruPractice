@@ -64,10 +64,20 @@ public class ArenaCopyHandler {
     private String worldName;
 
     /**
+     * 延迟多久进行复制。
+     */
+    private int delay;
+
+    /**
      * 计算偏移后正确的放置坐标。
+     *
+     * <p>
+     * 这实在是太诡异了，在第一次测试中需要偏移，但生产环境中不需要偏移就可以正常工作。
+     * </p>
      *
      * @return 正确的放置坐标
      */
+    @Deprecated
     public Vector getFinalCopyVector() {
         int lowestX = lowest.getBlockX();
         int highestX = highest.getBlockX();
@@ -92,8 +102,9 @@ public class ArenaCopyHandler {
         }
 
         new Scheduler()
-                .setSchedulerTypeEnum(SchedulerTypeEnum.RUN)
+                .setSchedulerTypeEnum(SchedulerTypeEnum.LATER)
                 .setSchedulerExecutionMode(SchedulerExecutionMode.ASYNC)
+                .setDelay(delay)
                 .setRunnable(() -> {
                     long start = System.currentTimeMillis();
 
@@ -112,7 +123,7 @@ public class ArenaCopyHandler {
                     BlockArrayClipboard blockArrayClipboard = editSession.lazyCopy(region);
                     Schematic schematic = new Schematic(blockArrayClipboard);
 
-                    schematic.paste(world, getFinalCopyVector());
+                    schematic.paste(world, lowest.add(offset));
 
                     QuickUtils.sendMessage(
                             ConsoleMessageTypeEnum.DEBUG,

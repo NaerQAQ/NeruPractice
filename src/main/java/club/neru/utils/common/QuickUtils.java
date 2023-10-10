@@ -94,7 +94,7 @@ public class QuickUtils {
      * @param params 替换的可选参数
      * @author 2000000
      */
-    public static void sendMessageByKeys(Player player, String key, String... params) {
+    public static void sendMessageByKey(Player player, String key, String... params) {
         UUID uuid = player.getUniqueId();
 
         PlayerData playerData = PlayerDataHandler.get(uuid);

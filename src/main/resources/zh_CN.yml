@@ -3,3 +3,28 @@ practice:
   - "&3Neru Practice"
   - "&3由 NaerQAQ, L1ncey, 与 QwQTsuki 为 Neru 服务器所开发。"
   - " "
+
+arena-command-help:
+  - " "
+  - "&3&lArena - "
+  - "&3        create <竞技场名称> - 创建一个新的竞技场"
+  - "&3        delete <竞技场名称> <boolean_true> - 删除此竞技场"
+  - "&3        setLowestLocation <竞技场名称> <object_block_location> - 设置最低点"
+  - "&3        setHighestLocation <竞技场名称> <object_block_location> - 设置最高点"
+  - "&3        setFirstSpawnLocation <竞技场名称> <object_block_location> - 设置第一出生点"
+  - "&3        setSecondSpawnLocation <竞技场名称> <object_block_location> - 设置第二出生点"
+  - "&3        setSpectatorSpawnLocation <竞技场名称> <object_block_location> - 设置观战玩家出生点"
+  - "&3        setMinDeathHeight <竞技场名称> <整数> - 设置最低死亡高度 (即到达此高度必死)"
+  - "&3        setMaxBuildHeight <竞技场名称> <整数> - 设置最高建筑高度"
+  - "&3        copy <竞技场名称> <数量> - 复制子竞技场"
+  - "&3        deleteCopy <竞技场名称> <boolean_true> - 删除所有子竞技场"
+  - " "
+  - "&c注意: 在更改已有竞技场坐标之前，请先删除所有子竞技场"
+  - "&c格式: 所有 <boolean_???> <object_???> 均非变量，而是固定字符串，直接照抄"
+  - " "
+
+arena-command-done:
+  - "&a执行完毕! 执行结果: <result>."
+
+arena-create-done:
+  - "&a创建完成!"

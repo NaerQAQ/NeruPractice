@@ -1,7 +1,7 @@
 package club.neru.player.playerdata.listener;
 
-import club.neru.register.annotations.AutoRegisterListener;
 import club.neru.player.playerdata.PlayerDataHandler;
+import club.neru.register.annotations.AutoRegisterListener;
 import club.neru.thread.Scheduler;
 import club.neru.thread.enums.SchedulerExecutionMode;
 import club.neru.thread.enums.SchedulerTypeEnum;
