@@ -47,4 +47,13 @@ public class ArenaImpl implements ArenaInterface, SerializableInterface {
      * 观战玩家出生坐标。
      */
     private Location spectatorSpawnLocation;
+
+    /**
+     * 转换为 {@link ArenaParent} 对象。
+     *
+     * @return {@link ArenaParent}
+     */
+    public ArenaParent toArenaParent() {
+        return (ArenaParent) this;
+    }
 }
