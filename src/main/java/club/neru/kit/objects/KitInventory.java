@@ -6,6 +6,9 @@ import club.neru.kit.KitHandler;
 import club.neru.kit.interfaces.KitInventoryInterface;
 import club.neru.serialization.interfaces.SerializableInterface;
 import club.neru.serialization.strategy.annotations.ExclusionField;
+import club.neru.thread.Scheduler;
+import club.neru.thread.enums.SchedulerExecutionMode;
+import club.neru.thread.enums.SchedulerTypeEnum;
 import de.leonhard.storage.Json;
 import lombok.Getter;
 import lombok.Setter;
@@ -92,21 +95,28 @@ public class KitInventory extends ObjectNameImpl implements SerializableInterfac
     public void apply(Player player) {
         PlayerInventory inventory = player.getInventory();
 
-        // 先清除
-        inventory.clear();
+        // 为了线程安全
+        new Scheduler()
+                .setSchedulerTypeEnum(SchedulerTypeEnum.RUN)
+                .setSchedulerExecutionMode(SchedulerExecutionMode.SYNC)
+                .setRunnable(() -> {
+                    // 先清除
+                    inventory.clear();
 
-        inventory.setContents(contents);
-        inventory.setArmorContents(armorContents);
-        inventory.setHeldItemSlot(heldItemSlot);
+                    inventory.setContents(contents);
+                    inventory.setArmorContents(armorContents);
+                    inventory.setHeldItemSlot(heldItemSlot);
 
-        player.setHealth(health);
-        player.setFoodLevel(foodLevel);
+                    player.setHealth(health);
+                    player.setFoodLevel(foodLevel);
 
-        // 清除药水效果
-        Collection<PotionEffect> activePotionEffects = player.getActivePotionEffects();
-        activePotionEffects.forEach(potionEffect -> player.removePotionEffect(potionEffect.getType()));
+                    // 清除药水效果
+                    Collection<PotionEffect> activePotionEffects = player.getActivePotionEffects();
+                    activePotionEffects.forEach(potionEffect -> player.removePotionEffect(potionEffect.getType()));
 
-        Arrays.stream(potionEffects).forEach(player::addPotionEffect);
+                    Arrays.stream(potionEffects).forEach(player::addPotionEffect);
+                })
+                .run();
     }
 
     /**

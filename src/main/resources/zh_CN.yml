@@ -7,6 +7,22 @@ practice:
   - "&8&m---------------------------------------"
   - " "
 
+access-service-data-null:
+  - "&c玩家进入服务数据为空，请设置! 指令: &c&l/AccessService&c."
+
+access-service-command-help:
+  - " "
+  - "&b进入服务 &7| &f所有指令："
+  - " "
+  - "&7▪ &bcommand setLocation &7<object_block_location> &f- 设置玩家进入坐标"
+  - "&7▪ &bcommand setKitInventoryName &a<装备包库存名> &f- 设置玩家进入时应用的装备包"
+  - " "
+  - "&c格式: 所有 <boolean_???> <object_???> 均非变量，而是固定字符串，直接照抄"
+  - " "
+
+access-service-command-done:
+  - "&a执行完毕! 执行结果: <result>."
+
 arena-command-help:
   - " "
   - "&b竞技场 &7| &f所有指令："

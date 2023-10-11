@@ -1,5 +1,7 @@
-package club.neru.player.playerdata.listener;
+package club.neru.player.accessservice.listener;
 
+import club.neru.player.accessservice.AccessServiceHandler;
+import club.neru.player.accessservice.data.AccessServiceData;
 import club.neru.player.playerdata.PlayerDataHandler;
 import club.neru.register.annotations.AutoRegisterListener;
 import club.neru.thread.Scheduler;
@@ -22,7 +24,7 @@ import java.util.UUID;
  * @since 2023/10/7
  */
 @AutoRegisterListener
-public class PlayerDataListener implements Listener {
+public class AccessServiceListener implements Listener {
     /**
      * 玩家进入游戏时的数据处理。
      *
@@ -36,7 +38,14 @@ public class PlayerDataListener implements Listener {
         new Scheduler()
                 .setSchedulerTypeEnum(SchedulerTypeEnum.RUN)
                 .setSchedulerExecutionMode(SchedulerExecutionMode.ASYNC)
-                .setRunnable(() -> PlayerDataHandler.get(uuid))
+                .setRunnable(() -> {
+                    PlayerDataHandler.get(uuid);
+
+                    AccessServiceData accessServiceData = AccessServiceHandler.getAccessServiceData();
+                    if (accessServiceData != null) {
+                        accessServiceData.apply(player);
+                    }
+                })
                 .run();
     }
 

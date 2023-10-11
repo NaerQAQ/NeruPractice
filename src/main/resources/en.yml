@@ -7,6 +7,22 @@ practice:
   - "&8&m---------------------------------------"
   - " "
 
+access-service-data-null:
+  - "&cPlayer access service data is empty. Please set it up! Command: &c&l/AccessService&c."
+
+access-service-command-help:
+  - " "
+  - "&bAccess Service &7| &fAll commands:"
+  - " "
+  - "&7▪ &bcommand setLocation &7<object_block_location> &f- Set the player's entry location"
+  - "&7▪ &bcommand setKitInventoryName &a<kit_inventory_name> &f- Set the equipment kit applied when player enters"
+  - " "
+  - "&cFormat: All <boolean_???> <object_???> are fixed strings, do not modify them."
+  - " "
+
+access-service-command-done:
+  - "&aOperarion Successful! Results: <result>."
+
 arena-command-help:
   - " "
   - "&bArena Guide &7| &fAvilable Commands:"
