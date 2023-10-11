@@ -32,21 +32,19 @@ import org.bukkit.entity.Player;
 @Accessors(chain = true)
 public class AccessServiceData implements SerializableInterface, JsonPersistableInterface, ReflectCommandInterface {
     /**
-     * 玩家进入时传送的坐标。
-     */
-    private Location location;
-
-    /**
-     * 玩家进入时加载的装备包库存名。
-     */
-    private String kitInventoryName;
-
-    /**
      * 序列化后 Json 字符串所在的键值。
      */
     @ExclusionField
     private final String jsonKey =
             AccessServiceHandler.ACCESS_SERVICE_DATA_JSON_KEY;
+    /**
+     * 玩家进入时传送的坐标。
+     */
+    private Location location;
+    /**
+     * 玩家进入时加载的装备包库存名。
+     */
+    private String kitInventoryName;
 
     /**
      * 应用到某位玩家。

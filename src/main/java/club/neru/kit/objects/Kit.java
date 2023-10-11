@@ -9,7 +9,6 @@ import club.neru.kit.KitHandler;
 import club.neru.kit.interfaces.KitInterfaces;
 import club.neru.serialization.interfaces.SerializableInterface;
 import club.neru.serialization.strategy.annotations.ExclusionField;
-import com.google.gson.annotations.Expose;
 import de.leonhard.storage.Json;
 import lombok.Getter;
 import lombok.Setter;
