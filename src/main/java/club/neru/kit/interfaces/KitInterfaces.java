@@ -82,4 +82,11 @@ public interface KitInterfaces extends ObjectNameInterface {
      * @return 此装备包玩家可破坏的竞技场方块类型
      */
     ConcurrentLinkedQueue<Material> getDestroyableArenaBlocks();
+
+    /**
+     * 获取对应装备包库存名称。
+     *
+     * @return 对应装备包库存名称
+     */
+    String getKitInventoryName();
 }

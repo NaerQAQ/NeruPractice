@@ -1,11 +1,14 @@
 package club.neru.basic.interfaces;
 
 import club.neru.io.file.interfaces.JsonPersistableInterface;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Method;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 反射指令接口。
@@ -88,12 +91,33 @@ public interface ReflectCommandInterface {
         if (value instanceof String) {
             String valueString = (String) value;
 
+            // 数字处理
             try {
-                finalValue = Integer.parseInt(valueString);
+                return Integer.parseInt(valueString);
             } catch (Exception exception) {
                 // ignore
             }
 
+            // 玩家匹配
+            Pattern pattern =
+                    Pattern.compile("<object_player_(.+?)>");
+            Matcher matcher = pattern.matcher(valueString);
+
+            if (matcher.find()) {
+                String playerName = matcher.group(1);
+
+                if (playerName.equalsIgnoreCase("me")) {
+                    return player;
+                }
+
+                Player targetPlayer = Bukkit.getPlayerExact(playerName);
+
+                if (targetPlayer != null) {
+                    return targetPlayer;
+                }
+            }
+
+            // 其余
             switch (valueString.toLowerCase()) {
                 case "<boolean_true>":
                     finalValue = true;

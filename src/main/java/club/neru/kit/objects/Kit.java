@@ -9,6 +9,7 @@ import club.neru.kit.KitHandler;
 import club.neru.kit.interfaces.KitInterfaces;
 import club.neru.serialization.interfaces.SerializableInterface;
 import club.neru.serialization.strategy.annotations.ExclusionField;
+import com.google.gson.annotations.Expose;
 import de.leonhard.storage.Json;
 import lombok.Getter;
 import lombok.Setter;
@@ -51,6 +52,11 @@ public class Kit extends ObjectNameImpl implements KitInterfaces, SerializableIn
      * 此装备包玩家可破坏的竞技场方块类型。
      */
     private ConcurrentLinkedQueue<Material> destroyableArenaBlocks;
+
+    /**
+     * 对应装备包库存名称，
+     */
+    private String kitInventoryName;
 
     /**
      * 添加此装备包可用的竞技场。

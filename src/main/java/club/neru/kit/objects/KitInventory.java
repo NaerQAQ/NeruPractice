@@ -70,11 +70,12 @@ public class KitInventory extends ObjectNameImpl implements SerializableInterfac
     private PotionEffect[] potionEffects;
 
     /**
-     * 构造器。
+     * 保存玩家库存到此对象。
      *
      * @param player 玩家对象
      */
-    public KitInventory(Player player) {
+    @SuppressWarnings("unused")
+    public KitInventory save(Player player) {
         PlayerInventory inventory = player.getInventory();
 
         setContents(inventory.getContents());
@@ -85,6 +86,8 @@ public class KitInventory extends ObjectNameImpl implements SerializableInterfac
         setFoodLevel(player.getFoodLevel());
 
         setPotionEffects(player.getActivePotionEffects().toArray(new PotionEffect[0]));
+
+        return this;
     }
 
     /**
@@ -115,8 +118,19 @@ public class KitInventory extends ObjectNameImpl implements SerializableInterfac
                     activePotionEffects.forEach(potionEffect -> player.removePotionEffect(potionEffect.getType()));
 
                     Arrays.stream(potionEffects).forEach(player::addPotionEffect);
+
+                    // 不更新会有物品栏没有正确加载的问题
+                    player.updateInventory();
                 })
                 .run();
+    }
+
+    /**
+     * 删除该装备包库存。
+     */
+    @SuppressWarnings({"ResultOfMethodCallIgnored", "unused"})
+    public void delete(boolean ignore) {
+        getJson().getFile().delete();
     }
 
     /**

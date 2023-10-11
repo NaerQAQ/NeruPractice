@@ -7,9 +7,11 @@ import club.neru.kit.interfaces.KitInventoryInterface;
 import club.neru.kit.objects.KitInventory;
 import club.neru.player.accessservice.AccessServiceHandler;
 import club.neru.serialization.interfaces.SerializableInterface;
+import club.neru.serialization.strategy.annotations.ExclusionField;
 import club.neru.thread.Scheduler;
 import club.neru.thread.enums.SchedulerExecutionMode;
 import club.neru.thread.enums.SchedulerTypeEnum;
+import com.google.gson.annotations.Expose;
 import de.leonhard.storage.Json;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,6 +43,7 @@ public class AccessServiceData implements SerializableInterface, JsonPersistable
     /**
      * 序列化后 Json 字符串所在的键值。
      */
+    @ExclusionField
     private final String jsonKey =
             AccessServiceHandler.ACCESS_SERVICE_DATA_JSON_KEY;
 

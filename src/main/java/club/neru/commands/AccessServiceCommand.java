@@ -27,8 +27,8 @@ public class AccessServiceCommand {
             desc = "Access service command.",
             async = true
     )
-    @Require("practice.command.access.service")
-    public void arenaCommand(
+    @Require("practice.command.accessService")
+    public void accessServiceCommand(
             @Sender Player player
     ) {
         QuickUtils.sendMessageByKey(player, "access-service-command-help");

@@ -1,6 +1,7 @@
 package club.neru.kit;
 
 import club.neru.Mochi;
+import club.neru.serialization.strategy.annotations.ExclusionField;
 
 /**
  * 装备包处理程序。

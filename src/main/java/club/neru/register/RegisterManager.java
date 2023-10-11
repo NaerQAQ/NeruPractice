@@ -81,7 +81,7 @@ public class RegisterManager {
     }
 
     /**
-     * 注册所有使用 {@link AutoRegisterCommand} 注解的监听器。
+     * 注册所有使用 {@link AutoRegisterCommand} 注解的指令。
      *
      * @see AutoRegisterCommand
      */
@@ -127,9 +127,9 @@ public class RegisterManager {
     }
 
     /**
-     * 注册所有使用 {@link AutoRegisterCommand} 注解的监听器。
+     * 开启所有 {@link AutoStartTimerTask} 注解的任务。
      *
-     * @see AutoRegisterCommand
+     * @see AutoStartTimerTask
      */
     private static void autoStartTimerTask() {
         Set<Class<?>> classesWithAnnotation = AnnotationProcessor.getClassesWithAnnotation(AutoStartTimerTask.class);

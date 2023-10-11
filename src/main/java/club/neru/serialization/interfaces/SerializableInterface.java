@@ -122,6 +122,7 @@ public interface SerializableInterface {
                 Object exclusionStrategyObject = aClass.getDeclaredConstructor().newInstance();
                 ExclusionStrategy exclusionStrategy = (ExclusionStrategy) exclusionStrategyObject;
 
+                gsonBuilder.addSerializationExclusionStrategy(exclusionStrategy);
                 gsonBuilder.addDeserializationExclusionStrategy(exclusionStrategy);
 
                 QuickUtils.sendMessage(

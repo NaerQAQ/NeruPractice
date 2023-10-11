@@ -52,7 +52,7 @@ public class JsonManager implements FileManagerInterface<Json> {
      * 通过文件名与路径获取一个 {@link Json} 对象。
      *
      * <p>
-     * 使用此方法生成的 {@link Json} 对象其重载属性为 {@link ReloadSettings#INTELLIGENT}，将会在内容更改后自动重载。
+     * 使用此方法生成的 {@link Json} 对象其重载属性为 {@link ReloadSettings#AUTOMATICALLY}，将会在内容更改后自动重载。
      * </p>
      *
      * @param name                    文件名
@@ -75,7 +75,7 @@ public class JsonManager implements FileManagerInterface<Json> {
         SimplixBuilder simplixBuilder = SimplixBuilder.fromFile(file)
                 .setDataType(DataType.SORTED)
                 .setConfigSettings(ConfigSettings.PRESERVE_COMMENTS)
-                .setReloadSettings(ReloadSettings.INTELLIGENT);
+                .setReloadSettings(ReloadSettings.AUTOMATICALLY);
 
         if (inputStreamFromResource) {
             simplixBuilder.addInputStreamFromResource(name + JSON_FILE_EXTENSION);
