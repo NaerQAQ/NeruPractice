@@ -148,6 +148,7 @@
                             <includeScope>system</includeScope>
                             <includeGroupIds>com.jonahseguin</includeGroupIds>
                             <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                            <includes>com/jonahseguin/drink/**</includes>
                         </configuration>
                     </execution>
                 </executions>
