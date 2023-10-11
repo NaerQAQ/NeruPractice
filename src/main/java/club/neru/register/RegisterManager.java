@@ -2,8 +2,8 @@ package club.neru.register;
 
 import club.neru.Mochi;
 import club.neru.annotations.AnnotationProcessor;
+import club.neru.commands.annotations.AutoRegisterCommand;
 import club.neru.io.config.ConfigManager;
-import club.neru.register.annotations.AutoRegisterCommand;
 import club.neru.register.annotations.AutoRegisterListener;
 import club.neru.serialization.interfaces.SerializableInterface;
 import club.neru.thread.Scheduler;
@@ -13,7 +13,8 @@ import club.neru.thread.enums.SchedulerTypeEnum;
 import club.neru.utils.common.QuickUtils;
 import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
 import com.google.gson.Gson;
-import me.despical.commandframework.CommandFramework;
+import com.jonahseguin.drink.CommandService;
+import com.jonahseguin.drink.Drink;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
@@ -85,7 +86,7 @@ public class RegisterManager {
      * @see AutoRegisterCommand
      */
     private static void registerCommand() {
-        CommandFramework commandFramework = Mochi.getCommandFramework();
+        CommandService drink = Drink.get(Mochi.getInstance());
         Set<Class<?>> classesWithAnnotation = AnnotationProcessor.getClassesWithAnnotation(AutoRegisterCommand.class);
 
         classesWithAnnotation.forEach(aClass -> {
@@ -93,7 +94,17 @@ public class RegisterManager {
 
             try {
                 Object object = aClass.getDeclaredConstructor().newInstance();
-                commandFramework.registerCommands(object);
+                AutoRegisterCommand autoRegisterCommand =
+                        aClass.getAnnotation(AutoRegisterCommand.class);
+
+                String command = autoRegisterCommand.command();
+                String[] aliases = autoRegisterCommand.aliases();
+
+                if (aliases.length == 0) {
+                    drink.register(object, command);
+                } else {
+                    drink.register(object, command, aliases);
+                }
 
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.NORMAL,
@@ -111,6 +122,8 @@ public class RegisterManager {
                 );
             }
         });
+
+        drink.registerCommands();
     }
 
     /**

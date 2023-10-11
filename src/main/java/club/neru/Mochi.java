@@ -5,7 +5,6 @@ import club.neru.utils.common.QuickUtils;
 import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
-import me.despical.commandframework.CommandFramework;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -31,10 +30,6 @@ public class Mochi extends JavaPlugin {
     @Setter
     private static String dataFolderAbsolutePath;
 
-    @Getter
-    @Setter
-    private static CommandFramework commandFramework;
-
     /**
      * 插件开启。
      *
@@ -43,7 +38,6 @@ public class Mochi extends JavaPlugin {
     @Override
     public void onEnable() {
         setInstance(this);
-        setCommandFramework(new CommandFramework(this));
         setDataFolderAbsolutePath(getDataFolder().getAbsolutePath());
 
         setServerVersion(Double.parseDouble(

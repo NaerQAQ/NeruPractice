@@ -3,10 +3,11 @@ package club.neru.commands;
 import club.neru.arena.copy.interfaces.ArenaParentInterface;
 import club.neru.arena.copy.objects.ArenaParent;
 import club.neru.basic.interfaces.ReflectCommandInterface;
-import club.neru.register.annotations.AutoRegisterCommand;
+import club.neru.commands.annotations.AutoRegisterCommand;
 import club.neru.utils.common.QuickUtils;
-import me.despical.commandframework.Command;
-import me.despical.commandframework.CommandArguments;
+import com.jonahseguin.drink.annotation.Command;
+import com.jonahseguin.drink.annotation.Require;
+import com.jonahseguin.drink.annotation.Sender;
 import org.bukkit.entity.Player;
 
 /**
@@ -16,49 +17,56 @@ import org.bukkit.entity.Player;
  * @version 1.0
  * @since 2023/10/9
  */
-@AutoRegisterCommand
+@AutoRegisterCommand(
+        command = "arena"
+)
 @SuppressWarnings("unused")
 public class ArenaCommand {
     @Command(
-            name = "arena",
-            async = true,
-            allowInfiniteArgs = true,
-            senderType = Command.SenderType.PLAYER
+            name = "",
+            desc = "Arena command.",
+            async = true
     )
-    @SuppressWarnings("DataFlowIssue")
-    public void practiceCommand(CommandArguments arguments) {
-        Player player = arguments.getSender();
+    @Require("practice.command.arena")
+    public void arenaCommand(
+            @Sender Player player
+    ) {
+        QuickUtils.sendMessageByKey(player, "arena-command-help");
+    }
 
-        if (arguments.getArgumentsLength() < 1) {
-            help(player);
-            return;
-        }
+    @Command(
+            name = "create",
+            desc = "Create arena.",
+            async = true
+    )
+    public void create(
+            @Sender Player player,
 
-        String method = arguments.getArgument(0);
-        String arenaName = arguments.getArgument(1);
-        String value = arguments.getArgument(2);
+            String arenaName
+    ) {
+        new ArenaParent()
+                .setName(arenaName)
+                .toArenaParent()
+                .write();
 
-        // create
-        if (value == null) {
-            if (!method.equalsIgnoreCase("create")) {
-                help(player);
-                return;
-            }
+        QuickUtils.sendMessageByKey(
+                player,
+                "arena-create-done"
+        );
+    }
 
-            new ArenaParent()
-                    .setName(arenaName)
-                    .toArenaParent()
-                    .write();
+    @Command(
+            name = "command",
+            desc = "Other commands.",
+            async = true
+    )
+    public void command(
+            @Sender Player player,
 
-            QuickUtils.sendMessageByKey(
-                    player,
-                    "arena-create-done"
-            );
-
-            return;
-        }
-
-        // 对于现有的操作
+            String method,
+            String arenaName,
+            String value
+    ) {
         ArenaParent arenaParent = ArenaParentInterface
                 .getArenaParent(arenaName);
 
@@ -71,14 +79,5 @@ public class ArenaCommand {
                 "arena-command-done",
                 "<result>", String.valueOf(result)
         );
-    }
-
-    /**
-     * 向玩家展示帮助信息。
-     *
-     * @param player 玩家对象
-     */
-    private void help(Player player) {
-        QuickUtils.sendMessageByKey(player, "arena-command-help");
     }
 }

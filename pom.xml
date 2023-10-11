@@ -28,10 +28,11 @@
     </repositories>
 
     <dependencies>
+        <!-- https://github.com/jonahseguin/drink -->
         <dependency>
-            <groupId>com.github.Despical</groupId>
-            <artifactId>CommandFramework</artifactId>
-            <version>1.2.6</version>
+            <groupId>com.jonahseguin</groupId>
+            <artifactId>drink</artifactId>
+            <version>1.0.5</version>
             <scope>compile</scope>
         </dependency>
 
@@ -94,6 +95,7 @@
         </dependency>
 
         <!-- Simplix Storage -->
+        <!--suppress VulnerableLibrariesLocal -->
         <dependency>
             <groupId>com.github.simplix-softworks</groupId>
             <artifactId>simplixstorage</artifactId>

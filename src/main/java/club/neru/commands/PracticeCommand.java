@@ -1,10 +1,10 @@
 package club.neru.commands;
 
-import club.neru.register.annotations.AutoRegisterCommand;
+import club.neru.commands.annotations.AutoRegisterCommand;
 import club.neru.utils.common.QuickUtils;
 import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
-import me.despical.commandframework.Command;
-import me.despical.commandframework.CommandArguments;
+import com.jonahseguin.drink.annotation.Command;
+import com.jonahseguin.drink.annotation.Sender;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -15,18 +15,20 @@ import org.bukkit.entity.Player;
  * @version 1.0
  * @since 2023/10/9
  */
-@AutoRegisterCommand
+@AutoRegisterCommand(
+        command = "practice",
+        aliases = {"mochi", "prac", "neru", "nerupractice"}
+)
 @SuppressWarnings("unused")
 public class PracticeCommand {
     @Command(
-            name = "practice",
-            aliases = {"mochi", "prac", "neru", "nerupractice"},
-            async = true,
-            senderType = Command.SenderType.BOTH
+            name = "",
+            desc = "Practice command.",
+            async = true
     )
-    public void practiceCommand(CommandArguments arguments) {
-        CommandSender sender = arguments.getSender();
-
+    public void practiceCommand(
+            @Sender CommandSender sender
+    ) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             QuickUtils.sendMessageByKey(player, "practice");

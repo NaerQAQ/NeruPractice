@@ -1,4 +1,4 @@
-package club.neru.register.annotations;
+package club.neru.commands.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -15,4 +15,17 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AutoRegisterCommand {
+    /**
+     * 指令。
+     *
+     * @return 指令
+     */
+    String command();
+
+    /**
+     * 别名。
+     *
+     * @return 别名
+     */
+    String[] aliases() default {};
 }
