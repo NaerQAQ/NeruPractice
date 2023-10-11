@@ -3,6 +3,8 @@ package club.neru.arena.copy.objects;
 import club.neru.arena.copy.enums.ArenaState;
 import club.neru.arena.copy.interfaces.ArenaChildInterface;
 import club.neru.arena.copy.interfaces.ArenaParentInterface;
+import club.neru.serialization.interfaces.SerializableInterface;
+import club.neru.serialization.strategy.annotations.ExclusionField;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -17,10 +19,11 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class ArenaChild extends ArenaImpl implements ArenaChildInterface {
+public class ArenaChild extends ArenaImpl implements ArenaChildInterface, SerializableInterface {
     /**
      * 竞技场状态。
      */
+    @ExclusionField
     private ArenaState arenaState;
 
     /**

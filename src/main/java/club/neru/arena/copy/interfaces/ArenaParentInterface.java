@@ -76,15 +76,6 @@ public interface ArenaParentInterface extends ArenaInterface {
     int getMaxBuildHeight();
 
     /**
-     * 获取该竞技场的 {@link Json} 对象。
-     *
-     * @return {@link Json}
-     */
-    default Json getArenaParentJson() {
-        return getArenaParentJson(getName());
-    }
-
-    /**
      * 获取放置子竞技场的文件夹路径。
      *
      * @return 放置子竞技场的文件夹路径

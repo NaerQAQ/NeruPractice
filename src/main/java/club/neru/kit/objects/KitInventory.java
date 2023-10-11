@@ -1,6 +1,12 @@
 package club.neru.kit.objects;
 
+import club.neru.basic.impl.ObjectNameImpl;
+import club.neru.io.file.interfaces.JsonPersistableInterface;
+import club.neru.kit.KitHandler;
+import club.neru.kit.interfaces.KitInventoryInterface;
 import club.neru.serialization.interfaces.SerializableInterface;
+import club.neru.serialization.strategy.annotations.ExclusionField;
+import de.leonhard.storage.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -13,7 +19,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * 装备包对象。
+ * 装备包库存对象。
  *
  * @author NaerQAQ
  * @version 1.0
@@ -22,7 +28,14 @@ import java.util.Collection;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class KitInventory implements SerializableInterface {
+public class KitInventory extends ObjectNameImpl implements SerializableInterface, JsonPersistableInterface {
+    /**
+     * 装备包库存对象序列化后 Json 字符串所在的键值。
+     */
+    @Getter
+    @ExclusionField
+    private final String jsonKey = KitHandler.KIT_INVENTORY_JSON_KEY;
+
     /**
      * 背包内容。
      */
@@ -94,5 +107,27 @@ public class KitInventory implements SerializableInterface {
         activePotionEffects.forEach(potionEffect -> player.removePotionEffect(potionEffect.getType()));
 
         Arrays.stream(potionEffects).forEach(player::addPotionEffect);
+    }
+
+    /**
+     * 获取该装备包库存的 {@link Json} 对象。
+     *
+     * @return {@link Json}
+     */
+    @Override
+    public Json getJson() {
+        return KitInventoryInterface.getKitInventoryJson(getName());
+    }
+
+    /**
+     * 写入装备包库存。
+     *
+     * <p>
+     * 该操作为覆盖性操作，即无论是否存在，均直接写入。
+     * </p>
+     */
+    @Override
+    public void write() {
+        write(toJson());
     }
 }

@@ -2,10 +2,14 @@ package club.neru.kit.objects;
 
 import club.neru.arena.copy.interfaces.ArenaParentInterface;
 import club.neru.arena.copy.objects.ArenaParent;
+import club.neru.basic.impl.ObjectNameImpl;
 import club.neru.basic.interfaces.ReflectCommandInterface;
+import club.neru.io.file.interfaces.JsonPersistableInterface;
 import club.neru.kit.KitHandler;
 import club.neru.kit.interfaces.KitInterfaces;
 import club.neru.serialization.interfaces.SerializableInterface;
+import club.neru.serialization.strategy.annotations.ExclusionField;
+import de.leonhard.storage.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -25,11 +29,13 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class Kit implements KitInterfaces, SerializableInterface, ReflectCommandInterface {
+public class Kit extends ObjectNameImpl implements KitInterfaces, SerializableInterface, ReflectCommandInterface, JsonPersistableInterface {
     /**
-     * 装备包名。
+     * 序列化后 Json 字符串所在的键值。
      */
-    private String name;
+    @Getter
+    @ExclusionField
+    private final String jsonKey = KitHandler.KIT_JSON_KEY;
 
     /**
      * 是否允许建筑。
@@ -81,6 +87,16 @@ public class Kit implements KitInterfaces, SerializableInterface, ReflectCommand
     }
 
     /**
+     * 获取该装备包的 {@link Json} 对象。
+     *
+     * @return {@link Json}
+     */
+    @Override
+    public Json getJson() {
+        return KitInterfaces.getKitJson(getName());
+    }
+
+    /**
      * 写入装备包。
      *
      * <p>
@@ -89,7 +105,6 @@ public class Kit implements KitInterfaces, SerializableInterface, ReflectCommand
      */
     @Override
     public void write() {
-        String kitString = toJson();
-        getKitJson().set(KitHandler.KIT_JSON_KEY, kitString);
+        write(toJson());
     }
 }

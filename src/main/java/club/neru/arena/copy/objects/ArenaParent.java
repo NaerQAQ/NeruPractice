@@ -6,7 +6,9 @@ import club.neru.arena.copy.interfaces.ArenaParentInterface;
 import club.neru.arena.copy.utils.WorldEditVectorUtils;
 import club.neru.basic.interfaces.ReflectCommandInterface;
 import club.neru.io.file.impl.JsonManager;
+import club.neru.io.file.interfaces.JsonPersistableInterface;
 import club.neru.serialization.interfaces.SerializableInterface;
+import club.neru.serialization.strategy.annotations.ExclusionField;
 import com.sk89q.worldedit.Vector;
 import de.leonhard.storage.Json;
 import lombok.Getter;
@@ -24,7 +26,14 @@ import org.bukkit.Location;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class ArenaParent extends ArenaImpl implements ArenaParentInterface, SerializableInterface, ReflectCommandInterface {
+public class ArenaParent extends ArenaImpl implements ArenaParentInterface, SerializableInterface, ReflectCommandInterface, JsonPersistableInterface {
+    /**
+     * 序列化后 Json 字符串所在的键值。
+     */
+    @Getter
+    @ExclusionField
+    private final String jsonKey = ArenaHandler.ARENA_JSON_KEY;
+
     /**
      * 最低死亡高度。
      */
@@ -36,6 +45,16 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
     private int maxBuildHeight = 255;
 
     /**
+     * 获取该竞技场的 {@link Json} 对象。
+     *
+     * @return {@link Json}
+     */
+    @Override
+    public Json getJson() {
+        return ArenaParentInterface.getArenaParentJson(getName());
+    }
+
+    /**
      * 写入母竞技场。
      *
      * <p>
@@ -44,8 +63,7 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
      */
     @Override
     public void write() {
-        String arenaParentString = toJson();
-        getArenaParentJson().set(ArenaHandler.ARENA_JSON_KEY, arenaParentString);
+        write(toJson());
     }
 
     /**
@@ -57,12 +75,13 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
      *
      * @param ignore 无意义
      */
+    @SuppressWarnings("unused")
     public void delete(boolean ignore) {
         clean();
         deleteCopy(true);
 
         // noinspection ResultOfMethodCallIgnored
-        getArenaParentJson().getFile().delete();
+        getJson().getFile().delete();
     }
 
     /**
@@ -157,13 +176,15 @@ public class ArenaParent extends ArenaImpl implements ArenaParentInterface, Seri
             Location newSecondSpawnLocation = getSecondSpawnLocation().clone().add(bukkitOffsetVector);
             Location newSpectatorSpawnLocation = getSpectatorSpawnLocation().clone().add(bukkitOffsetVector);
 
-            ArenaImpl arenaChild = new ArenaChild()
+            ArenaChild arenaChild = new ArenaChild()
                     .setName(newName)
+                    .to(ArenaImpl.class)
                     .setLowestLocation(newLowestLocation)
                     .setHighestLocation(newHighestLocation)
                     .setFirstSpawnLocation(newFirstSpawnLocation)
                     .setSecondSpawnLocation(newSecondSpawnLocation)
-                    .setSpectatorSpawnLocation(newSpectatorSpawnLocation);
+                    .setSpectatorSpawnLocation(newSpectatorSpawnLocation)
+                    .to(ArenaChild.class);
 
             // 写入
             Json json = jsonManager.get(

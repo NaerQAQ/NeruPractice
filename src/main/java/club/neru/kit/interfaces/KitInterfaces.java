@@ -1,6 +1,6 @@
 package club.neru.kit.interfaces;
 
-import club.neru.arena.copy.objects.ArenaParent;
+import club.neru.basic.interfaces.ObjectNameInterface;
 import club.neru.io.file.impl.JsonManager;
 import club.neru.io.file.utils.JsonFileProcessor;
 import club.neru.kit.KitHandler;
@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * @version 1.0
  * @since 2023/10/10
  */
-public interface KitInterfaces {
+public interface KitInterfaces extends ObjectNameInterface {
     /**
      * 获取 {@link Kit} 对象。
      *
@@ -52,7 +52,7 @@ public interface KitInterfaces {
      * 使用 {@link ConcurrentLinkedQueue} 容器保证线程安全。
      * </p>
      *
-     * @return {@link ArenaParent}
+     * @return {@link Kit}
      */
     static ConcurrentLinkedQueue<Kit> getKits() {
         return new JsonFileProcessor()
@@ -61,13 +61,6 @@ public interface KitInterfaces {
                 .setTargetClass(Kit.class)
                 .deserializeJsonAndConvertToQueue();
     }
-
-    /**
-     * 获取装备包名。
-     *
-     * @return 装备包名
-     */
-    String getName();
 
     /**
      * 是否允许建筑。
@@ -89,13 +82,4 @@ public interface KitInterfaces {
      * @return 此装备包玩家可破坏的竞技场方块类型
      */
     ConcurrentLinkedQueue<Material> getDestroyableArenaBlocks();
-
-    /**
-     * 获取该装备包的 {@link Json} 对象。
-     *
-     * @return {@link Json}
-     */
-    default Json getKitJson() {
-        return getKitJson(getName());
-    }
 }

@@ -2,7 +2,7 @@ package club.neru.arena.copy.objects;
 
 import club.neru.arena.copy.interfaces.ArenaInterface;
 import club.neru.arena.copy.utils.WorldEditVectorUtils;
-import club.neru.serialization.interfaces.SerializableInterface;
+import club.neru.basic.impl.ObjectNameImpl;
 import club.neru.thread.Scheduler;
 import club.neru.thread.enums.SchedulerExecutionMode;
 import club.neru.thread.enums.SchedulerTypeEnum;
@@ -33,12 +33,7 @@ import org.bukkit.Material;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class ArenaImpl implements ArenaInterface, SerializableInterface {
-    /**
-     * 名称。
-     */
-    private String name;
-
+public class ArenaImpl extends ObjectNameImpl implements ArenaInterface {
     /**
      * 最低点坐标。
      */
@@ -63,24 +58,6 @@ public class ArenaImpl implements ArenaInterface, SerializableInterface {
      * 观战玩家出生坐标。
      */
     private Location spectatorSpawnLocation;
-
-    /**
-     * 转换为 {@link ArenaParent} 对象。
-     *
-     * @return {@link ArenaParent}
-     */
-    public ArenaParent toArenaParent() {
-        return (ArenaParent) this;
-    }
-
-    /**
-     * 转换为 {@link ArenaChild} 对象。
-     *
-     * @return {@link ArenaChild}
-     */
-    public ArenaChild toArenaChild() {
-        return (ArenaChild) this;
-    }
 
     /**
      * 重置该竞技场。

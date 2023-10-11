@@ -1,6 +1,6 @@
 package club.neru.serialization.adapter;
 
-import club.neru.register.annotations.AutoRegisterTypeAdapter;
+import club.neru.serialization.annotations.AutoRegisterTypeAdapter;
 import club.neru.serialization.interfaces.BukkitObjectSerializableInterface;
 import com.google.gson.*;
 import org.bukkit.inventory.ItemStack;

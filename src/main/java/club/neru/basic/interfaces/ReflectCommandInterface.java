@@ -1,5 +1,6 @@
 package club.neru.basic.interfaces;
 
+import club.neru.io.file.interfaces.JsonPersistableInterface;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -21,6 +22,10 @@ public interface ReflectCommandInterface {
     /**
      * 执行方法。
      *
+     * <p>
+     * 若传入的对象实现了 {@link JsonPersistableInterface} 接口，则会完成后调用 {@link JsonPersistableInterface#write()} 方法。
+     * </p>
+     *
      * @param player     执行的玩家对象
      * @param object     实现 {@link ReflectCommandInterface} 的对象
      * @param methodName 方法名 (忽略大小写)
@@ -33,8 +38,9 @@ public interface ReflectCommandInterface {
             return false;
         }
 
+        Class<?> objectClass = object.getClass();
         Class<? extends ReflectCommandInterface> clazz =
-                (Class<? extends ReflectCommandInterface>) object.getClass();
+                (Class<? extends ReflectCommandInterface>) objectClass;
 
         Object finalValue = getFinalValue(player, value);
 
@@ -49,9 +55,11 @@ public interface ReflectCommandInterface {
                     method.setAccessible(true);
                     method.invoke(object, finalValue);
 
-                    ReflectCommandInterface reflectCommandInterfaceObject =
-                            (ReflectCommandInterface) object;
-                    reflectCommandInterfaceObject.write();
+                    if (JsonPersistableInterface.class.isAssignableFrom(objectClass)) {
+                        JsonPersistableInterface jsonPersistableInterfaceObject =
+                                (JsonPersistableInterface) object;
+                        jsonPersistableInterfaceObject.write();
+                    }
 
                     return true;
                 }
@@ -106,13 +114,4 @@ public interface ReflectCommandInterface {
 
         return finalValue == null ? value : finalValue;
     }
-
-    /**
-     * 覆盖性写入更改。
-     *
-     * <p>
-     * 该操作为覆盖性操作，即无论是否存在，均直接写入。
-     * </p>
-     */
-    void write();
 }

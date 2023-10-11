@@ -1,5 +1,6 @@
 package club.neru.arena.copy.interfaces;
 
+import club.neru.basic.interfaces.ObjectNameInterface;
 import org.bukkit.Location;
 
 /**
@@ -9,14 +10,7 @@ import org.bukkit.Location;
  * @version 1.0
  * @since 2023/10/9
  */
-public interface ArenaInterface {
-    /**
-     * 获取名称。
-     *
-     * @return 名称
-     */
-    String getName();
-
+public interface ArenaInterface extends ObjectNameInterface {
     /**
      * 获取最低点坐标。
      *

@@ -1,9 +1,11 @@
 package club.neru.serialization.interfaces;
 
 import club.neru.annotations.AnnotationProcessor;
-import club.neru.register.annotations.AutoRegisterTypeAdapter;
+import club.neru.serialization.annotations.AutoAddSerializationExclusionStrategy;
+import club.neru.serialization.annotations.AutoRegisterTypeAdapter;
 import club.neru.utils.common.QuickUtils;
 import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
+import com.google.gson.ExclusionStrategy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -25,7 +27,9 @@ public interface SerializableInterface {
     /**
      * 普通的 {@link Gson} 对象。
      */
-    Gson NORMAL_GSON = new GsonBuilder().create();
+    Gson NORMAL_GSON = new GsonBuilder()
+            .serializeNulls()
+            .create();
 
     /**
      * 配置好的 {@link Gson} 对象。
@@ -35,14 +39,30 @@ public interface SerializableInterface {
     /**
      * 获取配置好的 {@link Gson} 对象。
      *
-     * <p>
-     * 将自动注册使用 {@link AutoRegisterTypeAdapter} 注解的类型适配器。
-     * </p>
-     *
      * @return 配置好的 {@link Gson} 对象
      */
     static Gson getGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
+
+        handleAdapter(gsonBuilder);
+        handleSerializationExclusionStrategy(gsonBuilder);
+
+        return gsonBuilder
+                .serializeNulls()
+                .create();
+    }
+
+    /**
+     * 注册类型适配器。
+     *
+     * <p>
+     * 将自动注册使用 {@link AutoRegisterTypeAdapter} 注解的类型适配器。
+     * </p>
+     *
+     * @return 注册好类型适配器的 {@link GsonBuilder} 对象
+     */
+    @SuppressWarnings("UnusedReturnValue")
+    static GsonBuilder handleAdapter(GsonBuilder gsonBuilder) {
         Set<Class<?>> classesWithAnnotation = AnnotationProcessor.getClassesWithAnnotation(AutoRegisterTypeAdapter.class);
 
         classesWithAnnotation.forEach(aClass -> {
@@ -79,9 +99,49 @@ public interface SerializableInterface {
             }
         });
 
-        return gsonBuilder
-                .serializeNulls()
-                .create();
+        return gsonBuilder;
+    }
+
+    /**
+     * 添加序列化排除策略。
+     *
+     * <p>
+     * 将自动添加使用 {@link AutoAddSerializationExclusionStrategy} 注解的排除策略。
+     * </p>
+     *
+     * @return 添加好排除策略的 {@link GsonBuilder} 对象
+     */
+    @SuppressWarnings("UnusedReturnValue")
+    static GsonBuilder handleSerializationExclusionStrategy(GsonBuilder gsonBuilder) {
+        Set<Class<?>> classesWithAnnotation = AnnotationProcessor.getClassesWithAnnotation(AutoAddSerializationExclusionStrategy.class);
+
+        classesWithAnnotation.forEach(aClass -> {
+            String className = aClass.getName();
+
+            try {
+                Object exclusionStrategyObject = aClass.getDeclaredConstructor().newInstance();
+                ExclusionStrategy exclusionStrategy = (ExclusionStrategy) exclusionStrategyObject;
+
+                gsonBuilder.addDeserializationExclusionStrategy(exclusionStrategy);
+
+                QuickUtils.sendMessage(
+                        ConsoleMessageTypeEnum.NORMAL,
+                        "Deserialization exclusion strategy successfully added: <class_name>.",
+                        "<class_name>", className
+                );
+            } catch (Exception exception) {
+                String message = exception.getMessage();
+
+                QuickUtils.sendMessage(
+                        ConsoleMessageTypeEnum.ERROR,
+                        "Unable to add deserialization exclusion strategy: <class_name>, message: <message>.",
+                        "<class_name>", className,
+                        "message", message
+                );
+            }
+        });
+
+        return gsonBuilder;
     }
 
     /**

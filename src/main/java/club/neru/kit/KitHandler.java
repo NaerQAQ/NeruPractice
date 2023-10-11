@@ -19,5 +19,16 @@ public class KitHandler {
      * 装备包路径。
      */
     public static final String KIT_PATH =
-            Mochi.getDataFolderAbsolutePath() + "/kit";
+            Mochi.getDataFolderAbsolutePath() + "/kit/match";
+
+    /**
+     * 装备包库存对象序列化后 Json 字符串所在的键值。
+     */
+    public static final String KIT_INVENTORY_JSON_KEY = "kit_inventory";
+
+    /**
+     * 装备包库存对象路径。
+     */
+    public static final String KIT_INVENTORY_PATH =
+            Mochi.getDataFolderAbsolutePath() + "/kit/inventory";
 }

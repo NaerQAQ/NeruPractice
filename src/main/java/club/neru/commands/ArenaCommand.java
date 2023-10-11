@@ -46,7 +46,7 @@ public class ArenaCommand {
     ) {
         new ArenaParent()
                 .setName(arenaName)
-                .toArenaParent()
+                .to(ArenaParent.class)
                 .write();
 
         QuickUtils.sendMessageByKey(
