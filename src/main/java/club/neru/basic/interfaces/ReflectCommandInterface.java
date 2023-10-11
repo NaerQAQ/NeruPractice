@@ -86,8 +86,6 @@ public interface ReflectCommandInterface {
      * @return 最终值
      */
     static Object getFinalValue(Player player, Object value) {
-        Object finalValue = null;
-
         if (value instanceof String) {
             String valueString = (String) value;
 
@@ -120,22 +118,26 @@ public interface ReflectCommandInterface {
             // 其余
             switch (valueString.toLowerCase()) {
                 case "<boolean_true>":
-                    finalValue = true;
-                    break;
+                    return true;
+
+                case "<object_location>":
+                    return player.getLocation();
 
                 case "<object_block_location>":
                     Location location = player.getLocation();
 
                     World world = location.getWorld();
+
                     int blockX = location.getBlockX();
                     int blockY = location.getBlockY();
                     int blockZ = location.getBlockZ();
 
-                    finalValue = new Location(world, blockX, blockY, blockZ);
-                    break;
+                    return new Location(
+                            world, blockX, blockY, blockZ
+                    );
             }
         }
 
-        return finalValue == null ? value : finalValue;
+        return value;
     }
 }

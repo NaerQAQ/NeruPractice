@@ -11,7 +11,8 @@ import club.neru.serialization.strategy.annotations.ExclusionField;
 import club.neru.thread.Scheduler;
 import club.neru.thread.enums.SchedulerExecutionMode;
 import club.neru.thread.enums.SchedulerTypeEnum;
-import com.google.gson.annotations.Expose;
+import club.neru.utils.common.QuickUtils;
+import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
 import de.leonhard.storage.Json;
 import lombok.Getter;
 import lombok.Setter;
@@ -53,22 +54,27 @@ public class AccessServiceData implements SerializableInterface, JsonPersistable
      * @param player 玩家对象
      */
     public void apply(Player player) {
+        if (location == null || kitInventoryName == null) {
+            QuickUtils.sendMessageByKey(
+                    ConsoleMessageTypeEnum.NO_PREFIX,
+                    "access-service-data-null"
+            );
+
+            return;
+        }
+
         KitInventory kitInventory = KitInventoryInterface
                 .getKitInventory(kitInventoryName);
 
         // KitInventory#apply 方法内会进行线程安全处理
-        if (kitInventory != null) {
-            kitInventory.apply(player);
-        }
+        kitInventory.apply(player);
 
         // 为了线程安全
-        if (location != null) {
-            new Scheduler()
-                    .setSchedulerTypeEnum(SchedulerTypeEnum.RUN)
-                    .setSchedulerExecutionMode(SchedulerExecutionMode.SYNC)
-                    .setRunnable(() -> player.teleport(location))
-                    .run();
-        }
+        new Scheduler()
+                .setSchedulerTypeEnum(SchedulerTypeEnum.RUN)
+                .setSchedulerExecutionMode(SchedulerExecutionMode.SYNC)
+                .setRunnable(() -> player.teleport(location))
+                .run();
     }
 
     /**

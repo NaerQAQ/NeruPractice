@@ -4,8 +4,6 @@ import club.neru.Mochi;
 import club.neru.io.file.impl.JsonManager;
 import club.neru.player.accessservice.data.AccessServiceData;
 import club.neru.serialization.interfaces.SerializableInterface;
-import club.neru.utils.common.QuickUtils;
-import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
 import de.leonhard.storage.Json;
 
 /**
@@ -49,17 +47,15 @@ public class AccessServiceHandler {
         String accessServiceDataString =
                 json.getString(ACCESS_SERVICE_DATA_JSON_KEY);
 
-        if (accessServiceDataString.isEmpty()) {
-            QuickUtils.sendMessageByKey(
-                    ConsoleMessageTypeEnum.NO_PREFIX,
-                    "access-service-data-null"
-            );
-
-            return null;
-        }
-
-        return SerializableInterface.fromJson(
+        AccessServiceData accessServiceData = SerializableInterface.fromJson(
                 accessServiceDataString, AccessServiceData.class
         );
+
+        if (accessServiceData == null) {
+            accessServiceData = new AccessServiceData();
+            accessServiceData.write();
+        }
+
+        return accessServiceData;
     }
 }
