@@ -1,10 +1,9 @@
 package club.neru.serialization.adapter;
 
 import club.neru.register.annotations.AutoRegisterTypeAdapter;
+import club.neru.serialization.interfaces.BukkitObjectSerializableInterface;
 import com.google.gson.*;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
 
 import java.lang.reflect.Type;
 
@@ -17,7 +16,7 @@ import java.lang.reflect.Type;
  */
 @AutoRegisterTypeAdapter
 @SuppressWarnings("unused")
-public class LocationAdapter implements JsonSerializer<Location>, JsonDeserializer<Location> {
+public class LocationAdapter implements JsonSerializer<Location>, JsonDeserializer<Location>, BukkitObjectSerializableInterface {
     /**
      * 该适配器支持类型的类。
      */
@@ -33,20 +32,7 @@ public class LocationAdapter implements JsonSerializer<Location>, JsonDeserializ
      */
     @Override
     public JsonElement serialize(Location location, Type type, JsonSerializationContext jsonSerializationContext) {
-        if (location == null) {
-            return null;
-        }
-
-        JsonObject jsonObject = new JsonObject();
-
-        jsonObject.addProperty("world", location.getWorld().getName());
-        jsonObject.addProperty("x", location.getX());
-        jsonObject.addProperty("y", location.getY());
-        jsonObject.addProperty("z", location.getZ());
-        jsonObject.addProperty("yaw", location.getYaw());
-        jsonObject.addProperty("pitch", location.getPitch());
-
-        return jsonObject;
+        return serialize(location);
     }
 
     /**
@@ -60,21 +46,6 @@ public class LocationAdapter implements JsonSerializer<Location>, JsonDeserializ
      */
     @Override
     public Location deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-        if (jsonElement == null || !jsonElement.isJsonObject()) {
-            return (null);
-        }
-
-        JsonObject jsonObject = jsonElement.getAsJsonObject();
-
-        World world = Bukkit.getWorld(jsonObject.get("world").getAsString());
-
-        double x = jsonObject.get("x").getAsDouble();
-        double y = jsonObject.get("y").getAsDouble();
-        double z = jsonObject.get("z").getAsDouble();
-
-        float yaw = jsonObject.get("yaw").getAsFloat();
-        float pitch = jsonObject.get("pitch").getAsFloat();
-
-        return new Location(world, x, y, z, yaw, pitch);
+        return deserialize(jsonElement);
     }
 }
