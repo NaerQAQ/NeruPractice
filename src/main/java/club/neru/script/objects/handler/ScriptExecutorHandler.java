@@ -1,8 +1,7 @@
 package club.neru.script.objects.handler;
 
+import club.neru.script.objects.objects.CustomContext;
 import club.neru.script.objects.objects.ScriptExecutor;
-import lombok.Getter;
-import org.graalvm.polyglot.Context;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -18,8 +17,7 @@ public class ScriptExecutorHandler {
     /**
      * 所有的 {@link ScriptExecutorHandler} 对象。
      */
-    @Getter
-    private static final ConcurrentLinkedQueue<ScriptExecutor> scriptExecutors =
+    public static final ConcurrentLinkedQueue<ScriptExecutor> SCRIPT_EXECUTORS =
             new ConcurrentLinkedQueue<>();
 
     /**
@@ -28,7 +26,7 @@ public class ScriptExecutorHandler {
      * @param scriptExecutor {@link ScriptExecutor}
      */
     public static void addScriptExecutor(ScriptExecutor scriptExecutor) {
-        scriptExecutors.add(scriptExecutor);
+        SCRIPT_EXECUTORS.add(scriptExecutor);
     }
 
     /**
@@ -37,43 +35,29 @@ public class ScriptExecutorHandler {
      * @param scriptExecutor {@link ScriptExecutor}
      */
     public static void removeScriptExecutor(ScriptExecutor scriptExecutor) {
-        scriptExecutors.remove(scriptExecutor);
+        SCRIPT_EXECUTORS.remove(scriptExecutor);
     }
 
     /**
      * 调用所有脚本的指定函数。
      *
      * @param function 函数名称
-     * @return 结果
      */
     public static void invoke(String function) {
-        getScriptExecutors().forEach(
+        SCRIPT_EXECUTORS.forEach(
                 scriptExecutor -> scriptExecutor.invoke(function)
         );
     }
 
     /**
-     * 使用 {@link ScriptExecutor#invokeWithNormalContext(String)} )} 调用所有脚本的指定函数。
+     * 使用指定 {@link CustomContext} 对象调用所有脚本的指定函数。
      *
      * @param function 函数名称
-     * @return 结果
+     * @param customContext  指定 {@link CustomContext} 对象
      */
-    public static void invokeWithNormalContext(String function) {
-        getScriptExecutors().forEach(
-                scriptExecutor -> scriptExecutor.invokeWithNormalContext(function)
-        );
-    }
-
-    /**
-     * 使用指定 {@link Context} 对象调用所有脚本的指定函数。
-     *
-     * @param function 函数名称
-     * @param context  指定 {@link Context} 对象
-     * @return 结果
-     */
-    public static void invoke(String function, Context context) {
-        getScriptExecutors().forEach(
-                scriptExecutor -> scriptExecutor.invoke(function, context)
+    public static void invoke(String function, CustomContext customContext) {
+        SCRIPT_EXECUTORS.forEach(
+                scriptExecutor -> scriptExecutor.invoke(function, customContext)
         );
     }
 }

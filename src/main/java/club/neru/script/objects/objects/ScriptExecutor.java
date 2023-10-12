@@ -2,13 +2,14 @@ package club.neru.script.objects.objects;
 
 import club.neru.basic.impl.ObjectNameImpl;
 import club.neru.script.ScriptHandler;
-import club.neru.script.objects.handler.NamedContextHandler;
+import club.neru.script.objects.handler.CustomContextHandler;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.apache.commons.io.FileUtils;
-import org.graalvm.polyglot.Context;
-import org.graalvm.polyglot.Value;
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Function;
+import org.mozilla.javascript.ScriptableObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,21 +31,17 @@ public class ScriptExecutor extends ObjectNameImpl {
      */
     private final File scriptFile;
 
+    private final String fileName;
+
     /**
      * 脚本内容。
      */
     private final String scriptCode;
 
     /**
-     * 脚本指定的 {@link Context} 对象。
+     * {@link Context} 对象。
      */
-    private final Context context;
-
-    /**
-     * 普通的 {@link Context} 对象。
-     */
-    private final Context normalContext =
-            ScriptHandler.buildNormalContext();
+    private CustomContext customContext;
 
     /**
      * 构造器。
@@ -54,10 +51,14 @@ public class ScriptExecutor extends ObjectNameImpl {
      */
     public ScriptExecutor(File file) throws IOException {
         scriptFile = file;
+        fileName = file.getName();
+
         scriptCode = FileUtils.readFileToString(
                 scriptFile, StandardCharsets.UTF_8
         );
-        context = getContext();
+
+        customContext = getCustomContext();
+        CustomContextHandler.addCustomContext(customContext);
     }
 
     /**
@@ -66,30 +67,31 @@ public class ScriptExecutor extends ObjectNameImpl {
      * @param function 函数名称
      * @return 结果
      */
-    public Value invoke(String function) {
-        return invoke(function, context);
+    public Object invoke(String function) {
+        return invoke(function, customContext);
     }
 
     /**
-     * 使用 {@link #normalContext} 对象调用指定函数。
+     * 使用指定 {@link CustomContext} 对象调用指定函数。
      *
      * @param function 函数名称
+     * @param customContext  指定 {@link CustomContext} 对象
      * @return 结果
      */
-    public Value invokeWithNormalContext(String function) {
-        return invoke(function, normalContext);
-    }
+    public Object invoke(String function, CustomContext customContext) {
+        Context context =
+                customContext.getContext();
+        ScriptableObject scriptableObject =
+                customContext.getScriptableObject();
 
-    /**
-     * 使用指定 {@link Context} 对象调用指定函数。
-     *
-     * @param function 函数名称
-     * @param context  指定 {@link Context} 对象
-     * @return 结果
-     */
-    public Value invoke(String function, Context context) {
-        return context.eval(
-                ScriptHandler.JS, function
+        Object object = scriptableObject.get(
+                function, scriptableObject
+        );
+
+        Function functionObject = (Function) object;
+
+        return functionObject.call(
+                context, scriptableObject, scriptableObject, null
         );
     }
 
@@ -98,36 +100,47 @@ public class ScriptExecutor extends ObjectNameImpl {
      *
      * @return 该脚本应该使用的 {@link Context} 对象
      */
-    private Context getContext() {
-        // 预加载到 normalContext
-        normalContext.eval(ScriptHandler.JS, scriptCode);
+    private CustomContext getCustomContext() {
+        Context preContext = Context.enter();
+        ScriptableObject preScriptableObject = preContext.initStandardObjects();
 
-        // 执行 getContext() 函数
-        Value result = invokeWithNormalContext(
-                ScriptHandler.GET_CONTEXT_FUNCTION
+        CustomContext preCustomContext =
+                new CustomContext()
+                        .setName(fileName)
+                        .to(CustomContext.class)
+                        .setContext(preContext)
+                        .setScriptableObject(preScriptableObject);
+
+        // 预加载
+        preContext.evaluateString(
+                preScriptableObject, scriptCode, fileName, 1, null
         );
 
-        // 如果返回的是 null 则直接使用 normalContext
+        // 使用 preCustomContext 执行 getContext() 函数
+        Object result = invoke(
+                ScriptHandler.GET_CONTEXT_FUNCTION, preCustomContext
+        );
+
+        // 如果返回的是 null 则直接使用 preCustomContext
         if (result == null) {
-            return normalContext;
+            return preCustomContext;
         }
 
         // 如果有指定 context 名称
-        String name = result.asString();
-        Context context = NamedContextHandler.getContext(name);
+        String name = result.toString();
+        CustomContext newCustomContext =
+                CustomContextHandler.getCustomContext(name);
 
         // 如果靠这个名称找到了对应 context
-        if (context != null) {
-            return context;
+        if (newCustomContext != null) {
+            // 先释放 preCustomContext 再返回对应 context
+            CustomContextHandler.removeCustomContext(preCustomContext);
+            return newCustomContext;
         }
 
-        // 如果没有找到则创建并预加载
-        context = ScriptHandler.buildNormalContext();
-        context.eval(ScriptHandler.JS, scriptCode);
-
-        // 添加
-        NamedContextHandler.addContext(name, context);
-
-        return context;
+        // 如果没有找到则将 preCustomContext 改名返回
+        return preCustomContext
+                .setName(name)
+                .to(CustomContext.class);
     }
 }

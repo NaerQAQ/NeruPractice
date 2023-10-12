@@ -4,7 +4,8 @@ import club.neru.basic.impl.ObjectNameImpl;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.graalvm.polyglot.Context;
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.ScriptableObject;
 
 /**
  * 命名的 {@link Context} 对象。
@@ -16,9 +17,14 @@ import org.graalvm.polyglot.Context;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class NamedContext extends ObjectNameImpl {
+public class CustomContext extends ObjectNameImpl {
     /**
      * {@link Context} 对象。
      */
     private Context context;
+
+    /**
+     * {@link ScriptableObject} 对象。
+     */
+    private ScriptableObject scriptableObject;
 }

@@ -73,3 +73,13 @@ arena-command-done:
 
 arena-create-done:
   - "&a创建完成!"
+
+script-command-help:
+  - " "
+  - "&bScript &7| &f所有指令："
+  - " "
+  - "&7▪ &breload &f- 重载所有脚本"
+  - " "
+
+script-reload-done:
+  - "&a脚本重载完成! 重载情况请查看控制台!"

@@ -3,15 +3,13 @@ package club.neru.script;
 import club.neru.Mochi;
 import club.neru.io.file.utils.IOUtils;
 import club.neru.script.interop.EventListenerInterop;
-import club.neru.script.objects.handler.NamedContextHandler;
+import club.neru.script.objects.handler.CustomContextHandler;
 import club.neru.script.objects.handler.ScriptExecutorHandler;
 import club.neru.script.objects.objects.ScriptExecutor;
 import club.neru.utils.common.QuickUtils;
 import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
 import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
-import org.graalvm.polyglot.Context;
-import org.graalvm.polyglot.HostAccess;
 
 import java.io.File;
 import java.io.InputStream;
@@ -40,7 +38,7 @@ public class ScriptHandler {
     /**
      * 获取上下文的函数名称。
      */
-    public static final String GET_CONTEXT_FUNCTION = "getContext()";
+    public static final String GET_CONTEXT_FUNCTION = "getContext";
 
     /**
      * 获取所有脚本文件。
@@ -64,18 +62,6 @@ public class ScriptHandler {
                 .filter(file -> file.getName().equalsIgnoreCase(fileName))
                 .findFirst()
                 .orElse(null);
-    }
-
-    /**
-     * 构建一个普通的 {@link Context} 对象。
-     *
-     * @return 普通的 {@link Context} 对象
-     */
-    public static Context buildNormalContext() {
-        return Context.newBuilder(JS)
-                .allowHostClassLookup(s -> true)
-                .allowHostAccess(HostAccess.ALL)
-                .build();
     }
 
     /**
@@ -125,6 +111,7 @@ public class ScriptHandler {
                         "<script_name>", scriptName
                 );
             } catch (Exception exception) {
+                exception.printStackTrace();
                 String message = exception.getMessage();
 
                 QuickUtils.sendMessage(
@@ -137,7 +124,7 @@ public class ScriptHandler {
         });
 
         // 注册完毕后调用所有 Script 的 initializationComplete 函数
-        ScriptExecutorHandler.invoke("initializationComplete()");
+        ScriptExecutorHandler.invoke("initializationComplete");
     }
 
     /**
@@ -148,10 +135,10 @@ public class ScriptHandler {
         EventListenerInterop.getEventListeners().forEach(EventListenerInterop::unregister);
 
         // 脚本清空
-        ScriptExecutorHandler.getScriptExecutors().clear();
+        ScriptExecutorHandler.SCRIPT_EXECUTORS.clear();
 
         // 上下文清空
-        NamedContextHandler.getNamedContexts().clear();
+        CustomContextHandler.CUSTOM_CONTEXTS.forEach(CustomContextHandler::removeCustomContext);
 
         // 再次调用注册方法
         registerScript();
