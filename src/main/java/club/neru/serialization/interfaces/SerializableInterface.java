@@ -127,7 +127,7 @@ public interface SerializableInterface {
 
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.NORMAL,
-                        "Deserialization exclusion strategy successfully added: <class_name>.",
+                        "Serialization exclusion strategy successfully added: <class_name>.",
                         "<class_name>", className
                 );
             } catch (Exception exception) {
@@ -135,7 +135,7 @@ public interface SerializableInterface {
 
                 QuickUtils.sendMessage(
                         ConsoleMessageTypeEnum.ERROR,
-                        "Unable to add deserialization exclusion strategy: <class_name>, message: <message>.",
+                        "Unable to add serialization exclusion strategy: <class_name>, message: <message>.",
                         "<class_name>", className,
                         "message", message
                 );

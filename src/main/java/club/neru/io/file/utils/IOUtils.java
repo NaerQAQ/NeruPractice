@@ -1,8 +1,8 @@
 package club.neru.io.file.utils;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.stream.Stream;
 
 /**
  * I/O 工具类。
@@ -16,7 +16,7 @@ public class IOUtils {
      * 获取指定文件夹内的所有文件。
      *
      * <p>
-     * 不包括子文件夹。
+     * 包括子文件夹。
      * </p>
      *
      * @param folderPath 文件夹路径
@@ -35,8 +35,8 @@ public class IOUtils {
             return new ConcurrentLinkedQueue<>();
         }
 
-        return Arrays.stream(files)
-                .filter(File::isFile)
+        return Stream.of(files)
+                .flatMap(file -> file.isFile() ? Stream.of(file) : getFiles(file.getAbsolutePath()).stream())
                 .collect(ConcurrentLinkedQueue::new, ConcurrentLinkedQueue::offer, ConcurrentLinkedQueue::addAll);
     }
 }

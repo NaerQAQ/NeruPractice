@@ -5,6 +5,7 @@ import club.neru.annotations.AnnotationProcessor;
 import club.neru.commands.annotations.AutoRegisterCommand;
 import club.neru.io.config.ConfigManager;
 import club.neru.register.annotations.AutoRegisterListener;
+import club.neru.script.ScriptHandler;
 import club.neru.serialization.interfaces.SerializableInterface;
 import club.neru.thread.Scheduler;
 import club.neru.thread.annotations.AutoStartTimerTask;
@@ -43,6 +44,8 @@ public class RegisterManager {
         registerListener();
         registerCommand();
         autoStartTimerTask();
+
+        ScriptHandler.registerScript();
     }
 
     /**
