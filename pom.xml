@@ -129,6 +129,13 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/worldedit-bukkit-6.1.7.2.jar</systemPath>
         </dependency>
+
+        <!-- https://github.com/MrMicky-FR/FastBoard -->
+        <dependency>
+            <groupId>fr.mrmicky</groupId>
+            <artifactId>fastboard</artifactId>
+            <version>2.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -181,6 +188,16 @@
                                 <relocation>
                                     <pattern>org.reflections</pattern>
                                     <shadedPattern>club.neru.relocation.reflections</shadedPattern>
+                                </relocation>
+
+                                <relocation>
+                                    <pattern>de.leonhard.storage</pattern>
+                                    <shadedPattern>club.neru.relocation.storage</shadedPattern>
+                                </relocation>
+
+                                <relocation>
+                                    <pattern>fr.mrmicky.fastboard</pattern>
+                                    <shadedPattern>club.neru.relocation.fastboard</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>

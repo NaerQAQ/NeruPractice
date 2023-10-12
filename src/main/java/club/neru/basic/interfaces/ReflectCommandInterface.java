@@ -42,30 +42,33 @@ public interface ReflectCommandInterface {
         }
 
         Class<?> objectClass = object.getClass();
-        Class<? extends ReflectCommandInterface> clazz =
+        Class<? extends ReflectCommandInterface> ReflectCommandInterfaceClazz =
                 (Class<? extends ReflectCommandInterface>) objectClass;
 
         Object finalValue = getFinalValue(player, value);
 
         try {
-            Method[] objectMethods = clazz.getMethods();
+            Method[] objectMethods =
+                    ReflectCommandInterfaceClazz.getMethods();
 
             for (Method method : objectMethods) {
                 String name = method.getName();
                 int parameterCount = method.getParameterCount();
 
-                if (name.equalsIgnoreCase(methodName) && parameterCount == 1) {
-                    method.setAccessible(true);
-                    method.invoke(object, finalValue);
-
-                    if (JsonPersistableInterface.class.isAssignableFrom(objectClass)) {
-                        JsonPersistableInterface jsonPersistableInterfaceObject =
-                                (JsonPersistableInterface) object;
-                        jsonPersistableInterfaceObject.write();
-                    }
-
-                    return true;
+                if (!name.equalsIgnoreCase(methodName) || parameterCount != 1) {
+                    return false;
                 }
+
+                method.setAccessible(true);
+                method.invoke(object, finalValue);
+
+                if (JsonPersistableInterface.class.isAssignableFrom(objectClass)) {
+                    JsonPersistableInterface jsonPersistableInterfaceObject =
+                            (JsonPersistableInterface) object;
+                    jsonPersistableInterfaceObject.write();
+                }
+
+                return true;
             }
         } catch (Exception ignore) {
             // ignore
@@ -86,56 +89,58 @@ public interface ReflectCommandInterface {
      * @return 最终值
      */
     static Object getFinalValue(Player player, Object value) {
-        if (value instanceof String) {
-            String valueString = (String) value;
+        if (!(value instanceof String)) {
+            return value;
+        }
 
-            // 数字处理
-            try {
-                return Integer.parseInt(valueString);
-            } catch (Exception exception) {
-                // ignore
+        String valueString = (String) value;
+
+        // 数字处理
+        try {
+            return Integer.parseInt(valueString);
+        } catch (Exception exception) {
+            // ignore
+        }
+
+        // 玩家匹配
+        Pattern pattern =
+                Pattern.compile("<object_player_(.+?)>");
+        Matcher matcher = pattern.matcher(valueString);
+
+        if (matcher.find()) {
+            String playerName = matcher.group(1);
+
+            if (playerName.equalsIgnoreCase("me")) {
+                return player;
             }
 
-            // 玩家匹配
-            Pattern pattern =
-                    Pattern.compile("<object_player_(.+?)>");
-            Matcher matcher = pattern.matcher(valueString);
+            Player targetPlayer = Bukkit.getPlayerExact(playerName);
 
-            if (matcher.find()) {
-                String playerName = matcher.group(1);
-
-                if (playerName.equalsIgnoreCase("me")) {
-                    return player;
-                }
-
-                Player targetPlayer = Bukkit.getPlayerExact(playerName);
-
-                if (targetPlayer != null) {
-                    return targetPlayer;
-                }
+            if (targetPlayer != null) {
+                return targetPlayer;
             }
+        }
 
-            // 其余
-            switch (valueString.toLowerCase()) {
-                case "<boolean_true>":
-                    return true;
+        // 其余
+        switch (valueString.toLowerCase()) {
+            case "<boolean_true>":
+                return true;
 
-                case "<object_location>":
-                    return player.getLocation();
+            case "<object_location>":
+                return player.getLocation();
 
-                case "<object_block_location>":
-                    Location location = player.getLocation();
+            case "<object_block_location>":
+                Location location = player.getLocation();
 
-                    World world = location.getWorld();
+                World world = location.getWorld();
 
-                    int blockX = location.getBlockX();
-                    int blockY = location.getBlockY();
-                    int blockZ = location.getBlockZ();
+                int blockX = location.getBlockX();
+                int blockY = location.getBlockY();
+                int blockZ = location.getBlockZ();
 
-                    return new Location(
-                            world, blockX, blockY, blockZ
-                    );
-            }
+                return new Location(
+                        world, blockX, blockY, blockZ
+                );
         }
 
         return value;
