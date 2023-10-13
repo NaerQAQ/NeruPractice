@@ -31,6 +31,9 @@ public class ScriptExecutor extends ObjectNameImpl {
      */
     private final File scriptFile;
 
+    /**
+     * 脚本文件文件名。
+     */
     private final String fileName;
 
     /**
@@ -74,8 +77,8 @@ public class ScriptExecutor extends ObjectNameImpl {
     /**
      * 使用指定 {@link CustomContext} 对象调用指定函数。
      *
-     * @param function 函数名称
-     * @param customContext  指定 {@link CustomContext} 对象
+     * @param function      函数名称
+     * @param customContext 指定 {@link CustomContext} 对象
      * @return 结果
      */
     public Object invoke(String function, CustomContext customContext) {
@@ -96,9 +99,9 @@ public class ScriptExecutor extends ObjectNameImpl {
     }
 
     /**
-     * 获取该脚本应该使用的 {@link Context} 对象。
+     * 获取该脚本应该使用的 {@link CustomContext} 对象。
      *
-     * @return 该脚本应该使用的 {@link Context} 对象
+     * @return 该脚本应该使用的 {@link CustomContext} 对象
      */
     private CustomContext getCustomContext() {
         Context preContext = Context.enter();

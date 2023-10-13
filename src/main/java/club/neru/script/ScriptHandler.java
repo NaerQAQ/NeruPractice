@@ -86,15 +86,6 @@ public class ScriptHandler {
             }
         }
 
-        /*
-         * Bukkit 使用自己的类加载器加载插件
-         * 要正常使用 Graal 则需要将上下文类加载器设置为正确的类加载器
-         * 也许存有风险，在设置后并没有在执行完毕后设置回去，尽管在我测试时似乎没有问题
-         */
-        Thread.currentThread().setContextClassLoader(
-                mochi.getClass().getClassLoader()
-        );
-
         ConcurrentLinkedQueue<File> scriptFiles = getScriptFiles();
 
         scriptFiles.forEach(scriptFile -> {
@@ -111,7 +102,6 @@ public class ScriptHandler {
                         "<script_name>", scriptName
                 );
             } catch (Exception exception) {
-                exception.printStackTrace();
                 String message = exception.getMessage();
 
                 QuickUtils.sendMessage(
@@ -135,10 +125,14 @@ public class ScriptHandler {
         EventListenerInterop.getEventListeners().forEach(EventListenerInterop::unregister);
 
         // 脚本清空
-        ScriptExecutorHandler.SCRIPT_EXECUTORS.clear();
+        ScriptExecutorHandler.SCRIPT_EXECUTORS.forEach(
+                ScriptExecutorHandler::removeScriptExecutor
+        );
 
         // 上下文清空
-        CustomContextHandler.CUSTOM_CONTEXTS.forEach(CustomContextHandler::removeCustomContext);
+        CustomContextHandler.CUSTOM_CONTEXTS.forEach(
+                CustomContextHandler::removeCustomContext
+        );
 
         // 再次调用注册方法
         registerScript();

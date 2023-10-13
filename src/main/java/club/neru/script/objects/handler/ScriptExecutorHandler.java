@@ -52,8 +52,8 @@ public class ScriptExecutorHandler {
     /**
      * 使用指定 {@link CustomContext} 对象调用所有脚本的指定函数。
      *
-     * @param function 函数名称
-     * @param customContext  指定 {@link CustomContext} 对象
+     * @param function      函数名称
+     * @param customContext 指定 {@link CustomContext} 对象
      */
     public static void invoke(String function, CustomContext customContext) {
         SCRIPT_EXECUTORS.forEach(
