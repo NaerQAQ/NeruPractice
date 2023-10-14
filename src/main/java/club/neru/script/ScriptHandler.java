@@ -122,7 +122,9 @@ public class ScriptHandler {
      */
     public static void reloadScript() {
         // 监听器注销
-        EventListenerInterop.getEventListeners().forEach(EventListenerInterop::unregister);
+        EventListenerInterop.getEventListeners().forEach(
+                EventListenerInterop::unregister
+        );
 
         // 脚本清空
         ScriptExecutorHandler.SCRIPT_EXECUTORS.forEach(

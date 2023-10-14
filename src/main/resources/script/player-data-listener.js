@@ -14,29 +14,31 @@
  *
  * @returns {string | null} - 返回上下文的名称，null 则表示该 js 的上下文。
  */
-const getContext = () => null;
+function getContext() {
+    return null;
+}
 
 // Bukkit
-const EventPriority = Java.type("org.bukkit.event.EventPriority");
-const PlayerJoinEvent = Java.type("org.bukkit.event.player.PlayerJoinEvent");
-const PlayerQuitEvent = Java.type("org.bukkit.event.player.PlayerQuitEvent");
+const EventPriority = Packages.org.bukkit.event.EventPriority;
+const PlayerJoinEvent = Packages.org.bukkit.event.player.PlayerJoinEvent;
+const PlayerQuitEvent = Packages.org.bukkit.event.player.PlayerQuitEvent;
 
 // 脚本交互
-const EventListenerInterop = Java.type("club.neru.script.interop.EventListenerInterop");
+const EventListenerInterop = Packages.club.neru.script.interop.EventListenerInterop;
 
 // 工具
-const QuickUtils = Java.type("club.neru.utils.common.QuickUtils");
+const QuickUtils = Packages.club.neru.utils.common.QuickUtils;
 
 // 线程调度
-const Scheduler = Java.type("club.neru.thread.Scheduler");
-const SchedulerExecutionMode = Java.type("club.neru.thread.enums.SchedulerExecutionMode");
-const SchedulerTypeEnum = Java.type("club.neru.thread.enums.SchedulerTypeEnum");
+const Scheduler = Packages.club.neru.thread.Scheduler;
+const SchedulerExecutionMode = Packages.club.neru.thread.enums.SchedulerExecutionMode;
+const SchedulerTypeEnum = Packages.club.neru.thread.enums.SchedulerTypeEnum;
 
 // 数据
-const PlayerDataHandler = Java.type("club.neru.player.playerdata.PlayerDataHandler");
+const PlayerDataHandler = Packages.club.neru.player.playerdata.PlayerDataHandler;
 
 // 处理程序
-const AccessServiceHandler = Java.type("club.neru.player.accessservice.AccessServiceHandler");
+const AccessServiceHandler = Packages.club.neru.player.accessservice.AccessServiceHandler;
 
 /**
  * 脚本初始化完成后自动执行的方法。

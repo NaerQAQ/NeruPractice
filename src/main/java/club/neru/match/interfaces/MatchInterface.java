@@ -6,6 +6,7 @@ import club.neru.match.objects.MatchPlayerData;
 import club.neru.thread.Scheduler;
 import club.neru.thread.enums.SchedulerExecutionMode;
 import club.neru.thread.enums.SchedulerTypeEnum;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -46,9 +47,13 @@ public interface MatchInterface {
     /**
      * 获取玩家放置的方块。
      *
+     * <p>
+     * 记录坐标似乎更加安全一些。
+     * </p>
+     *
      * @return 玩家放置的方块
      */
-    ConcurrentLinkedQueue<Block> getPlacedBlocks();
+    ConcurrentLinkedQueue<Location> getPlacedBlockLocations();
 
     /**
      * 开始比赛。
