@@ -1,13 +1,12 @@
 package club.neru.match.interfaces;
 
-import club.neru.arena.copy.objects.ArenaChild;
+import club.neru.arena.objects.ArenaChild;
 import club.neru.kit.objects.Kit;
 import club.neru.match.objects.MatchPlayerData;
 import club.neru.thread.Scheduler;
 import club.neru.thread.enums.SchedulerExecutionMode;
 import club.neru.thread.enums.SchedulerTypeEnum;
 import org.bukkit.Location;
-import org.bukkit.block.Block;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Map;

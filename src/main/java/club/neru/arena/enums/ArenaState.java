@@ -1,4 +1,4 @@
-package club.neru.arena.copy.enums;
+package club.neru.arena.enums;
 
 /**
  * 竞技场状态。

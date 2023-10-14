@@ -1,4 +1,4 @@
-package club.neru.arena.copy.utils;
+package club.neru.arena.utils;
 
 import com.sk89q.worldedit.Vector;
 import lombok.experimental.UtilityClass;

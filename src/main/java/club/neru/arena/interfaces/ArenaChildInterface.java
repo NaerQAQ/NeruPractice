@@ -1,7 +1,7 @@
-package club.neru.arena.copy.interfaces;
+package club.neru.arena.interfaces;
 
-import club.neru.arena.copy.enums.ArenaState;
-import club.neru.arena.copy.objects.ArenaParent;
+import club.neru.arena.enums.ArenaState;
+import club.neru.arena.objects.ArenaParent;
 
 import java.util.Arrays;
 

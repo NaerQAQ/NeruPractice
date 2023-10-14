@@ -1,8 +1,8 @@
-package club.neru.arena.copy.objects;
+package club.neru.arena.objects;
 
-import club.neru.arena.copy.enums.ArenaState;
-import club.neru.arena.copy.interfaces.ArenaChildInterface;
-import club.neru.arena.copy.interfaces.ArenaParentInterface;
+import club.neru.arena.enums.ArenaState;
+import club.neru.arena.interfaces.ArenaChildInterface;
+import club.neru.arena.interfaces.ArenaParentInterface;
 import club.neru.serialization.interfaces.SerializableInterface;
 import lombok.Getter;
 import lombok.Setter;

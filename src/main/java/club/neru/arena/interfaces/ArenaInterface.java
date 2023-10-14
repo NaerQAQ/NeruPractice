@@ -1,4 +1,4 @@
-package club.neru.arena.copy.interfaces;
+package club.neru.arena.interfaces;
 
 import club.neru.basic.interfaces.ObjectNameInterface;
 import org.bukkit.Location;

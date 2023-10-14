@@ -1,8 +1,8 @@
 package club.neru.commands;
 
 import club.neru.commands.annotations.AutoRegisterCommand;
-import club.neru.utils.common.QuickUtils;
-import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
+import club.neru.utils.common.text.QuickUtils;
+import club.neru.utils.common.text.enums.ConsoleMessageTypeEnum;
 import com.jonahseguin.drink.annotation.Command;
 import com.jonahseguin.drink.annotation.Sender;
 import org.bukkit.command.CommandSender;

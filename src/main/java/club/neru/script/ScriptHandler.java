@@ -2,12 +2,13 @@ package club.neru.script;
 
 import club.neru.Mochi;
 import club.neru.io.file.utils.IOUtils;
-import club.neru.script.interop.EventListenerInterop;
+import club.neru.script.interop.listener.EasyEventListenerInterop;
+import club.neru.script.interop.listener.EventListenerInterop;
 import club.neru.script.objects.handler.CustomContextHandler;
 import club.neru.script.objects.handler.ScriptExecutorHandler;
 import club.neru.script.objects.objects.ScriptExecutor;
-import club.neru.utils.common.QuickUtils;
-import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
+import club.neru.utils.common.text.QuickUtils;
+import club.neru.utils.common.text.enums.ConsoleMessageTypeEnum;
 import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
 
@@ -29,11 +30,6 @@ public class ScriptHandler {
      */
     public static final String SCRIPT_PATH =
             Mochi.getDataFolderAbsolutePath() + "/script";
-
-    /**
-     * 字符常量。
-     */
-    public static final String JS = "js";
 
     /**
      * 获取上下文的函数名称。
@@ -121,8 +117,13 @@ public class ScriptHandler {
      * 重载脚本。
      */
     public static void reloadScript() {
+        // 应首先注销简易监听器
+        EasyEventListenerInterop.EASY_EVENT_LISTENERS.forEach(
+                EasyEventListenerInterop::unregister
+        );
+
         // 监听器注销
-        EventListenerInterop.getEventListeners().forEach(
+        EventListenerInterop.EVENT_LISTENERS.forEach(
                 EventListenerInterop::unregister
         );
 

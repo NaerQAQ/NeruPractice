@@ -4,7 +4,7 @@ import club.neru.basic.interfaces.ReflectCommandInterface;
 import club.neru.commands.annotations.AutoRegisterCommand;
 import club.neru.kit.interfaces.KitInventoryInterface;
 import club.neru.kit.objects.KitInventory;
-import club.neru.utils.common.QuickUtils;
+import club.neru.utils.common.text.QuickUtils;
 import com.jonahseguin.drink.annotation.Command;
 import com.jonahseguin.drink.annotation.Require;
 import com.jonahseguin.drink.annotation.Sender;

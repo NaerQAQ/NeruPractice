@@ -1,10 +1,10 @@
-package club.neru.arena.copy;
+package club.neru.arena;
 
 import club.neru.thread.Scheduler;
 import club.neru.thread.enums.SchedulerExecutionMode;
 import club.neru.thread.enums.SchedulerTypeEnum;
-import club.neru.utils.common.QuickUtils;
-import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
+import club.neru.utils.common.text.QuickUtils;
+import club.neru.utils.common.text.enums.ConsoleMessageTypeEnum;
 import com.boydti.fawe.object.schematic.Schematic;
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.EditSessionFactory;
@@ -34,10 +34,11 @@ import org.bukkit.Bukkit;
  *         .copy(); // 复制完后: 147 107 384
  * </pre>
  * </p>
+ * `
  *
  * @author NaerQAQ
  * @version 1.0
- * @since 2023/10/8
+ * @since 2023/10/8`
  */
 @Getter
 @Setter

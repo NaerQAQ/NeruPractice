@@ -24,7 +24,8 @@ const PlayerJoinEvent = Packages.org.bukkit.event.player.PlayerJoinEvent;
 const PlayerQuitEvent = Packages.org.bukkit.event.player.PlayerQuitEvent;
 
 // 脚本交互
-const EventListenerInterop = Packages.club.neru.script.interop.EventListenerInterop;
+const EventListenerInterop = Packages.club.neru.script.interop.listener.EventListenerInterop;
+const EventRegistrationInfo = Packages.club.neru.script.interop.listener.objects.EventRegistrationInfo;
 
 // 工具
 const QuickUtils = Packages.club.neru.utils.common.QuickUtils;
@@ -44,17 +45,25 @@ const AccessServiceHandler = Packages.club.neru.player.accessservice.AccessServi
  * 脚本初始化完成后自动执行的方法。
  */
 function initializationComplete() {
+    // 玩家进入监听器的信息
+    const playerJoinEventRegistrationInfo = new EventRegistrationInfo()
+        .setEventClass(PlayerJoinEvent)
+        .setEventPriority(EventPriority.LOWEST);
+
     // 玩家进入
     new EventListenerInterop()
-        .setEvent(PlayerJoinEvent)
         .setExecutor(onPlayerJoin)
-        .setEventPriority(EventPriority.LOWEST)
+        .setEventRegistrationInfo(playerJoinEventRegistrationInfo)
         .register();
+
+    // 玩家退出监听器的信息
+    const playerQuitEventRegistrationInfo = new EventRegistrationInfo()
+        .setEventClass(PlayerQuitEvent);
 
     // 玩家退出
     new EventListenerInterop()
-        .setEvent(PlayerQuitEvent)
         .setExecutor(onPlayerQuit)
+        .setEventRegistrationInfo(playerQuitEventRegistrationInfo)
         .register();
 }
 

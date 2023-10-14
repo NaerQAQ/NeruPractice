@@ -1,8 +1,8 @@
 package club.neru;
 
 import club.neru.register.RegisterManager;
-import club.neru.utils.common.QuickUtils;
-import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
+import club.neru.utils.common.text.QuickUtils;
+import club.neru.utils.common.text.enums.ConsoleMessageTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;

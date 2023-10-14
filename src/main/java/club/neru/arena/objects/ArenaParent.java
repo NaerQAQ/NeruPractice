@@ -1,9 +1,9 @@
-package club.neru.arena.copy.objects;
+package club.neru.arena.objects;
 
+import club.neru.arena.ArenaCopyHandler;
 import club.neru.arena.ArenaHandler;
-import club.neru.arena.copy.ArenaCopyHandler;
-import club.neru.arena.copy.interfaces.ArenaParentInterface;
-import club.neru.arena.copy.utils.WorldEditVectorUtils;
+import club.neru.arena.interfaces.ArenaParentInterface;
+import club.neru.arena.utils.WorldEditVectorUtils;
 import club.neru.basic.interfaces.ReflectCommandInterface;
 import club.neru.io.file.impl.JsonManager;
 import club.neru.io.file.interfaces.JsonPersistableInterface;

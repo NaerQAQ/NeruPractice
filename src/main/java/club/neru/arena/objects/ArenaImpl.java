@@ -1,13 +1,13 @@
-package club.neru.arena.copy.objects;
+package club.neru.arena.objects;
 
-import club.neru.arena.copy.interfaces.ArenaInterface;
-import club.neru.arena.copy.utils.WorldEditVectorUtils;
+import club.neru.arena.interfaces.ArenaInterface;
+import club.neru.arena.utils.WorldEditVectorUtils;
 import club.neru.basic.impl.ObjectNameImpl;
 import club.neru.thread.Scheduler;
 import club.neru.thread.enums.SchedulerExecutionMode;
 import club.neru.thread.enums.SchedulerTypeEnum;
-import club.neru.utils.common.QuickUtils;
-import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
+import club.neru.utils.common.text.QuickUtils;
+import club.neru.utils.common.text.enums.ConsoleMessageTypeEnum;
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.EditSessionFactory;
 import com.sk89q.worldedit.Vector;

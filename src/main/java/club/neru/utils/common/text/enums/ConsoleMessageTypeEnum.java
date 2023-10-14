@@ -1,4 +1,4 @@
-package club.neru.utils.common.enums;
+package club.neru.utils.common.text.enums;
 
 /**
  * 控制台信息类型枚举。

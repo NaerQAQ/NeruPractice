@@ -1,6 +1,6 @@
 package club.neru.kit.interfaces;
 
-import club.neru.arena.copy.objects.ArenaParent;
+import club.neru.arena.objects.ArenaParent;
 import club.neru.basic.interfaces.ObjectNameInterface;
 import club.neru.io.file.impl.JsonManager;
 import club.neru.io.file.utils.JsonFileProcessor;

@@ -1,8 +1,8 @@
-package club.neru.arena.copy.interfaces;
+package club.neru.arena.interfaces;
 
 import club.neru.arena.ArenaHandler;
-import club.neru.arena.copy.objects.ArenaChild;
-import club.neru.arena.copy.objects.ArenaParent;
+import club.neru.arena.objects.ArenaChild;
+import club.neru.arena.objects.ArenaParent;
 import club.neru.io.file.impl.JsonManager;
 import club.neru.io.file.utils.JsonFileProcessor;
 import de.leonhard.storage.Json;

@@ -1,7 +1,7 @@
 package club.neru.kit.objects;
 
-import club.neru.arena.copy.interfaces.ArenaParentInterface;
-import club.neru.arena.copy.objects.ArenaParent;
+import club.neru.arena.interfaces.ArenaParentInterface;
+import club.neru.arena.objects.ArenaParent;
 import club.neru.basic.impl.ObjectNameImpl;
 import club.neru.basic.interfaces.ReflectCommandInterface;
 import club.neru.io.file.interfaces.JsonPersistableInterface;

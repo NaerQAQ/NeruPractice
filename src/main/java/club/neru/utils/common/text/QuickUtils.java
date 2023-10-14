@@ -1,11 +1,11 @@
-package club.neru.utils.common;
+package club.neru.utils.common.text;
 
 import club.neru.io.config.ConfigManager;
 import club.neru.io.config.languages.LanguagesEnum;
 import club.neru.player.playerdata.PlayerDataHandler;
 import club.neru.player.playerdata.objects.nonpersistent.PlayerData;
 import club.neru.player.playerdata.objects.persistent.SettingsData;
-import club.neru.utils.common.enums.ConsoleMessageTypeEnum;
+import club.neru.utils.common.text.enums.ConsoleMessageTypeEnum;
 import de.leonhard.storage.Yaml;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

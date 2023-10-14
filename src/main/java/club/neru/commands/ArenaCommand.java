@@ -1,10 +1,10 @@
 package club.neru.commands;
 
-import club.neru.arena.copy.interfaces.ArenaParentInterface;
-import club.neru.arena.copy.objects.ArenaParent;
+import club.neru.arena.interfaces.ArenaParentInterface;
+import club.neru.arena.objects.ArenaParent;
 import club.neru.basic.interfaces.ReflectCommandInterface;
 import club.neru.commands.annotations.AutoRegisterCommand;
-import club.neru.utils.common.QuickUtils;
+import club.neru.utils.common.text.QuickUtils;
 import com.jonahseguin.drink.annotation.Command;
 import com.jonahseguin.drink.annotation.Require;
 import com.jonahseguin.drink.annotation.Sender;

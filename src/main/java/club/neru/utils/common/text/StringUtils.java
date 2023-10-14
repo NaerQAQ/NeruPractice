@@ -1,4 +1,4 @@
-package club.neru.utils.common;
+package club.neru.utils.common.text;
 
 import club.neru.player.playerdata.PlayerDataHandler;
 import club.neru.player.playerdata.objects.nonpersistent.PlayerData;

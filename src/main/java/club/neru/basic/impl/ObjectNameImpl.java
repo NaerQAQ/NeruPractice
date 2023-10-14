@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.util.UUID;
+
 /**
  * 对象名称实现的基础类。
  *
@@ -19,7 +21,7 @@ public class ObjectNameImpl implements ObjectNameInterface {
     /**
      * 对象的名称。
      */
-    private String name;
+    private String name = UUID.randomUUID().toString();
 
     /**
      * 将当前对象转换为指定类型。
