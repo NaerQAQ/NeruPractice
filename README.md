@@ -14,3 +14,7 @@ These are the standout design elements we believe make Mochi superior.
 ### High-Quality Code
 
 * Annotating Repetitive Operations Instead of Lazily Copying Them.
+
+### Scripting System
+
+* Allows you to perform various operations using JavaScript scripts, and you can even customize the context.
