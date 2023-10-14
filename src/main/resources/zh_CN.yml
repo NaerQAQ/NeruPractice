@@ -17,7 +17,7 @@ access-service-command-help:
   - "&7▪ &bcommand setLocation &7<object_location> &f- 设置玩家进入坐标"
   - "&7▪ &bcommand setKitInventoryName &a(装备包库存名) &f- 设置玩家进入时应用的装备包"
   - " "
-  - "&c格式: 所有 <boolean_???> <object_???> 均非变量，而是固定字符串，直接照抄"
+  - "&c格式: 所有 <object_???> 均非变量，而是固定字符串，直接照抄"
   - " "
 
 access-service-command-done:
@@ -29,12 +29,12 @@ kit-inventory-command-help:
   - " "
   - "&7▪ &bcreate &7(装备包库存名) &f- 创建一个新的装备包"
   - " "
-  - "&7▪ &bcommand delete &7(装备包库存名称) &a<boolean_true> &f- 删除装备包库存"
+  - "&7▪ &bcommand delete &7(装备包库存名称) &atrue &f- 删除装备包库存"
   - " "
   - "&7▪ &bcommand save &f(装备包库存名) &7<object_player_<玩家名称/me>> &f- 保存装备包库存为指定玩家的库存"
   - "&7▪ &bcommand apply &f(装备包库存名) &7<object_player_<玩家名称/me>> &f- 将装备包库存应用到指定玩家"
   - " "
-  - "&c格式: 所有 <boolean_???> <object_???> 均非变量，而是固定字符串，直接照抄"
+  - "&c格式: 所有 <object_???> 均非变量，而是固定字符串，直接照抄"
   - " "
 
 kit-inventory-command-done:
@@ -49,7 +49,7 @@ arena-command-help:
   - " "
   - "&7▪ &bcreate &7(竞技场名称) &f- 创建一个新的竞技场"
   - " "
-  - "&7▪ &bcommand delete &7(竞技场名称) &a<boolean_true> &f- 删除此竞技场"
+  - "&7▪ &bcommand delete &7(竞技场名称) &atrue &f- 删除此竞技场"
   - " "
   - "&7▪ &bcommand setLowestLocation &f(竞技场名称) &7<object_block_location> &f- 设置最低点"
   - "&7▪ &bcommand setHighestLocation &f(竞技场名称) &7<object_block_location> &f- 设置最高点"
@@ -62,10 +62,10 @@ arena-command-help:
   - "&7▪ &bcommand setMaxBuildHeight &f(竞技场名称) &a<整数> &f- 设置最高建筑高度"
   - " "
   - "&7▪ &bcommand copy (竞技场名称) &a<数量> &f- 复制子竞技场"
-  - "&7▪ &bcommand deleteCopy &f(竞技场名称) &a<boolean_true> &f- 删除所有子竞技场"
+  - "&7▪ &bcommand deleteCopy &f(竞技场名称) &atrue &f- 删除所有子竞技场"
   - " "
   - "&c注意: 在更改已有竞技场坐标之前，请先删除所有子竞技场"
-  - "&c格式: 所有 <boolean_???> <object_???> 均非变量，而是固定字符串，直接照抄"
+  - "&c格式: 所有 <object_???> 均非变量，而是固定字符串，直接照抄"
   - " "
 
 arena-command-done:

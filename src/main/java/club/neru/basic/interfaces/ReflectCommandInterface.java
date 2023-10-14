@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  * 反射指令接口。
  *
  * <p>
- * 该接口的实现意为通过 {@link #execute(Player, Object, String, Object)} 实现指令式调用 {@code setter} 方法。
+ * 该接口的实现意为通过 {@link #execute(Player, Object, String, Object)} 实现指令式调用  方法。
  * </p>
  *
  * @author NaerQAQ
@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
  */
 public interface ReflectCommandInterface {
     /**
-     * 执行方法。
+     * 使用反射在对象上执行方法。
      *
      * <p>
      * 若传入的对象实现了 {@link JsonPersistableInterface} 接口，则会完成后调用 {@link JsonPersistableInterface#write()} 方法。
@@ -42,6 +42,8 @@ public interface ReflectCommandInterface {
         }
 
         Class<?> objectClass = object.getClass();
+
+        // ReflectCommandInterface 应为 objectClass 实现的接口
         Class<? extends ReflectCommandInterface> ReflectCommandInterfaceClazz =
                 (Class<? extends ReflectCommandInterface>) objectClass;
 
@@ -55,13 +57,16 @@ public interface ReflectCommandInterface {
                 String name = method.getName();
                 int parameterCount = method.getParameterCount();
 
+                // 名称与参数匹配
                 if (!name.equalsIgnoreCase(methodName) || parameterCount != 1) {
                     return false;
                 }
 
+                // 可见性
                 method.setAccessible(true);
                 method.invoke(object, finalValue);
 
+                // 如果实现了 JsonPersistableInterface 接口则调用 write 方法
                 if (JsonPersistableInterface.class.isAssignableFrom(objectClass)) {
                     JsonPersistableInterface jsonPersistableInterfaceObject =
                             (JsonPersistableInterface) object;
@@ -98,7 +103,14 @@ public interface ReflectCommandInterface {
         // 数字处理
         try {
             return Integer.parseInt(valueString);
-        } catch (Exception exception) {
+        } catch (Exception ignore) {
+            // ignore
+        }
+
+        // boolean
+        try {
+            return Boolean.parseBoolean(valueString);
+        } catch (Exception ignore) {
             // ignore
         }
 
@@ -123,9 +135,6 @@ public interface ReflectCommandInterface {
 
         // 其余
         switch (valueString.toLowerCase()) {
-            case "<boolean_true>":
-                return true;
-
             case "<object_location>":
                 return player.getLocation();
 

@@ -17,7 +17,7 @@ access-service-command-help:
   - "&7▪ &bcommand setLocation &7<object_block_location> &f- Set the player's entry location"
   - "&7▪ &bcommand setKitInventoryName &a<kit_inventory_name> &f- Set the equipment kit applied when player enters"
   - " "
-  - "&cFormat: All <boolean_???> <object_???> are fixed strings, do not modify them."
+  - "&cFormat: All <object_???> are fixed strings, do not modify them."
   - " "
 
 access-service-command-done:
@@ -30,7 +30,7 @@ arena-command-help:
   - " "
   - "&7▪ &bcreate &7(name) &f- Create an Arena."
   - " "
-  - "&7▪ &bcommand delete &7(name) &a<boolean_true> &f- Delete an Arena."
+  - "&7▪ &bcommand delete &7(name) &atrue &f- Delete an Arena."
   - " "
   - "&7▪ &bcommand setLowestLocation &f(name) &7<object_block_location>  &f- Sets the Lowest corner."
   - "&7▪ &bcommand setHighestLocation &f(name) &7<object_block_location>  &f- Sets the Highest corner."
@@ -43,9 +43,9 @@ arena-command-help:
   - "&7▪ &bcommand setMinDeathHeight &7(name) &a(int) &f- Determines the Heightest point players are allowed to build at."
   - " "
   - "&7▪ &bcommand copy &7(name) &a(int) &f- Makes more copies of the arena."
-  - "&7▪ &bcommand deleteCopy &7(name) &a<boolean_true> &f- Deletes all copies of an arena."
+  - "&7▪ &bcommand deleteCopy &7(name) &atrue &f- Deletes all copies of an arena."
   - " "
-  - "&cReminder: &fMake sure to delete all copies of an arena if you want to make changes to it's coordinates. When entering commands make sure to include the Angle Brackets. &7Ie. <boolean_???> <object_???>&f."
+  - "&cReminder: &fMake sure to delete all copies of an arena if you want to make changes to it's coordinates. When entering commands make sure to include the Angle Brackets. &7Ie. <object_???>&f."
   - " "
 
 arena-command-done:
