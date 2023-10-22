@@ -22,6 +22,7 @@ function getContext() {
 const EventPriority = Packages.org.bukkit.event.EventPriority;
 const PlayerJoinEvent = Packages.org.bukkit.event.player.PlayerJoinEvent;
 const PlayerQuitEvent = Packages.org.bukkit.event.player.PlayerQuitEvent;
+const PlayerDeathEvent = Packages.org.bukkit.event.entity.PlayerDeathEvent;
 
 // 脚本交互
 const EventListenerInterop = Packages.club.neru.script.interop.listener.EventListenerInterop;

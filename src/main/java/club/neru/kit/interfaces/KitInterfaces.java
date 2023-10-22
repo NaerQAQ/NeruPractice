@@ -88,5 +88,5 @@ public interface KitInterfaces extends ObjectNameInterface {
      *
      * @return 对应装备包库存名称
      */
-    String getKitInventoryName();
+    ConcurrentLinkedQueue<String> getKitInventoryNames();
 }

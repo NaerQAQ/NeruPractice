@@ -55,7 +55,29 @@ public class Kit extends ObjectNameImpl implements KitInterfaces, SerializableIn
     /**
      * 对应装备包库存名称，
      */
-    private String kitInventoryName;
+    private ConcurrentLinkedQueue<String> kitInventoryNames;
+
+    /**
+     * 添加装备包存储名称。
+     *
+     * @param inventoryName 装备包存储名称
+     * @return {@link Kit}
+     */
+    public Kit addKitInventoryName(String inventoryName) {
+        kitInventoryNames.add(inventoryName);
+        return this;
+    }
+
+    /**
+     * 删除装备包存储名称。
+     *
+     * @param inventoryName 装备包存储名称
+     * @return {@link Kit}
+     */
+    public Kit removeKitInventoryName(String inventoryName) {
+        kitInventoryNames.remove(inventoryName);
+        return this;
+    }
 
     /**
      * 添加此装备包可用的竞技场。

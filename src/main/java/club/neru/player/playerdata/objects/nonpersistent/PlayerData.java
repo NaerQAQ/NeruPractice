@@ -49,4 +49,13 @@ public class PlayerData {
      * 是否在水中。
      */
     private boolean inWater;
+
+    /**
+     * 玩家是否死亡。
+     *
+     * <p>
+     * 该处理将交由脚本实现，触发玩家死亡事件后 {@code 20ticks} 将更新为 {@code false}.
+     * </p>
+     */
+    private boolean isDead;
 }
