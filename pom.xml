@@ -17,6 +17,11 @@
 
     <repositories>
         <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+
+        <repository>
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
@@ -106,11 +111,10 @@
 
         <!-- Spigot -->
         <dependency>
-            <groupId>nspigot</groupId>
-            <artifactId>nSpigot</artifactId>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/nSpigot-server-1.8.8-R0.1-SNAPSHOT.jar</systemPath>
+            <scope>provided</scope>
         </dependency>
 
         <!-- FastAsyncWorldEdit -->
@@ -149,6 +153,13 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.14.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.13.0</version>
         </dependency>
     </dependencies>
 
